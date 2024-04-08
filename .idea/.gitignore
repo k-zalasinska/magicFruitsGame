@@ -1,3 +1,4 @@
+/shelf/
 /sonarlint/
 /compiler.xml
 /gradle.xml
@@ -5,4 +6,4 @@
 /uiDesigner.xml
 /misc.xml
 /intellij-javadocs-4.0.1.xml
-workspace.xml
+/workspace.xml

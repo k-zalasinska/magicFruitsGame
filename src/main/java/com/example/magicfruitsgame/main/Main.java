@@ -1,4 +1,4 @@
-package main;
+package com.example.magicfruitsgame.main;
 
 import com.example.magicfruitsgame.controller.MainMenuController;
 import com.example.magicfruitsgame.model.Player;

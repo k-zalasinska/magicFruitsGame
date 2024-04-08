@@ -2,17 +2,7 @@ module com.example.magicfruitsgame {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
-
-    requires org.controlsfx.controls;
-    requires com.dlsc.formsfx;
-    requires net.synedra.validatorfx;
-    requires org.kordamp.ikonli.javafx;
-    requires org.kordamp.bootstrapfx.core;
-    requires eu.hansolo.tilesfx;
-    requires com.almasb.fxgl.all;
-    requires org.junit.jupiter.api;
-    requires junit;
-
+    requires javafx.graphics;
     opens com.example.magicfruitsgame to javafx.fxml;
-    exports com.example.magicfruitsgame;
+    exports com.example.magicfruitsgame to javafx.graphics;
 }

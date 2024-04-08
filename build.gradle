@@ -51,6 +51,14 @@ dependencies {
         exclude(group: 'org.openjfx')
         exclude(group: 'org.jetbrains.kotlin')
     }
+    implementation('org.jetbrains.kotlin:kotlin-stdlib:1.5.21') // Zależność dla kotlin.stdlib
+
+    implementation ("eu.hansolo.fx:countries:21.0.3") // Zależność dla eu.hansolo.fx.countries
+    implementation ("eu.hansolo.fx:heatmap:21.0.3") // Zależność dla eu.hansolo.fx.heatmap
+    implementation("eu.hansolo:toolbox:17.0.14") // Zależność dla eu.hansolo.toolbox
+
+    implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    implementation 'junit:junit:4.13.1'
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")

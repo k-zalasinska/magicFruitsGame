@@ -10,6 +10,8 @@ module com.example.magicfruitsgame {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires org.junit.jupiter.api;
+    requires junit;
 
     opens com.example.magicfruitsgame to javafx.fxml;
     exports com.example.magicfruitsgame;

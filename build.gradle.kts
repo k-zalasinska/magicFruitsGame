@@ -40,9 +40,20 @@ tasks {
     test {
         useJUnitPlatform()
     }
-
-
+    processResources {
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    }
     withType<JavaCompile> {
         options.encoding = "UTF-8"
     }
 }
+
+sourceSets {
+    main {
+        resources {
+            srcDirs("src/main/resources")
+        }
+    }
+}
+
+

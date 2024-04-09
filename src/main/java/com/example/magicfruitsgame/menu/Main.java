@@ -1,4 +1,4 @@
-package com.example.magicfruitsgame.main;
+package com.example.magicfruitsgame.menu;
 
 import com.example.magicfruitsgame.controller.MainMenuController;
 import com.example.magicfruitsgame.model.Player;
@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -35,10 +36,15 @@ public class Main extends Application {
             // Ustawienie sceny
             Scene scene = new Scene(root, 600, 400);
             primaryStage.setScene(scene);
-            primaryStage.setTitle("Magic Fruits Game");
+            primaryStage.setTitle("Magic Fruits");
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Błąd ładowania pliku FXML");
+            alert.setHeaderText(null);
+            alert.setContentText("Wystąpił błąd podczas ładowania pliku FXML.\nSprawdź ścieżkę do pliku i spróbuj ponownie.");
+            alert.showAndWait();
         }
     }
 

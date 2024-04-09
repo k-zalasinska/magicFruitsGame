@@ -1,14 +1,16 @@
-package com.example.magicfruitsgame.model;
+package com.example.magicfruitsgame.service;
+
+import com.example.magicfruitsgame.model.Symbol;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SymbolFactory {
+public class SymbolService {
     // Mapa przechowująca przyporządkowanie nazwy symbolu do liczby całkowitej
     private static final List<Symbol> symbols = createSymbols();
 
     // Prywatny konstruktor, aby zapobiec tworzeniu instancji tej klasy
-    private SymbolFactory() {
+    private SymbolService() {
     }
 
     // Metoda statyczna tworząca symbole na podstawie indeksu

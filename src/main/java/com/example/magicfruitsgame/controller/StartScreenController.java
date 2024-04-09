@@ -39,14 +39,14 @@ public class StartScreenController {
         updateBalance();
 
         // Ustawienie obrazka tła
-        Image backgroundImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/background.jpg")));
+        Image backgroundImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/magicfruitsgame/images/background.jpg")));
         backgroundImageView.setImage(backgroundImage);
 
         // Ustawienie obrazków przycisków
-        Image buttonStartNormalImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/button_start_normal.png")));
+        Image buttonStartNormalImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/magicfruitsgame/images/button_start_normal.png")));
         buttonStart.setGraphic(new ImageView(buttonStartNormalImage));
 
-        Image buttonPayInNormalImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/button_payin_normal.png")));
+        Image buttonPayInNormalImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/magicfruitsgame/images/button_payin_normal.png")));
         buttonPayIn.setGraphic(new ImageView(buttonPayInNormalImage));
 
         // Dodanie obsługi zdarzeń dla przycisków
@@ -88,32 +88,32 @@ public class StartScreenController {
 
     private void setButtonEvents() {
         buttonStart.setOnMouseEntered(event -> {
-            Image buttonStartOnHoverImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/button_start_onhover.png")));
+            Image buttonStartOnHoverImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/magicfruitsgame/images/button_start_onhover.png")));
             buttonStart.setGraphic(new ImageView(buttonStartOnHoverImage));
         });
 
         buttonStart.setOnMouseExited(event -> {
-            Image buttonStartNormalImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/button_start_normal.png")));
+            Image buttonStartNormalImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/magicfruitsgame/images/button_start_normal.png")));
             buttonStart.setGraphic(new ImageView(buttonStartNormalImage));
         });
 
         buttonStart.setOnMousePressed(event -> {
-            Image buttonStartOnPressImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/button_start_onpress.png")));
+            Image buttonStartOnPressImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/magicfruitsgame/images/button_start_onpress.png")));
             buttonStart.setGraphic(new ImageView(buttonStartOnPressImage));
         });
 
         buttonPayIn.setOnMouseEntered(event -> {
-            Image buttonPayInOnHoverImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/button_payin_onhover.png")));
+            Image buttonPayInOnHoverImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/magicfruitsgame/images/button_payin_onhover.png")));
             buttonPayIn.setGraphic(new ImageView(buttonPayInOnHoverImage));
         });
 
         buttonPayIn.setOnMouseExited(event -> {
-            Image buttonPayInNormalImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/button_payin_normal.png")));
+            Image buttonPayInNormalImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/magicfruitsgame/images/button_payin_normal.png")));
             buttonPayIn.setGraphic(new ImageView(buttonPayInNormalImage));
         });
 
         buttonPayIn.setOnMousePressed(event -> {
-            Image buttonPayInOnPressImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/button_payin_onpress.png")));
+            Image buttonPayInOnPressImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/magicfruitsgame/images/button_payin_onpress.png")));
             buttonPayIn.setGraphic(new ImageView(buttonPayInOnPressImage));
         });
     }

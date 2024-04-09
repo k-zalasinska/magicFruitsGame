@@ -9,10 +9,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 public class SlotMachineGame extends Application {
     private ReelService reelService;
@@ -49,27 +46,27 @@ public class SlotMachineGame extends Application {
     private void initializeReels() {
         // Inicjalizacja symboli na walcach
         reels = new Image[REEL_COUNT][];
-        reels[0] = new Image[]{new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/symbol_cherry.png"))),
-                new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/symbol_plum.png"))),
-                new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/symbol_orange.png"))),
-                new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/symbol_pineapple.png"))),
-                new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/symbol_strawberry.png"))),
-                new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/symbol_watermelon.png"))),
-                new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/symbol_seven.png")))};
-        reels[1] = new Image[]{new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/symbol_cherry.png"))),
-                new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/symbol_plum.png"))),
-                new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/symbol_orange.png"))),
-                new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/symbol_pineapple.png"))),
-                new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/symbol_strawberry.png"))),
-                new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/symbol_watermelon.png"))),
-                new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/symbol_seven.png")))};
-        reels[2] = new Image[]{new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/symbol_cherry.png"))),
-                new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/symbol_plum.png"))),
-                new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/symbol_orange.png"))),
-                new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/symbol_pineapple.png"))),
-                new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/symbol_strawberry.png"))),
-                new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/symbol_watermelon.png"))),
-                new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/symbol_seven.png")))};
+        reels[0] = new Image[]{new Image(Objects.requireNonNull(getClass().getResourceAsStream("com/example/magicfruitsgame/images/symbol_cherry.png"))),
+                new Image(Objects.requireNonNull(getClass().getResourceAsStream("com/example/magicfruitsgame/images/symbol_plum.png"))),
+                new Image(Objects.requireNonNull(getClass().getResourceAsStream("com/example/magicfruitsgame/images/symbol_orange.png"))),
+                new Image(Objects.requireNonNull(getClass().getResourceAsStream("com/example/magicfruitsgame/images/symbol_pineapple.png"))),
+                new Image(Objects.requireNonNull(getClass().getResourceAsStream("com/example/magicfruitsgame/images/symbol_strawberry.png"))),
+                new Image(Objects.requireNonNull(getClass().getResourceAsStream("com/example/magicfruitsgame/images/symbol_watermelon.png"))),
+                new Image(Objects.requireNonNull(getClass().getResourceAsStream("com/example/magicfruitsgame/images/symbol_seven.png")))};
+        reels[1] = new Image[]{new Image(Objects.requireNonNull(getClass().getResourceAsStream("com/example/magicfruitsgame/images/symbol_cherry.png"))),
+                new Image(Objects.requireNonNull(getClass().getResourceAsStream("com/example/magicfruitsgame/images/symbol_plum.png"))),
+                new Image(Objects.requireNonNull(getClass().getResourceAsStream("com/example/magicfruitsgame/images/symbol_orange.png"))),
+                new Image(Objects.requireNonNull(getClass().getResourceAsStream("com/example/magicfruitsgame/images/symbol_pineapple.png"))),
+                new Image(Objects.requireNonNull(getClass().getResourceAsStream("com/example/magicfruitsgame/images/symbol_strawberry.png"))),
+                new Image(Objects.requireNonNull(getClass().getResourceAsStream("com/example/magicfruitsgame/images/symbol_watermelon.png"))),
+                new Image(Objects.requireNonNull(getClass().getResourceAsStream("com/example/magicfruitsgame/images/symbol_seven.png")))};
+        reels[2] = new Image[]{new Image(Objects.requireNonNull(getClass().getResourceAsStream("com/example/magicfruitsgame/images/symbol_cherry.png"))),
+                new Image(Objects.requireNonNull(getClass().getResourceAsStream("com/example/magicfruitsgame/images/symbol_plum.png"))),
+                new Image(Objects.requireNonNull(getClass().getResourceAsStream("com/example/magicfruitsgame/images/symbol_orange.png"))),
+                new Image(Objects.requireNonNull(getClass().getResourceAsStream("com/example/magicfruitsgame/images/symbol_pineapple.png"))),
+                new Image(Objects.requireNonNull(getClass().getResourceAsStream("com/example/magicfruitsgame/images/symbol_strawberry.png"))),
+                new Image(Objects.requireNonNull(getClass().getResourceAsStream("com/example/magicfruitsgame/images/symbol_watermelon.png"))),
+                new Image(Objects.requireNonNull(getClass().getResourceAsStream("com/example/magicfruitsgame/images/symbol_seven.png")))};
 
         // Inicjalizacja kontenerów na symbole
         symbols = new ImageView[REEL_COUNT][];

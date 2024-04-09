@@ -15,18 +15,21 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class Main extends Application {
 
+    private static final Logger logger = Logger.getLogger(Main.class.getName());
+
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         try {
             // Inicjalizacja serwisów
             PlayerService playerService = new PlayerService(new Player());
             List<ReelService> reels = initializeReels(); // Inicjalizacja bębnów
             GameService gameService = new GameService(reels, playerService);
             // Załadowanie głównego menu
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("main_menu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("///D:/spring/cvProject/magicFruitsGame/build/libs/magicFruitsGame-1.0-SNAPSHOT.jar!/com/example/magicfruitsgame/ui/menu.fxml:12"));
             loader.setControllerFactory(controllerClass -> new MainMenuController(playerService, gameService));
             Parent root = loader.load();
 
@@ -39,11 +42,11 @@ public class Main extends Application {
             primaryStage.setTitle("Magic Fruits");
             primaryStage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.severe("Error loading FXML file: " + e.getMessage());
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Błąd ładowania pliku FXML");
+            alert.setTitle("Error loading FXML file.");
             alert.setHeaderText(null);
-            alert.setContentText("Wystąpił błąd podczas ładowania pliku FXML.\nSprawdź ścieżkę do pliku i spróbuj ponownie.");
+            alert.setContentText("An error occurred while loading the FXML file.\nPlease check the file path and try again.");
             alert.showAndWait();
         }
     }

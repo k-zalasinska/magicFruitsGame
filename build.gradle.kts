@@ -34,7 +34,14 @@ val hansloVersion = "21.0.3"
 dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+
 }
+
+dependencies {
+    implementation ("org.slf4j:jul-to-slf4j:2.1.0-alpha1")
+    implementation ("org.slf4j:jul-to-slf4j:2.1.0-alpha1")
+}
+
 
 tasks {
     test {

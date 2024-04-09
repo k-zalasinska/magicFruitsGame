@@ -13,8 +13,8 @@ import java.util.Optional;
 
 public class MainMenuController {
 
-    private PlayerService playerService;
-    private GameService gameService;
+    public PlayerService playerService;
+    public GameService gameService;
 
     public MainMenuController(PlayerService playerService, GameService gameService) {
         this.playerService = playerService;
@@ -26,31 +26,31 @@ public class MainMenuController {
     }
 
     @FXML
-    private Label titleLabel;
+    public Label titleLabel;
 
     @FXML
-    private Button playButton;
+    public Button playButton;
 
     @FXML
-    private Button optionsButton;
+    public Button optionsButton;
 
     @FXML
-    private Button exitButton;
+    public Button exitButton;
 
 
     // Metody obsługujące interakcje użytkownika
     @FXML
-    private void handlePlay() {
+    public void handlePlay() {
         System.out.println("Play button clicked!"); // logika uruchom. przyc. PLAY
     }
 
     @FXML
-    private void handleOptions() {
+    public void handleOptions() {
         System.out.println("Options button clicked!"); // Logika wyświetlenia opcji
     }
 
     @FXML
-    private void handleExit() {                                     // Logika zamknięcia gry
+    public void handleExit() {                                     // Logika zamknięcia gry
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Exit Confirmation");
         alert.setHeaderText("Are you sure you want to exit the game?");

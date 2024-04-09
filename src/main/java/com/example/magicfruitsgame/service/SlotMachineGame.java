@@ -12,11 +12,11 @@ import javafx.util.Duration;
 import java.util.Objects;
 
 public class SlotMachineGame extends Application {
-    private ReelService reelService;
+    public ReelService reelService;
 
-    private static final int SYMBOL_HEIGHT = 100; // Wysokość symbolu
-    private static final int REEL_COUNT = 3; // Liczba walców
-    private static final int ANIMATION_DURATION = 3000; // Czas trwania animacji w milisekundach
+    private static final int SYMBOL_HEIGHT = 100;
+    private static final int REEL_COUNT = 3;
+    private static final int ANIMATION_DURATION = 3000;
 
     // Symbole na walcach
     private Image[][] reels;
@@ -68,7 +68,7 @@ public class SlotMachineGame extends Application {
                 new Image(Objects.requireNonNull(getClass().getResourceAsStream("com/example/magicfruitsgame/images/symbol_watermelon.png"))),
                 new Image(Objects.requireNonNull(getClass().getResourceAsStream("com/example/magicfruitsgame/images/symbol_seven.png")))};
 
-        // Inicjalizacja kontenerów na symbole
+        // inicjaliz kontenerów na symbole
         symbols = new ImageView[REEL_COUNT][];
         for (int i = 0; i < REEL_COUNT; i++) {
             symbols[i] = new ImageView[3];
@@ -80,25 +80,35 @@ public class SlotMachineGame extends Application {
     }
 
     private void startSpinAnimation() {
-        // Losowanie symboli na walcach
+        // losowanie symboli na walcach
         int[][] spinSymbols = new int[REEL_COUNT][];
         for (int i = 0; i < REEL_COUNT; i++) {
             spinSymbols[i] = reelService.spin();
         }
 
-        // Rozpoczęcie animacji przesunięcia symboli na walcach
+        //rozpocz. animacji przesuw. symb. na walcach
         for (int i = 0; i < REEL_COUNT; i++) {
-            TranslateTransition transition = new TranslateTransition(Duration.millis(ANIMATION_DURATION), symbols[i][0]);
-            transition.setToY(0);
-            transition.play();
-            for (int j = 1; j < 3; j++) {
-                TranslateTransition transition1 = new TranslateTransition(Duration.millis(ANIMATION_DURATION), symbols[i][j]);
-                transition1.setToY(SYMBOL_HEIGHT * j);
-                transition1.play();
+            for (int j = 0;j < 3;j++) {
+                TranslateTransition transition = getTranslateTransition(spinSymbols, i, j);
+                transition.play();
             }
         }
     }
 
+    private TranslateTransition getTranslateTransition(int[][] spinSymbols, int i, int j) {
+        int symbolIndex = spinSymbols[i][j];
+        int finalJ = j;
+
+        //ustawienie anim. przesun. symb na odpowiednią pozycję
+        TranslateTransition transition = new TranslateTransition(Duration.millis(ANIMATION_DURATION), symbols[i][j]);
+        transition.setToY(SYMBOL_HEIGHT * finalJ);
+        int finalI = i;
+        transition.setOnFinished(event -> {
+            //aktualizacja symbolu na walcu
+            symbols[finalI][finalJ].setImage(reels[finalI][symbolIndex]);
+        });
+        return transition;
+    }
 
     public static void main(String[] args) {
         launch(args);

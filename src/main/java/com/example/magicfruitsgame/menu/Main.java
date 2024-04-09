@@ -22,7 +22,8 @@ public class Main extends Application {
     private static final Logger logger = Logger.getLogger(Main.class.getName());
 
     @Override
-    public void start(Stage primaryStage) {
+    public void menu(Stage primaryStage) {
+        Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
         try {
             // Inicjalizacja serwisów
             PlayerService playerService = new PlayerService(new Player());
@@ -43,6 +44,7 @@ public class Main extends Application {
             primaryStage.show();
         } catch (IOException e) {
             logger.severe("Error loading FXML file: " + e.getMessage());
+            //e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error loading FXML file.");
             alert.setHeaderText(null);

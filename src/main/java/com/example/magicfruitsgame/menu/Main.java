@@ -29,7 +29,7 @@ public class Main extends Application {
             List<ReelService> reels = initializeReels(); // Inicjalizacja bębnów
             GameService gameService = new GameService(reels, playerService);
             // Załadowanie głównego menu
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("///D:/spring/cvProject/magicFruitsGame/build/libs/magicFruitsGame-1.0-SNAPSHOT.jar!/com/example/magicfruitsgame/ui/menu.fxml:12"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("com/example/magicfruitsgame/ui/menu.fxml"));
             loader.setControllerFactory(controllerClass -> new MainMenuController(playerService, gameService));
             Parent root = loader.load();
 

@@ -29,7 +29,7 @@ public class Main extends Application {
             List<ReelService> reels = initializeReels(); // Inicjalizacja bębnów
             GameService gameService = new GameService(reels, playerService);
             // Załadowanie głównego menu
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("com/example/magicfruitsgame/ui/menu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/magicfruitsgame/ui/menu.fxml"));
             loader.setControllerFactory(controllerClass -> new MainMenuController(playerService, gameService));
             Parent root = loader.load();
 

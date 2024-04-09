@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.image.ImageView?>
+
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.magicfruitsgame.controller.StartScreenController"
             prefHeight="400.0" prefWidth="600.0">
+
     <!-- Label to display game title -->
     <Label text="Magic Fruits" style="-fx-font-size: 24pt;" />
 
+    <!-- VBox with balance label and start button -->
     <VBox alignment="CENTER" spacing="10">
         <Label fx:id="balanceLabel" text="Balance: 1000"/>
         <Button fx:id="buttonStart" text="Start New Round" onAction="#startNewRound"/>
@@ -19,10 +20,11 @@
     <!-- Button to navigate to account refill screen -->
     <Button fx:id="buttonPayIn" text="Refill Account" onAction="#handleRefillAccount" />
 
+    <!-- Background image -->
     <ImageView fx:id="backgroundImageView" fitWidth="800.0" fitHeight="600.0" preserveRatio="true" />
 
-    <!-- Elementy doładowyw. konta przez gracza -->
-    <VBox alignment="CENTER" spacing="10" layoutX="200" layoutY="200">
+    <!-- Elements for account refill -->
+    <VBox alignment="CENTER" spacing="10">
         <Label text="Refill Your Account" style="-fx-font-size: 16pt;" />
         <Label text="Enter the amount:" />
         <TextField fx:id="refillAmountText" promptText="Enter amount to refill" />
@@ -30,3 +32,4 @@
         <Button text="Cancel" />
     </VBox>
 </AnchorPane>
+

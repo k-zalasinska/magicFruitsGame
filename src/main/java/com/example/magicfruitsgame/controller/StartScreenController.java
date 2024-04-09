@@ -8,11 +8,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 
 import java.util.Objects;
 import java.util.Optional;
 
 public class StartScreenController {
+
+    @FXML
+    private VBox accountVBox;
+
     @FXML
     private ImageView backgroundImageView;
 
@@ -35,6 +40,9 @@ public class StartScreenController {
 
     @FXML
     public void initialize() {
+
+        accountVBox.setLayoutX(200);
+        accountVBox.setLayoutY(200);
         // Inicjalizacja stanu gry
         updateBalance();
 

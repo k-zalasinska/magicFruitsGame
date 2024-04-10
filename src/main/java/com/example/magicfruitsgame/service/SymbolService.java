@@ -4,7 +4,7 @@ import com.example.magicfruitsgame.model.Symbol;
 import javafx.scene.image.Image;
 
 public class SymbolService {
-    private final Symbol[] symbols;
+    public final Symbol[] symbols;
 
     private SymbolService(Symbol[] symbols) {
         this.symbols = symbols;
@@ -24,11 +24,4 @@ public class SymbolService {
         return symbols;
     }
 
-    public int getSymbolByIndex(int index) {
-        if (index >= 0 && index < symbols.length) {
-            return index;
-        } else {
-            throw new IllegalArgumentException("Invalid index: " + index);
-        }
-    }
 }

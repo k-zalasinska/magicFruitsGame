@@ -1,39 +1,34 @@
 package com.example.magicfruitsgame.service;
 
 import com.example.magicfruitsgame.model.Symbol;
-
-import java.util.ArrayList;
-import java.util.List;
+import javafx.scene.image.Image;
 
 public class SymbolService {
-    // Mapa przechowująca przyporządkowanie nazwy symbolu do liczby całkowitej
-    private final List<Symbol> symbols = createSymbols();
+    private final Symbol[] symbols;
 
-    // Prywatny konstruktor, aby zapobiec tworzeniu instancji tej klasy
-    private SymbolService() {
+    private SymbolService(Symbol[] symbols) {
+        this.symbols = symbols;
     }
 
-    // Metoda statyczna tworząca symbole na podstawie indeksu
-    public Symbol getSymbolByIndex(int index) {
-        if (index >= 0 && index < symbols.size()) {
-            return symbols.get(index);
+    public static Symbol[] createSymbols() {
+        Symbol[] symbols = new Symbol[7];
+
+        symbols[0] = new Symbol(0, new Image("symbol_cherry.png"), 5);
+        symbols[1] = new Symbol(1, new Image("symbol_plum.png"), 10);
+        symbols[2] = new Symbol(2, new Image("symbol_orange.png"), 15);
+        symbols[3] = new Symbol(3, new Image("symbol_pineapple.png"), 20);
+        symbols[4] = new Symbol(4, new Image("symbol_strawberry.png"), 30);
+        symbols[5] = new Symbol(5, new Image("symbol_watermelon.png"), 100);
+        symbols[6] = new Symbol(6, new Image("symbol_seven.png"), 200);
+
+        return symbols;
+    }
+
+    public int getSymbolByIndex(int index) {
+        if (index >= 0 && index < symbols.length) {
+            return index;
         } else {
-            // Obsługa przypadku, gdy podany indeks jest nieprawidłowy
             throw new IllegalArgumentException("Invalid index: " + index);
         }
     }
-
-    // Metoda tworząca listę symboli zgodnie z założeniami gry
-    private List<Symbol> createSymbols() {
-        List<Symbol> symbols = new ArrayList<>();
-        symbols.add(new Symbol("Cherry", 5, "com/example/magicfruitsgame/images/symbol_cherry.png"));
-        symbols.add(new Symbol("Plum", 10, "com/example/magicfruitsgame/images/symbol_plum.png"));
-        symbols.add(new Symbol("Orange", 15, "com/example/magicfruitsgame/images/symbol_orange.png"));
-        symbols.add(new Symbol("Pineapple", 20, "com/example/magicfruitsgame/images/symbol_pineapple.png"));
-        symbols.add(new Symbol("Strawberry", 30, "com/example/magicfruitsgame/images/symbol_strawberry.png"));
-        symbols.add(new Symbol("Watermelon", 100, "com/example/magicfruitsgame/images/symbol_watermelon.png"));
-        symbols.add(new Symbol("Seven (7)", 200, "com/example/magicfruitsgame/images/symbol_seven.png"));
-        return symbols;
-    }
 }
-

@@ -1,4 +1,4 @@
-package com.example.magicfruitsgame.menu;
+package com.example.magicfruitsgame;
 
 import com.example.magicfruitsgame.controller.MainMenuController;
 import com.example.magicfruitsgame.model.Player;
@@ -22,6 +22,9 @@ public class Main extends Application {
     private static final Logger logger = Logger.getLogger(Main.class.getName());
 
     @Override
+    public void start(Stage primaryStage){
+        menu(primaryStage);
+    }
     public void menu(Stage primaryStage) {
         Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
         try {
@@ -30,7 +33,7 @@ public class Main extends Application {
             List<ReelService> reels = initializeReels(); // Inicjalizacja bębnów
             GameService gameService = new GameService(reels, playerService);
             // Załadowanie głównego menu
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/magicfruitsgame/ui/menu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/menu.fxml"));
             loader.setControllerFactory(controllerClass -> new MainMenuController(playerService, gameService));
             Parent root = loader.load();
 
@@ -44,7 +47,7 @@ public class Main extends Application {
             primaryStage.show();
         } catch (IOException e) {
             logger.severe("Error loading FXML file: " + e.getMessage());
-            //e.printStackTrace();
+            e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error loading FXML file.");
             alert.setHeaderText(null);

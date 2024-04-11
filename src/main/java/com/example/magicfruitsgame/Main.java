@@ -2,7 +2,9 @@ package com.example.magicfruitsgame;
 
 import com.example.magicfruitsgame.controller.SlotMachineController;
 import com.example.magicfruitsgame.model.Game;
+import com.example.magicfruitsgame.service.GameService;
 import com.example.magicfruitsgame.service.ReelService;
+import com.example.magicfruitsgame.service.SlotMachineService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,9 +26,10 @@ public class Main extends Application {
             };
 
             ReelService reelService = new ReelService(reelsDefinition);
+            GameService gameService = new GameService(new Game());
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/slot_machine.fxml"));
-            Game game = new Game(); // Tworzenie instancji obiektu Game
-            loader.setControllerFactory(controllerClass -> new SlotMachineController());
+            Game game = new Game();
+            loader.setControllerFactory(controllerClass -> new SlotMachineController(new SlotMachineService(reelService, gameService), game));
             URL symbolsUrl = getClass().getResource("/symbols.fxml");
 
             Parent root = loader.load();

@@ -7,12 +7,11 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 public class SlotMachineService {
-    private final SymbolService symbolService;
+    private final SymbolService symbolService = new SymbolService();
     private final ReelService reelService;
     private final GameService gameService;
     private int lastWin;
-    public SlotMachineService(SymbolService symbolService, ReelService reelService, GameService gameService) {
-        this.symbolService=symbolService;
+    public SlotMachineService(ReelService reelService, GameService gameService) {
         this.reelService = reelService;
         this.gameService = gameService;
     }

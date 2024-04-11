@@ -3,25 +3,26 @@ package com.example.magicfruitsgame.model;
 public class Game {
     private int balance;
     private final int stake;
-    private boolean gameActive;
+    private boolean running;
 
     public Game() {
         this.balance = 1000; // Początkowe saldo gracza
         this.stake = 10; // Początkowa stawka
-        this.gameActive = false;
+        this.running = false;
     }
 
-    public boolean isGameActive() {
-        return gameActive;
+    public boolean isGameRunning() {
+        return running;
     }
 
     public void startGame() {
-        gameActive = true;
+        running = true;
     }
 
     public void endGame() {
-        gameActive = false;
+        running = false;
     }
+
 
     public int getBalance() {
         return balance;

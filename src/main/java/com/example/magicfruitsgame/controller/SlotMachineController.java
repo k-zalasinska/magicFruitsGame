@@ -20,19 +20,16 @@ public class SlotMachineController implements Initializable {
     private ImageView slotMachineImageView;
 
     private final SlotMachineService slotMachineService;
+    private final Game game;
 
-    public SlotMachineController(SlotMachineService slotMachineService) {
+    public SlotMachineController(SlotMachineService slotMachineService, Game game) {
         this.slotMachineService = slotMachineService;
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        updateUI();
+        this.game = game;
     }
 
     @FXML
     private void handleSpinButton() {
-        if (game.isGameActive()) {
+        if (game.isGameRunning()) {
             int[][] symbols = slotMachineService.spinReels();
             slotMachineService.evaluateResult(symbols);
             updateUI();
@@ -44,21 +41,21 @@ public class SlotMachineController implements Initializable {
 
     @FXML
     private void handleSpinButtonHover() {
-        if (game.isGameActive()) {
+        if (game.isGameRunning()) {
             spinButton.setStyle("-fx-background-image: url('button_start_onhover.png');");
         }
     }
 
     @FXML
     private void handleSpinButtonPress() {
-        if (game.isGameActive()) {
+        if (game.isGameRunning()) {
             spinButton.setStyle("-fx-background-image: url('button_start_onpress.png');");
         }
     }
 
     @FXML
     private void handleSpinButtonExit() {
-        if (game.isGameActive()) {
+        if (game.isGameRunning()) {
             spinButton.setStyle("-fx-background-image: url('button_start_normal.png');");
         } else {
             spinButton.setStyle("-fx-background-image: url('button_start_disable.png');");
@@ -66,13 +63,17 @@ public class SlotMachineController implements Initializable {
     }
 
     private void updateUI() {
-        if (game.isGameActive()) {
+        if (game.isGameRunning()) {
             spinButton.setStyle("-fx-background-image: url('button_start_normal.png');");
             slotMachineImageView.setImage(new Image("button_start_normal.png"));
         } else {
             spinButton.setStyle("-fx-background-image: url('button_start_disable.png');");
             spinButton.setStyle("-fx-background-image: url('button_start_onhover.png');");
-
         }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
     }
 }

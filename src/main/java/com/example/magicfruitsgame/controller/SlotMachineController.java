@@ -1,6 +1,5 @@
 package com.example.magicfruitsgame.controller;
 
-import com.example.magicfruitsgame.service.GameService;
 import com.example.magicfruitsgame.service.SlotMachineService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,42 +19,40 @@ public class SlotMachineController implements Initializable {
     private ImageView slotMachineImageView;
 
     private final SlotMachineService slotMachineService;
-    private final GameService gameService;
 
-    public SlotMachineController(SlotMachineService slotMachineService, GameService gameService) {
+    public SlotMachineController(SlotMachineService slotMachineService) {
         this.slotMachineService = slotMachineService;
-        this.gameService = gameService;
     }
 
     @FXML
     private void handleSpinButton() {
-        if (gameService.isGameRunning()) {
+        if (slotMachineService.getGameService().isGameRunning()) {
             int[][] symbols = slotMachineService.spinReels();
             slotMachineService.evaluateResult(symbols);
             updateUI();
         } else {
-            gameService.startGame();
+            slotMachineService.getGameService().startGame();
             updateUI();
         }
     }
 
     @FXML
     private void handleSpinButtonHover() {
-        if (gameService.isGameRunning()) {
+        if (slotMachineService.getGameService().isGameRunning()) {
             spinButton.setStyle("-fx-background-image: url('button_start_onhover.png');");
         }
     }
 
     @FXML
     private void handleSpinButtonPress() {
-        if (gameService.isGameRunning()) {
+        if (slotMachineService.getGameService().isGameRunning()) {
             spinButton.setStyle("-fx-background-image: url('button_start_onpress.png');");
         }
     }
 
     @FXML
     private void handleSpinButtonExit() {
-        if (gameService.isGameRunning()) {
+        if (slotMachineService.getGameService().isGameRunning()) {
             spinButton.setStyle("-fx-background-image: url('button_start_normal.png');");
         } else {
             spinButton.setStyle("-fx-background-image: url('button_start_disable.png');");
@@ -63,7 +60,7 @@ public class SlotMachineController implements Initializable {
     }
 
     private void updateUI() {
-        if (gameService.isGameRunning()) {
+        if (slotMachineService.getGameService().isGameRunning()) {
             spinButton.setStyle("-fx-background-image: url('button_start_normal.png');");
             slotMachineImageView.setImage(new Image("button_start_normal.png"));
         } else {

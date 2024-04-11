@@ -2,10 +2,10 @@ package com.example.magicfruitsgame.service;
 
 import com.example.magicfruitsgame.model.Game;
 
-public class PlayerService {
+public class GameService {
     private final Game game;
 
-    public PlayerService(Game game) {
+    public GameService(Game game) {
         this.game = game;
     }
 

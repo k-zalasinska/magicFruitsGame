@@ -5,7 +5,6 @@ import com.example.magicfruitsgame.service.ReelService;
 import com.example.magicfruitsgame.service.SlotMachineService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,7 +24,7 @@ public class SlotMachineController implements Initializable {
     private final SlotMachineService slotMachineService;
 
 
-    public SlotMachineController(Parent symbolsRoot, ReelService reelService) {
+    public SlotMachineController(ReelService reelService) {
         this.slotMachineService = new SlotMachineService(game, reelService);
     }
 

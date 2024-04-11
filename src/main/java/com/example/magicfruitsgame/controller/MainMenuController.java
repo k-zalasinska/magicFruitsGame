@@ -1,6 +1,6 @@
 package com.example.magicfruitsgame.controller;
 
-import com.example.magicfruitsgame.service.PlayerService;
+import com.example.magicfruitsgame.service.GameService;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -12,10 +12,10 @@ import java.util.Optional;
 
 public class MainMenuController {
 
-    public PlayerService playerService;
+    public GameService playerService;
     public GameService gameService;
 
-    public MainMenuController(PlayerService playerService, GameService gameService) {
+    public MainMenuController(GameService playerService, GameService gameService) {
         this.playerService = playerService;
         this.gameService = gameService;
     }

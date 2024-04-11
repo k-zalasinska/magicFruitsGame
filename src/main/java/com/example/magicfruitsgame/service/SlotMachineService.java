@@ -1,6 +1,5 @@
 package com.example.magicfruitsgame.service;
 
-import com.example.magicfruitsgame.model.Game;
 import com.example.magicfruitsgame.model.Symbol;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -108,8 +107,8 @@ public class SlotMachineService {
 
     private void checkWin(int[] symbols) {
         if (symbols[0] == symbols[1] && symbols[1] == symbols[2]) {
-            int multiplier = symbolService.winMultiplayer(symbols[0]);
-            int winAmount = gameService.getStake * multiplier;
+            int multiplier = symbolService.getSymbol(symbols[0]).winMultiplier();
+            int winAmount = 10 * multiplier;
             setLastWin(winAmount);
         }
     }

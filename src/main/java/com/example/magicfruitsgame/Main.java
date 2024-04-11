@@ -26,7 +26,7 @@ public class Main extends Application {
             ReelService reelService = new ReelService(reelsDefinition);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/slot_machine.fxml"));
             Game game = new Game(); // Tworzenie instancji obiektu Game
-            loader.setControllerFactory(controllerClass -> new SlotMachineController(reelService));
+            loader.setControllerFactory(controllerClass -> new SlotMachineController());
             URL symbolsUrl = getClass().getResource("/symbols.fxml");
 
             Parent root = loader.load();

@@ -20,12 +20,10 @@ public class SlotMachineController implements Initializable {
     @FXML
     private ImageView slotMachineImageView;
 
-    private final Game game=new Game();
     private final SlotMachineService slotMachineService;
 
-
-    public SlotMachineController(ReelService reelService) {
-        this.slotMachineService = new SlotMachineService(reelService);
+    public SlotMachineController(SlotMachineService slotMachineService) {
+        this.slotMachineService = slotMachineService;
     }
 
     @Override

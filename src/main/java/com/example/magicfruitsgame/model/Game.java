@@ -2,7 +2,7 @@ package com.example.magicfruitsgame.model;
 
 public class Game {
     private int balance;
-    private int stake;
+    private final int stake;
     private boolean gameActive;
 
     public Game() {
@@ -33,10 +33,6 @@ public class Game {
 
     public int getStake() {
         return stake;
-    }
-
-    public void setStake(int stake) {
-        this.stake = stake;
     }
 
 

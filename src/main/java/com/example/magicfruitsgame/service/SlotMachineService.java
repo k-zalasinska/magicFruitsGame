@@ -10,13 +10,12 @@ import javafx.util.Duration;
 
 public class SlotMachineService {
     private final Game game;
+    private final SymbolService symbolService = new SymbolService();
     private final ReelService reelService;
-    private final GameService gameService;
 
-    public SlotMachineService(Game game, ReelService reelService,GameService gameService) {
+    public SlotMachineService(Game game, ReelService reelService) {
         this.game = game;
         this.reelService = reelService;
-        this.gameService = gameService;
     }
 
     public int[] play(int[][] reelsDefinition) {
@@ -44,9 +43,9 @@ public class SlotMachineService {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 int symbolIndex = spinSymbols[i][j];
-                Symbol symbol = gameService.getSymbols()[symbolIndex];
+                Symbol symbol = symbolService.getSymbols().get(symbolIndex);
                 ImageView imageView = reelImageViews[i][j];
-                imageView.setImage(symbol.getImage());
+                imageView.setImage(symbol.image());
             }
         }
     }
@@ -100,14 +99,13 @@ public class SlotMachineService {
         checkWin(diagonalSymbols2); // Sprawdza wygraną dla drugiej linii na ukos
     }
 
-    private boolean checkWin(int[] symbols) {
+    private void checkWin(int[] symbols) {
         // Sprawdź, czy wszystkie symbole na danej linii są takie same
         if (symbols[0] == symbols[1] && symbols[1] == symbols[2]) {
-            int multiplier = game.getMultiplier(symbols[0]);
+            int multiplier = ..................(symbols[0]);
             int winAmount = game.getStake() * multiplier;
             game.setLastWin(winAmount);
         }
-        return false;
     }
 
     // Metoda do obracania bębnami

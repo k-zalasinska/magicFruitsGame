@@ -1,6 +1,5 @@
 package com.example.magicfruitsgame.controller;
 
-import com.example.magicfruitsgame.service.GameService;
 import com.example.magicfruitsgame.service.PlayerService;
 import javafx.application.Platform;
 import javafx.fxml.FXML;

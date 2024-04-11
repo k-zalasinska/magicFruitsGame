@@ -1,20 +1,19 @@
 package com.example.magicfruitsgame.service;
 
-import com.example.magicfruitsgame.model.Player;
+import com.example.magicfruitsgame.model.Game;
 
 public class PlayerService {
-    private final Player player;
+    private final Game game;
 
-    public PlayerService(Player player) {
-        this.player = player;
+    public PlayerService(Game game) {
+        this.game = game;
     }
-
 
     // Metoda doładowująca stan konta
     public void deposit(int amount) {
         if (amount > 0) {
-            int currentBalance = player.getBalance();
-            player.setBalance(currentBalance + amount);
+            int currentBalance = game.getBalance();
+            game.setBalance(currentBalance + amount);
         } else {
             throw new IllegalArgumentException("The top-up amount must be greater than zero.");
         }
@@ -23,14 +22,14 @@ public class PlayerService {
 
     // Metoda pobierająca stan konta
     public int getBalance() {
-        return player.getBalance();
+        return game.getBalance();
     }
 
     // Metoda odjęcia stawki od stanu konta za rozgrywkę
     public void deduct() {
-        int currentBalance = player.getBalance();
+        int currentBalance = game.getBalance();
         if (currentBalance >= 10) {
-            player.setBalance(currentBalance - 10);
+            game.setBalance(currentBalance - 10);
         } else {
             throw new IllegalArgumentException("Insufficient funds in the account.");
         }
@@ -41,8 +40,8 @@ public class PlayerService {
         if (winnings <= 0) {
             throw new IllegalArgumentException("Winning amount must be greater than zero.");
         }
-        int currentBalance = player.getBalance();
-        player.setBalance(currentBalance + winnings);
+        int currentBalance = game.getBalance();
+        game.setBalance(currentBalance + winnings);
     }
 
     // Metoda doładowująca saldo konta gracza
@@ -50,7 +49,7 @@ public class PlayerService {
         if (topUpAmount <= 0) {
             throw new IllegalArgumentException("Top-up amount must be greater than zero.");
         }
-        int currentBalance = player.getBalance();
-        player.setBalance(currentBalance + topUpAmount);
+        int currentBalance = game.getBalance();
+        game.setBalance(currentBalance + topUpAmount);
     }
 }

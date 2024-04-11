@@ -1,11 +1,11 @@
 package com.example.magicfruitsgame.controller;
 
 import com.example.magicfruitsgame.model.Game;
-import com.example.magicfruitsgame.service.GameService;
 import com.example.magicfruitsgame.service.ReelService;
 import com.example.magicfruitsgame.service.SlotMachineService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,8 +25,8 @@ public class SlotMachineController implements Initializable {
     private final SlotMachineService slotMachineService;
 
 
-    public SlotMachineController(ReelService reelService, GameService gameService) {
-        this.slotMachineService = new SlotMachineService(game, reelService, gameService);
+    public SlotMachineController(Parent symbolsRoot, ReelService reelService) {
+        this.slotMachineService = new SlotMachineService(game, reelService);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class SlotMachineController implements Initializable {
     private void updateUI() {
         if (game.isGameActive()) {
             spinButton.setStyle("-fx-background-image: url('button_start_normal.png');");
-            slotMachineImageView.setImage(new Image("active_slot_machine.png"));
+            slotMachineImageView.setImage(new Image("button_start_normal.png"));
         } else {
             spinButton.setStyle("-fx-background-image: url('button_start_disable.png');");
             spinButton.setStyle("-fx-background-image: url('button_start_onhover.png');");

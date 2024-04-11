@@ -1,5 +1,6 @@
 package com.example.magicfruitsgame;
 
+import com.example.magicfruitsgame.controller.AnimationController;
 import com.example.magicfruitsgame.controller.SlotMachineController;
 import com.example.magicfruitsgame.model.Game;
 import com.example.magicfruitsgame.service.GameService;
@@ -27,12 +28,16 @@ public class Main extends Application {
 
             ReelService reelService = new ReelService(reelsDefinition);
             GameService gameService = new GameService(new Game());
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/slot_machine.fxml"));
+            FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/slot_machine.fxml"));
             Game game = new Game();
-            loader.setControllerFactory(controllerClass -> new SlotMachineController(new SlotMachineService(reelService, gameService)));
+            loader1.setControllerFactory(controllerClass -> new SlotMachineController(new SlotMachineService(reelService, gameService)));
             URL symbolsUrl = getClass().getResource("/symbols.fxml");
 
-            Parent root = loader.load();
+            FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/animation.fxml"));
+            loader2.setControllerFactory(controllerClass -> new AnimationController(new SlotMachineService(reelService, gameService)));
+
+
+            Parent root = loader1.load();
 
             // Pobierz scenę z załadowanego korzenia
             Scene scene = new Scene(root, 600, 400);

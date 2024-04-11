@@ -3,6 +3,7 @@ package com.example.magicfruitsgame.service;
 import com.example.magicfruitsgame.model.Symbol;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
@@ -11,30 +12,26 @@ public class SlotMachineService {
     private final ReelService reelService;
     private final GameService gameService;
     private int lastWin;
+
     public SlotMachineService(ReelService reelService, GameService gameService) {
         this.reelService = reelService;
         this.gameService = gameService;
     }
+
     public GameService getGameService() {
         return gameService;
     }
-    public int getLastWin() {
-        return lastWin;
-    }
 
-    public void setLastWin(int lastWin) {
-        this.lastWin = lastWin;
-    }
 
-    public int[] play(int[][] reelsDefinition) {
+    public int[] play() {
         int[][] reelsSymbols = new int[3][];
-        ReelService reelService = new ReelService(reelsDefinition);
 
         // Obrót każdego z trzech bębnów
         for (int i = 0; i < 3; i++) {
             reelsSymbols[i] = reelService.spin(i);
         }
 
+        // Zwracamy symbole z drugiego bębna, ponieważ to właśnie na nim wyświetlany jest wynik
         return reelsSymbols[1];
     }
 
@@ -50,7 +47,7 @@ public class SlotMachineService {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 int symbolIndex = spinSymbols[i][j];
-                Symbol symbol =symbolService.getSymbols().get(symbolIndex);
+                Symbol symbol = symbolService.getSymbols().get(symbolIndex);
                 ImageView imageView = reelImageViews[i][j];
                 imageView.setImage(symbol.image());
             }
@@ -76,12 +73,8 @@ public class SlotMachineService {
         }
 
         // Sprawdź przekątne linie
-        if ((spinSymbols[0][0] == spinSymbols[1][1] && spinSymbols[1][1] == spinSymbols[2][2]) ||
-                (spinSymbols[0][2] == spinSymbols[1][1] && spinSymbols[1][1] == spinSymbols[2][0])) {
-            return true;
-        }
-
-        return false;
+        return (spinSymbols[0][0] == spinSymbols[1][1] && spinSymbols[1][1] == spinSymbols[2][2]) ||
+                (spinSymbols[0][2] == spinSymbols[1][1] && spinSymbols[1][1] == spinSymbols[2][0]);
     }
 
     private void calculateWinAmount(int[][] spinSymbols) {
@@ -122,5 +115,42 @@ public class SlotMachineService {
         return reelsSymbols;
     }
 
+    // Metoda uruchamiająca animację obracania się bębnów
+    public void startSpinningAnimation(ImageView[][] reelImageViews, int[][] spinSymbols) {
+        animateSpinning(reelImageViews, spinSymbols);
+    }
+
+    public Image getSymbolImage(int symbolIndex) {
+        return symbolService.getSymbols().get(symbolIndex).image();
+    }
+
+
+    // Metoda rozpoczynająca nową grę
+    public void startGame() {
+        gameService.startGame();
+    }
+
+    // Metoda doładowująca stan konta
+    public void topUpBalance(int amount) {
+        gameService.topUpBalance(amount);
+    }
+
+    // Metoda zwracająca stawkę gry
+    public int getStake() {
+        return gameService.getGame().getStake();
+    }
+
+    // Metoda zwracająca aktualny stan konta
+    public int getBalance() {
+        return gameService.getBalance();
+    }
+
+    public int getLastWin() {
+        return lastWin;
+    }
+
+    public void setLastWin(int lastWin) {
+        this.lastWin = lastWin;
+    }
 
 }

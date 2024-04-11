@@ -8,9 +8,6 @@
             fx:controller="com.example.magicfruitsgame.controller.SlotMachineController"
             fx:id="mainBorderPane">
 
-    <center>
-        <fx:include source="symbols.fxml"/>
-    </center>
 
     <center>
         <GridPane fx:id="reelsGridPane"/>

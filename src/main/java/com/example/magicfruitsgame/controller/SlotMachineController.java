@@ -19,13 +19,20 @@ public class SlotMachineController implements Initializable {
     @FXML
     private ImageView slotMachineImageView;
 
-    private final SlotMachineService slotMachineService;
-    private final Game game;
+    private SlotMachineService slotMachineService;
 
-    public SlotMachineController(SlotMachineService slotMachineService, Game game) {
+    public SlotMachineController(SlotMachineService slotMachineService) {
         this.slotMachineService = slotMachineService;
-        this.game = game;
     }
+
+    public SlotMachineService getSlotMachineService() {
+        return slotMachineService;
+    }
+
+
+        Game game = slotMachineService.getGameService().getGame();
+
+
 
     @FXML
     private void handleSpinButton() {

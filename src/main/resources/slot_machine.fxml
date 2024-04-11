@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.magicfruitsgame.controller.SlotMachineController"
+            fx:id="mainBorderPane">
+
+    <center>
+        <fx:include source="symbols.fxml"/>
+    </center>
+
+    <center>
+        <GridPane fx:id="reelsGridPane" />
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER_RIGHT">
+            <!-- Placeholder for spacing -->
+            <Region prefWidth="10"/>
+            <Button text="START" onAction="#handleStartButton"/>
+            <Button text="PAY IN" onAction="#handlePayInButton"/>
+            <Button text="Auto Spin" onAction="#handleAutoSpinButton"/>
+        </HBox>
+    </bottom>
+
+
+        <VBox fx:id="balanceBox" styleClass="balance-box">
+            <Label fx:id="balanceLabel" styleClass="BALANCE"/>
+            <Label fx:id="lastWinLabel" styleClass="LAST WIN"/>
+            <Label fx:id="stakeLabel" styleClass="STAKE"/>
+        </VBox>
+
+
+</BorderPane>

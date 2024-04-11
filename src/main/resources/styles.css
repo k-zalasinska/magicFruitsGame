@@ -1,0 +1,50 @@
+#mainBorderPane {
+    -fx-background-image: url("background.jpg");
+    -fx-background-size: cover;
+}
+.balance-label {
+    -fx-text-fill: black;
+    -fx-font-size: 20px;
+}
+
+/* Styl dla etykiet */
+.label {
+    -fx-text-fill: white; /* Kolor tekstu */
+    -fx-font-size: 14px; /* Rozmiar czcionki */
+    /* Dodatkowe style w zależności od potrzeb */
+}
+
+
+/* Style for PAY IN button */
+.button#payInButton {
+    -fx-background-image: url("button_payin_normal.png");
+}
+
+.button#payInButton:hover {
+    -fx-background-image: url("button_payin_onhover.png");
+}
+
+.button#payInButton:pressed {
+    -fx-background-image: url("button_payin_onpress.png");
+}
+
+.button#payInButton:disabled {
+    -fx-background-image: url("button_payin_disable.png");
+}
+
+/* Style for START button */
+.button#startButton {
+    -fx-background-image: url("button_start_normal.png");
+}
+
+.button#startButton:hover {
+    -fx-background-image: url("button_start_onhover.png");
+}
+
+.button#startButton:pressed {
+    -fx-background-image: url("button_start_onpress.png");
+}
+
+.button#startButton:disabled {
+    -fx-background-image: url("button_start_disable.png");
+}

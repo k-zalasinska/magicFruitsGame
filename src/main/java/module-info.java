@@ -6,4 +6,6 @@ module com.example.magicfruitsgame {
     requires java.logging;
     opens com.example.magicfruitsgame.controller to javafx.fxml;
     exports com.example.magicfruitsgame to javafx.graphics;
+    exports com.example.magicfruitsgame.service to javafx.graphics;
+    exports com.example.magicfruitsgame.model;
 }

@@ -1,96 +1,76 @@
 package com.example.magicfruitsgame.service;
 
 import com.example.magicfruitsgame.model.Game;
+
 import com.example.magicfruitsgame.model.Symbol;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-import java.util.Random;
-
 public class SlotMachineService {
-    //private static final int SYMBOL_HEIGHT = 100;
-    private static final int REEL_COUNT = 3;
-    private static final int SYMBOL_COUNT = 3; //lb symboli na każdym bębnie
-    private static final int ANIMATION_DURATION = 9000; //całkowity czas trwania animacji. 9 sek.łącznie. Po 3 sek.na symbol
-
     private final Game game;
-    private final Symbol[] symbols;
-    private final int[][] reelsDefinition; //służy do definiowania możliwych kombinacji symboli na każdym z bębnów (kolumn) w grze
+    private final ReelService reelService;
+    private final GameService gameService;
 
-    private ImageView[][] reelImageViews;
-    private int[][] spinSymbols; //reprezentuje aktualny układ symboli na bębnach w trakcie gry.
-    public int winAmount;
-
-    public SlotMachineService(Game game, Symbol[] symbols, int[][] reelsDefinition) {
+    public SlotMachineService(Game game, ReelService reelService,GameService gameService) {
         this.game = game;
-        this.symbols = symbols;
-        this.reelsDefinition = reelsDefinition;
+        this.reelService = reelService;
+        this.gameService = gameService;
     }
 
-    public void play(ImageView[][] reelImageViews) {
-        this.reelImageViews = reelImageViews;
-        this.spinSymbols = drawSymbols();
+    public int[] play(int[][] reelsDefinition) {
+        int[][] reelsSymbols = new int[3][];
+        ReelService reelService = new ReelService(reelsDefinition);
 
-        animateSpinning();
-    }
-
-    private int[][] drawSymbols() {
-        Random random = new Random();
-        int[][] symbols = new int[REEL_COUNT][SYMBOL_COUNT];
-        for (int i = 0; i < REEL_COUNT; i++) {
-            for (int j = 0; j < SYMBOL_COUNT; j++) {
-                symbols[i][j] = reelsDefinition[i][random.nextInt(reelsDefinition[i].length)];
-            }
+        // Obrót każdego z trzech bębnów
+        for (int i = 0; i < 3; i++) {
+            reelsSymbols[i] = reelService.spin(i); // Wywołanie metody spin dla każdego z bębnów
         }
-        return symbols;
+
+        return reelsSymbols[1]; // Zwracamy symbole z środkowego bębna
     }
 
-    private void animateSpinning() {
-        int frameDuration = 3000; //czas trwania jednegp KeyFrame'a
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(frameDuration), e -> updateReels()));
-        timeline.setCycleCount(ANIMATION_DURATION / frameDuration); // Określ liczby cykli na podstawie całkow czasu trwania animacji i czasu trwania jednego cyklu (KeyFrame)
-        timeline.setOnFinished(e -> evaluateResult());
+
+    public void animateSpinning(ImageView[][] reelImageViews, int[][] spinSymbols) {
+        int frameDuration = 3; //czas trwania jednego KeyFrame'a
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(frameDuration), e -> updateReels(reelImageViews, spinSymbols)));
+        timeline.setCycleCount(9 / frameDuration); // Określ liczbę cykli na podstawie całkowitego czasu trwania animacji i czasu trwania jednego cyklu (KeyFrame)
         timeline.play();
     }
 
-    private void updateReels() {
-        int frameDuration = ANIMATION_DURATION / SYMBOL_COUNT; //oblicza długość trwania pojedynczego obrotu walców
-        Timeline timeline = new Timeline();
-        for (int i = 0; i < REEL_COUNT; i++) {
-            for (int j = 0; j < SYMBOL_COUNT; j++) {
+    private void updateReels(ImageView[][] reelImageViews, int[][] spinSymbols) {
+        int frameDuration = 9 / 3; //oblicza długość trwania pojedynczego obrotu walców
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
                 int symbolIndex = spinSymbols[i][j];
-                Symbol symbol = symbols[symbolIndex];
+                Symbol symbol = gameService.getSymbols()[symbolIndex];
                 ImageView imageView = reelImageViews[i][j];
-                KeyFrame keyFrame = new KeyFrame(Duration.millis(frameDuration * j), e -> imageView.setImage(symbol.getImage()));
-                timeline.getKeyFrames().add(keyFrame);
+                imageView.setImage(symbol.getImage());
             }
         }
-        timeline.play();
     }
 
-    private void evaluateResult() {
-        if (checkWin()) {
-            winAmount = calculateWinAmount();
-            game.setBalance(game.getBalance() + winAmount);
-            game.setLastWin(winAmount);
-            System.out.println("Congratulations! You won " + winAmount + " credits.");
+    public void evaluateResult(int[][] spinSymbols) {
+        if (checkWin(spinSymbols)) {
+            calculateWinAmount(spinSymbols);
+            game.setBalance(game.getBalance() + game.getLastWin());
+            System.out.println("Congratulations! You won " + game.getLastWin() + " credits.");
         } else {
             game.setLastWin(0);
             System.out.println("No win. Try again!");
         }
     }
 
-    private boolean checkWin() {
-        //sprawdz poziomych linii wygryw
-        for (int i = 0; i < REEL_COUNT; i++) {
+    private boolean checkWin(int[][] spinSymbols) {
+        // Sprawdź poziome linie wygrywające
+        for (int i = 0; i < 3; i++) {
             if (spinSymbols[i][0] == spinSymbols[i][1] && spinSymbols[i][1] == spinSymbols[i][2]) {
                 return true;
             }
         }
 
-        //sprawdzenie przekątnych linii
+        // Sprawdź przekątne linie
         if ((spinSymbols[0][0] == spinSymbols[1][1] && spinSymbols[1][1] == spinSymbols[2][2]) ||
                 (spinSymbols[0][2] == spinSymbols[1][1] && spinSymbols[1][1] == spinSymbols[2][0])) {
             return true;
@@ -99,10 +79,45 @@ public class SlotMachineService {
         return false;
     }
 
-    private int calculateWinAmount() {
-        int symbolIndex = spinSymbols[0][0]; // Get any symbol index from the first reel
+    private void calculateWinAmount(int[][] spinSymbols) {
+        // Sprawdza trzy poziome linie
+        for (int row = 0; row < 3; row++) {
+            int[] symbols = new int[3]; // Przechowuje symbole na danej linii
+            for (int col = 0; col < 3; col++) {
+                symbols[col] = spinSymbols[col][row];
+            }
+            checkWin(symbols); // Sprawdź wygraną dla danej linii
+        }
 
-        int winMultiplier = symbols[symbolIndex].getWinMultiplier();
-        return game.getStake() * winMultiplier;
+        // Sprawdza dwie linie na ukos
+        int[] diagonalSymbols1 = new int[3]; // Pierwsza linia na ukos
+        int[] diagonalSymbols2 = new int[3]; // Druga linia na ukos
+        for (int i = 0; i < 3; i++) {
+            diagonalSymbols1[i] = spinSymbols[i][i];
+            diagonalSymbols2[i] = spinSymbols[i][2 - i];
+        }
+        checkWin(diagonalSymbols1); // Sprawdza wygraną dla pierwszej linii na ukos
+        checkWin(diagonalSymbols2); // Sprawdza wygraną dla drugiej linii na ukos
     }
+
+    private boolean checkWin(int[] symbols) {
+        // Sprawdź, czy wszystkie symbole na danej linii są takie same
+        if (symbols[0] == symbols[1] && symbols[1] == symbols[2]) {
+            int multiplier = game.getMultiplier(symbols[0]);
+            int winAmount = game.getStake() * multiplier;
+            game.setLastWin(winAmount);
+        }
+        return false;
+    }
+
+    // Metoda do obracania bębnami
+    public int[][] spinReels() {
+        int[][] reelsSymbols = new int[3][];
+        for (int i = 0; i < 3; i++) {
+            reelsSymbols[i] = reelService.spin(i);
+        }
+        return reelsSymbols;
+    }
+
+
 }

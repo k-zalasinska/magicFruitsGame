@@ -28,6 +28,9 @@
         <Button fx:id="spinButton" text="Spin" onAction="#handleSpinButton" onMouseEntered="#handleSpinButtonHover"
                 onMousePressed="#handleSpinButtonPress" onMouseExited="#handleSpinButtonExit"/>
 
+        <Button fx:id="payInButton" text="PAY IN" onAction="#handlePayInButton" onMouseEntered="#handlePayInButtonHover"
+                onMousePressed="#handlePayInButtonPress" onMouseExited="#handlePayInButtonExit"/>
+
 
         <Label fx:id="balanceLabel" styleClass="BALANCE"/>
         <Label fx:id="lastWinLabel" styleClass="LAST WIN"/>

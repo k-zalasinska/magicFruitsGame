@@ -1,6 +1,5 @@
 package com.example.magicfruitsgame;
 
-import com.example.magicfruitsgame.controller.AnimationController;
 import com.example.magicfruitsgame.controller.SlotMachineController;
 import com.example.magicfruitsgame.model.Game;
 import com.example.magicfruitsgame.service.GameService;
@@ -32,10 +31,6 @@ public class Main extends Application {
             Game game = new Game();
             loader1.setControllerFactory(controllerClass -> new SlotMachineController(new SlotMachineService(reelService, gameService)));
             URL symbolsUrl = getClass().getResource("/symbols.fxml");
-
-            FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/animation.fxml"));
-            loader2.setControllerFactory(controllerClass -> new AnimationController(new SlotMachineService(reelService, gameService)));
-
 
             Parent root = loader1.load();
 

@@ -6,6 +6,7 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.magicfruitsgame.controller.SlotMachineController"
+
             fx:id="mainBorderPane">
 
 
@@ -35,6 +36,13 @@
         <Label fx:id="balanceLabel" styleClass="BALANCE"/>
         <Label fx:id="lastWinLabel" styleClass="LAST WIN"/>
         <Label fx:id="stakeLabel" styleClass="STAKE"/>
+
+
+        <ImageView fx:id="reelImageView1"/>
+        <ImageView fx:id="reelImageView2"/>
+        <ImageView fx:id="reelImageView3"/>
+
+
     </VBox>
 
     <ImageView fx:id="slotMachineImageView"/>

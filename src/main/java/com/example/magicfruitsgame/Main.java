@@ -12,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.Objects;
 
 public class Main extends Application {
@@ -27,17 +26,14 @@ public class Main extends Application {
 
             ReelService reelService = new ReelService(reelsDefinition);
             GameService gameService = new GameService(new Game());
-            FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/slot_machine.fxml"));
-            Game game = new Game();
-            loader1.setControllerFactory(controllerClass -> new SlotMachineController(new SlotMachineService(reelService, gameService)));
-            URL symbolsUrl = getClass().getResource("/symbols.fxml");
 
-            Parent root = loader1.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/slot_machine.fxml"));
+            SlotMachineService slotMachineService = new SlotMachineService(reelService, gameService);
+            loader.setControllerFactory(controllerClass -> new SlotMachineController(slotMachineService));
 
-            // Pobierz scenę z załadowanego korzenia
+            Parent root = loader.load();
+
             Scene scene = new Scene(root, 600, 400);
-
-            // Dodaj arkusz stylów do sceny
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/styles.css")).toExternalForm());
 
             primaryStage.setTitle("Slot Machine Game");
@@ -46,5 +42,9 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }

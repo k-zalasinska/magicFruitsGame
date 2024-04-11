@@ -12,10 +12,23 @@ public class SlotMachineService {
     private final ReelService reelService;
     private final GameService gameService;
     private int lastWin;
+    private ImageView reelImageView1;
+    private ImageView reelImageView2;
+    private ImageView reelImageView3;
 
-    public SlotMachineService(ReelService reelService, GameService gameService) {
+    ImageView[][] reelImageViews = {
+            {reelImageView1},
+            {reelImageView2},
+            {reelImageView3}
+    };
+
+    public SlotMachineService(ReelService reelService, GameService gameService, ImageView reelImageView1,
+                              ImageView reelImageView2, ImageView reelImageView3) {
         this.reelService = reelService;
         this.gameService = gameService;
+        this.reelImageView1 = reelImageView1;
+        this.reelImageView2 = reelImageView2;
+        this.reelImageView3 = reelImageView3;
     }
 
     public GameService getGameService() {
@@ -35,19 +48,44 @@ public class SlotMachineService {
         return reelsSymbols[1];
     }
 
+//    ImageView[][] reelImageViews = {{reelImageView1[0], reelImageView1[1], reelImageView1[2]},
+//            {reelImageView2[0], reelImageView2[1], reelImageView2[2]},
+//            {reelImageView3[0], reelImageView3[1], reelImageView3[2]}};
+
 
     public void animateSpinning(ImageView[][] reelImageViews, int[][] spinSymbols) {
-        int frameDuration = 3; //czas trwania jednego KeyFrame'a
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(frameDuration), e -> updateReels(reelImageViews, spinSymbols)));
-        timeline.setCycleCount(9 / frameDuration); // Określa liczbę cykli na podstawie całk czasu trw animacji i czasu trw jednego cyklu (KeyFrame)
+        int frameDuration = 3; // czas trwania jednego KeyFrame'a
+        int cycles = 9 / frameDuration; // liczba cykli animacji
+        Timeline timeline = new Timeline(); // tworzymy nową animację
+
+        for (int i = 0; i < cycles; i++) {
+            int cycleIndex = i; // index cyklu, używany w lambdzie
+
+            // Tworzymy KeyFrame dla każdego cyklu
+            KeyFrame keyFrame = new KeyFrame(Duration.seconds(frameDuration * i), e -> {
+                // Wywołujemy metodę aktualizacji bębnów dla danego cyklu
+                updateReels(reelImageViews, spinSymbols, cycleIndex);
+            });
+
+            // Dodajemy KeyFrame do animacji
+            timeline.getKeyFrames().add(keyFrame);
+        }
+
+        // Odpalamy animację
         timeline.play();
     }
 
-    private void updateReels(ImageView[][] reelImageViews, int[][] spinSymbols) {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+
+    private void updateReels(ImageView[][] reelImageViews, int[][] spinSymbols, int cycleIndex) {
+        int numberOfSymbols = spinSymbols.length;
+        int symbolsPerReel = spinSymbols[0].length;
+
+        for (int i = 0; i < numberOfSymbols; i++) {
+            for (int j = 0; j < symbolsPerReel; j++) {
                 int symbolIndex = spinSymbols[i][j];
-                Symbol symbol = symbolService.getSymbols().get(symbolIndex);
+                // Możemy użyć cyklu, aby określić, który zestaw symboli należy wyświetlić
+                int adjustedIndex = (symbolIndex + cycleIndex) % symbolService.getSymbols().size();
+                Symbol symbol = symbolService.getSymbols().get(adjustedIndex);
                 ImageView imageView = reelImageViews[i][j];
                 imageView.setImage(symbol.image());
             }

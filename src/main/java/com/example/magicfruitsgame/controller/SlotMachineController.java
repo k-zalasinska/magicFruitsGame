@@ -139,12 +139,15 @@ public class SlotMachineController implements Initializable {
     private void handleStartButton() {
         // Rozpoczyna animację obracania bębnów
         int[][] spinSymbols = slotMachineService.spinReels();
-        slotMachineService.startSpinningAnimation(new ImageView[][]{{reelImageView1}, {reelImageView2}, {reelImageView3}}, spinSymbols);
 
         // Wykonuje rozgrywkę
         slotMachineService.play();
         updateLabels();
+
+        // Aktualizuje obrazy bębnów na interfejsie użytkownika po zakończeniu animacji
+        updateReelImages(spinSymbols);
     }
+
 
     // Metoda aktualizująca etykiety na interfejsie użytkownika
     private void updateLabels() {

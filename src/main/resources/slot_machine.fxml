@@ -18,8 +18,7 @@
         <HBox alignment="CENTER_RIGHT">
             <!-- Placeholder for spacing -->
             <Region prefWidth="10"/>
-            <Button text="START" onAction="#handleSpinButton"/>
-
+            <Button text="START" onAction="#handleStartButton"/>
 
         </HBox>
     </bottom>

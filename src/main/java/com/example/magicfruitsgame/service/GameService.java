@@ -13,6 +13,14 @@ public class GameService {
         return game;
     }
 
+    public boolean isGameRunning() {
+        return game.isGameRunning();
+    }
+
+    public void startGame() {
+        game.startGame();
+    }
+
     // Metoda doładowująca stan konta
     public void deposit(int amount) {
         if (amount > 0) {

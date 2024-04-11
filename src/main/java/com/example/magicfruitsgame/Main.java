@@ -29,7 +29,7 @@ public class Main extends Application {
             GameService gameService = new GameService(new Game());
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/slot_machine.fxml"));
             Game game = new Game();
-            loader.setControllerFactory(controllerClass -> new SlotMachineController(new SlotMachineService(reelService, gameService), game));
+            loader.setControllerFactory(controllerClass -> new SlotMachineController(new SlotMachineService(reelService, gameService),));
             URL symbolsUrl = getClass().getResource("/symbols.fxml");
 
             Parent root = loader.load();

@@ -21,12 +21,12 @@ public class SlotMachineController implements Initializable {
     @FXML
     private ImageView slotMachineImageView;
 
-    private final Game game;
+    private final Game game=new Game();
     private final SlotMachineService slotMachineService;
 
-    public SlotMachineController() {
-        this.game = new Game();
-        this.slotMachineService = new SlotMachineService(game, new ReelService(),new GameService());
+
+    public SlotMachineController(ReelService reelService, GameService gameService) {
+        this.slotMachineService = new SlotMachineService(game, reelService, gameService);
     }
 
     @Override
@@ -75,7 +75,8 @@ public class SlotMachineController implements Initializable {
             slotMachineImageView.setImage(new Image("active_slot_machine.png"));
         } else {
             spinButton.setStyle("-fx-background-image: url('button_start_disable.png');");
-            slotMachineImageView.setImage(new Image("inactive_slot_machine.png"));
+            spinButton.setStyle("-fx-background-image: url('button_start_onhover.png');");
+
         }
     }
 }

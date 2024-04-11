@@ -9,9 +9,8 @@
 
 /* Styl dla etykiet */
 .label {
-    -fx-text-fill: white; /* Kolor tekstu */
-    -fx-font-size: 14px; /* Rozmiar czcionki */
-    /* Dodatkowe style w zależności od potrzeb */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
 }
 
 

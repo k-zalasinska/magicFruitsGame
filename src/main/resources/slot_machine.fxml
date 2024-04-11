@@ -26,14 +26,15 @@
         <HBox alignment="CENTER_RIGHT">
             <!-- Placeholder for spacing -->
             <Region prefWidth="10"/>
-            <Button text="START" onAction="#handleStartButton"/>
-            <Button text="PAY IN" onAction="#handlePayInButton"/>
-            <Button text="Auto Spin" onAction="#handleAutoSpinButton"/>
+            <Button text="START" onAction="#handleSpinButton"/>
+
         </HBox>
     </bottom>
 
 
         <VBox fx:id="balanceBox" styleClass="balance-box">
+            <Button fx:id="spinButton" onAction="#handleSpinButton" text="Spin" />
+
             <Label fx:id="balanceLabel" styleClass="BALANCE"/>
             <Label fx:id="lastWinLabel" styleClass="LAST WIN"/>
             <Label fx:id="stakeLabel" styleClass="STAKE"/>

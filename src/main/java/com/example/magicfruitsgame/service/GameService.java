@@ -1,15 +1,16 @@
 package com.example.magicfruitsgame.service;
 
+import com.example.magicfruitsgame.model.Game;
 import com.example.magicfruitsgame.model.Symbol;
 
 public class GameService {
-    private final Symbol[] symbols;
+    private final Game game;
 
-    public GameService(Symbol[] symbols) {
-        this.symbols = symbols;
+    public GameService(Game game) {
+        this.game = game;
     }
 
     public Symbol[] getSymbols() {
-        return symbols;
+        return game.getSymbols();
     }
 }

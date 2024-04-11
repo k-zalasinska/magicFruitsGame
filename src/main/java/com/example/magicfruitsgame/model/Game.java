@@ -4,6 +4,7 @@ public class Game {
     private int balance;
     private int stake;
     private int lastWin;
+    private Symbol[] symbols;
     private boolean gameActive;
 
     public Game() {
@@ -49,6 +50,9 @@ public class Game {
         this.lastWin = lastWin;
     }
 
+    public Symbol[] getSymbols() {
+        return symbols;
+    }
     public int getMultiplier(int symbol) {
         return switch (symbol) {
             case 0 -> 5;

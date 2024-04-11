@@ -11,13 +11,14 @@ public class SlotMachineService {
     private final ReelService reelService;
     private final GameService gameService;
     private int lastWin;
-
     public SlotMachineService(SymbolService symbolService, ReelService reelService, GameService gameService) {
         this.symbolService=symbolService;
         this.reelService = reelService;
         this.gameService = gameService;
     }
-
+    public GameService getGameService() {
+        return gameService;
+    }
     public int getLastWin() {
         return lastWin;
     }

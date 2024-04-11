@@ -9,6 +9,9 @@ public class GameService {
         this.game = game;
     }
 
+    public Game getGame() {
+        return game;
+    }
 
     // Metoda doładowująca stan konta
     public void deposit(int amount) {

@@ -12,15 +12,9 @@ import java.util.Optional;
 
 public class MainMenuController {
 
-    public GameService playerService;
-    public GameService gameService;
+   public GameService gameService;
 
-    public MainMenuController(GameService playerService, GameService gameService) {
-        this.playerService = playerService;
-        this.gameService = gameService;
-    }
-
-    public void setGameService(GameService gameService) {
+    public MainMenuController(GameService gameService) {
         this.gameService = gameService;
     }
 

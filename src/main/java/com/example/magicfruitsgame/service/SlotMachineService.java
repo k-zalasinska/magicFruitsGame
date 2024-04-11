@@ -1,7 +1,6 @@
 package com.example.magicfruitsgame.service;
 
 import com.example.magicfruitsgame.model.Game;
-
 import com.example.magicfruitsgame.model.Symbol;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -9,13 +8,23 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 public class SlotMachineService {
-    private final Game game;
-    private final SymbolService symbolService = new SymbolService();
+    private final SymbolService symbolService;
     private final ReelService reelService;
+    private final GameService gameService;
+    private int lastWin;
 
-    public SlotMachineService(Game game, ReelService reelService) {
-        this.game = game;
+    public SlotMachineService(SymbolService symbolService, ReelService reelService, GameService gameService) {
+        this.symbolService=symbolService;
         this.reelService = reelService;
+        this.gameService = gameService;
+    }
+
+    public int getLastWin() {
+        return lastWin;
+    }
+
+    public void setLastWin(int lastWin) {
+        this.lastWin = lastWin;
     }
 
     public int[] play(int[][] reelsDefinition) {
@@ -24,26 +33,25 @@ public class SlotMachineService {
 
         // Obrót każdego z trzech bębnów
         for (int i = 0; i < 3; i++) {
-            reelsSymbols[i] = reelService.spin(i); // Wywołanie metody spin dla każdego z bębnów
+            reelsSymbols[i] = reelService.spin(i);
         }
 
-        return reelsSymbols[1]; // Zwracamy symbole z środkowego bębna
+        return reelsSymbols[1];
     }
 
 
     public void animateSpinning(ImageView[][] reelImageViews, int[][] spinSymbols) {
         int frameDuration = 3; //czas trwania jednego KeyFrame'a
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(frameDuration), e -> updateReels(reelImageViews, spinSymbols)));
-        timeline.setCycleCount(9 / frameDuration); // Określ liczbę cykli na podstawie całkowitego czasu trwania animacji i czasu trwania jednego cyklu (KeyFrame)
+        timeline.setCycleCount(9 / frameDuration); // Określa liczbę cykli na podstawie całk czasu trw animacji i czasu trw jednego cyklu (KeyFrame)
         timeline.play();
     }
 
     private void updateReels(ImageView[][] reelImageViews, int[][] spinSymbols) {
-        int frameDuration = 9 / 3; //oblicza długość trwania pojedynczego obrotu walców
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 int symbolIndex = spinSymbols[i][j];
-                Symbol symbol = symbolService.getSymbols().get(symbolIndex);
+                Symbol symbol =symbolService.getSymbols().get(symbolIndex);
                 ImageView imageView = reelImageViews[i][j];
                 imageView.setImage(symbol.image());
             }
@@ -53,10 +61,9 @@ public class SlotMachineService {
     public void evaluateResult(int[][] spinSymbols) {
         if (checkWin(spinSymbols)) {
             calculateWinAmount(spinSymbols);
-            game.setBalance(game.getBalance() + game.getLastWin());
-            System.out.println("Congratulations! You won " + game.getLastWin() + " credits.");
+            System.out.println("Congratulations! You won " + getLastWin() + " credits.");
         } else {
-            game.setLastWin(0);
+            setLastWin(0);
             System.out.println("No win. Try again!");
         }
     }
@@ -85,7 +92,7 @@ public class SlotMachineService {
             for (int col = 0; col < 3; col++) {
                 symbols[col] = spinSymbols[col][row];
             }
-            checkWin(symbols); // Sprawdź wygraną dla danej linii
+            checkWin(symbols);
         }
 
         // Sprawdza dwie linie na ukos
@@ -100,11 +107,10 @@ public class SlotMachineService {
     }
 
     private void checkWin(int[] symbols) {
-        // Sprawdź, czy wszystkie symbole na danej linii są takie same
         if (symbols[0] == symbols[1] && symbols[1] == symbols[2]) {
-            int multiplier = ..................(symbols[0]);
-            int winAmount = game.getStake() * multiplier;
-            game.setLastWin(winAmount);
+            int multiplier = symbolService.winMultiplayer(symbols[0]);
+            int winAmount = gameService.getStake * multiplier;
+            setLastWin(winAmount);
         }
     }
 

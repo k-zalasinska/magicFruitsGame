@@ -3,13 +3,11 @@ package com.example.magicfruitsgame.model;
 public class Game {
     private int balance;
     private int stake;
-    private int lastWin;
     private boolean gameActive;
 
     public Game() {
         this.balance = 1000; // Początkowe saldo gracza
         this.stake = 10; // Początkowa stawka
-        this.lastWin = 0;
         this.gameActive = false;
     }
 
@@ -41,12 +39,5 @@ public class Game {
         this.stake = stake;
     }
 
-    public int getLastWin() {
-        return lastWin;
-    }
-
-    public void setLastWin(int lastWin) {
-        this.lastWin = lastWin;
-    }
 
 }

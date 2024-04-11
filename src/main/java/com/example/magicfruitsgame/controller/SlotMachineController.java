@@ -25,7 +25,7 @@ public class SlotMachineController implements Initializable {
 
 
     public SlotMachineController(ReelService reelService) {
-        this.slotMachineService = new SlotMachineService(game, reelService);
+        this.slotMachineService = new SlotMachineService(reelService);
     }
 
     @Override

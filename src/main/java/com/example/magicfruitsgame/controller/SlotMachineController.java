@@ -65,9 +65,10 @@ public class SlotMachineController implements Initializable {
             slotMachineImageView.setImage(new Image("button_start_normal.png"));
         } else {
             spinButton.setStyle("-fx-background-image: url('button_start_disable.png');");
-            spinButton.setStyle("-fx-background-image: url('button_start_onhover.png');");
+            slotMachineImageView.setImage(new Image("button_start_disable.png"));
         }
     }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

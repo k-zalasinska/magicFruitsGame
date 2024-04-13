@@ -20,7 +20,9 @@
         <VBox alignment="CENTER">
             <Label fx:id="balanceLabel" text="Balance:" styleClass="label"/>
             <Label fx:id="lastWinLabel" text="Last Win:" styleClass="label"/>
-            <Label fx:id="stakeLabel" text="Stake:" styleClass="label"/>
+            <Label fx:id="stakeLabel" text="10" styleClass="stake-label"/>
+
+
         </VBox>
     </bottom>
 
@@ -36,18 +38,30 @@
             <ImageView fx:id="reelImageView3_1" styleClass="reel-image" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
             <ImageView fx:id="reelImageView3_2" styleClass="reel-image" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
             <ImageView fx:id="reelImageView3_3" styleClass="reel-image" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+
+            <ImageView fx:id="startNormal" styleClass="reel-image"/>
+            <ImageView fx:id="startOnhover" styleClass="reel-image"/>
+            <ImageView fx:id="startOnpress" styleClass="reel-image"/>
+            <ImageView fx:id="startDisable" styleClass="reel-image"/>
         </GridPane>
     </center>
 
     <bottom>
-        <HBox alignment="BASELINE_RIGHT">
+        <HBox alignment="TOP_RIGHT">
             <!-- Placeholder for spacing -->
-            <Region prefWidth="10"/>
-            <Button text="START" onAction="#handleStartButton"/>
+            <Region prefWidth="7"/>
+
+            <Button fx:id="depositButton" text="Pay In" onMouseEntered="#handlePayInButtonHover"
+                    onMousePressed="#handlePayInButtonPress" onMouseExited="#handlePayInButtonExit"/>
         </HBox>
     </bottom>
 
-    <Button fx:id="startButton" text="Start" styleClass="button" onMouseEntered="#handleSpinButtonHover"
-            onMousePressed="#handleSpinButtonPress" onMouseExited="#handleSpinButtonExit"/>
+    <bottom>
+        <HBox alignment="BASELINE_LEFT">
+            <Button fx:id="startButton" text="Start" styleClass="button" onMouseEntered="#handleSpinButtonHover"
+                    onMousePressed="#handleSpinButtonPress" onMouseExited="#handleSpinButtonExit"/>
+        </HBox>
+    </bottom>
+
 
 </BorderPane>

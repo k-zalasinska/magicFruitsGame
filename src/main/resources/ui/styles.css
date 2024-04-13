@@ -22,51 +22,76 @@
 
 .balance-label {
     -fx-text-fill: black;
-    -fx-font-size: 20px;
+    -fx-font-size: 80px;
 }
 
 /* Styl dla etykiet */
-.label {
-    -fx-text-fill: white;
-    -fx-font-size: 14px;
+.stake-label {
+    -fx-text-fill: white; /* Kolor tekstu */
+    -fx-font-size: 16px; /* Rozmiar czcionki */
 }
 
-/* Style for PAY IN button */
-.button#payInButton {
+#depositButton {
     -fx-background-image: url("views/button_payin_normal.png");
+    -fx-margin: 10px; /* Ustawienie marginesu */
 }
 
-.button#payInButton:hover {
-    -fx-background-image: url("views/button_payin_onhover.png");
+#depositButton {
+    -fx-background-image: url("views/button_payin_normal.png");
+    -fx-position: absolute; /* Ustawienie absolutnego pozycjonowania */
+    -fx-top: 20px; /* Odległość od góry */
+    -fx-right: 20px; /* Odległość od prawej krawędzi */
 }
 
-.button#payInButton:pressed {
-    -fx-background-image: url("views/button_payin_onpress.png");
+#depositButton {
+    -fx-background-image: url('views/button_payin_normal.png');
 }
 
-.button#payInButton:disabled {
-    -fx-background-image: url("views/button_payin_disable.png");
+#depositButton:hover {
+    -fx-background-image: url('views/button_payin_onhover.png');
+}
+
+#depositButton:pressed {
+    -fx-background-image: url('views/button_payin_onpress.png');
+}
+
+#depositButton:disabled {
+    -fx-background-image: url('views/button_payin_disable.png');
 }
 
 
 /* Styl domyślny dla przycisku START */
-.button#startButton {
-    -fx-background-image: url("views/button_start_normal.png");
+
+#startNormal {
+    -fx-background-image: url('views/button_start_normal.png');
 }
 
-/* Zmiana wyglądu po najechaniu kursorem na przycisk */
-.button#startButton:hover {
-    /* Jeśli gra trwa */
-    -fx-background-image: url("views/button_start_onhover.png");
+#startOnhover {
+    -fx-background-image: url('views/button_start_onhover.png');
 }
 
-/* Zmiana wyglądu po naciśnięciu przycisku */
-.button#startButton:pressed {
-    /* Jeśli gra trwa */
-    -fx-background-image: url("views/button_start_onpress.png");
+#startOnpress {
+    -fx-background-image: url('views/button_start_onpress.png');
 }
 
-/* Dodatkowy styl dla wyłączonego przycisku */
-.button#startButton:disabled {
-    -fx-background-image: url("views/button_start_disable.png");
+#startDisable {
+    -fx-background-image: url('views/button_start_disable.png');
+}
+
+
+#mainBorderPane {
+    -fx-background-color: url("../background.jpg"), linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8));
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 20px;
+    -fx-font-size: 20px;
+    -fx-text-fill: yellow;
+}
+
+.stake-label {
+    -fx-background-color: rgba(255, 255, 255, 0.5);
+    -fx-padding: 5px;
+    -fx-border-radius: 5px;
+    -fx-background-insets: 0 0 0 10px;
 }

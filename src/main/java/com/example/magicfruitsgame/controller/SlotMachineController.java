@@ -54,6 +54,9 @@ public class SlotMachineController implements Initializable {
     private Button startButton;
 
     @FXML
+    private Button depositButton;
+
+    @FXML
     private Label balanceLabel;
     @FXML
     private Label lastWinLabel;
@@ -99,6 +102,7 @@ public class SlotMachineController implements Initializable {
         // Utworzenie instancji SlotMachineService
         this.slotMachineService = new SlotMachineService(reelService, gameService);
         slotMachineService.setReelImageViews(reelImageViews);
+
         // Aktualizacja interfejsu użytkownika
         updateUI();
     }
@@ -141,25 +145,6 @@ public class SlotMachineController implements Initializable {
         slotMachineService.startSpinningAnimation(spinSymbols);
     }
 
-    // Metoda obsługująca kliknięcie przycisku "Deposit"
-    @FXML
-    private void handlePayInButton() {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Deposit");
-        dialog.setHeaderText("Enter the amount to deposit:");
-        dialog.setContentText("Amount:");
-
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(amount -> {
-            try {
-                int depositAmount = Integer.parseInt(amount);
-                slotMachineService.topUpBalance(depositAmount);
-                updateUI();
-            } catch (NumberFormatException e) {
-                System.err.println("Invalid input. Please enter a valid number.");
-            }
-        });
-    }
 
     // Metoda obsługująca zdarzenie najechania kursorem na przycisk "Start"
     @FXML
@@ -187,29 +172,55 @@ public class SlotMachineController implements Initializable {
         }
     }
 
-    // Metoda obsługująca zdarzenie najechania kursorem na przycisk "Deposit"
+    // Metoda obsługująca kliknięcie przycisku "Deposit"
+    @FXML
+    private void handlePayInButton() {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Deposit");
+        dialog.setHeaderText("Enter the amount to deposit:");
+        dialog.setContentText("Amount:");
+
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(amount -> {
+            try {
+                int depositAmount = Integer.parseInt(amount);
+                slotMachineService.topUpBalance(depositAmount);
+                updateUI();
+            } catch (NumberFormatException e) {
+                System.err.println("Invalid input. Please enter a valid number.");
+            }
+        });
+    }
+
     @FXML
     private void handlePayInButtonHover() {
         if (slotMachineService.getGameService().isGameRunning()) {
-            spinButton.setStyle("-fx-background-image: url('views/button_payin_onhover.png');");
+            depositButton.getStyleClass().clear(); // Wyczyść wszystkie style
+            depositButton.getStyleClass().add("deposit-hover"); // Dodaj styl dla hover
+            slotMachineImageView.setImage(new Image("views/button_payin_onhover.png"));
         }
     }
 
-    // Metoda obsługująca zdarzenie naciśnięcia przycisku "Deposit"
     @FXML
     private void handlePayInButtonPress() {
         if (slotMachineService.getGameService().isGameRunning()) {
-            spinButton.setStyle("-fx-background-image: url('views/button_payin_onpress.png');");
+            depositButton.getStyleClass().clear(); // Wyczyść wszystkie style
+            depositButton.getStyleClass().add("deposit-press"); // Dodaj styl dla naciśnięcia
+            slotMachineImageView.setImage(new Image("views/button_payin_onpress.png"));
+            handlePayInButton();
         }
     }
 
-    // Metoda obsługująca zdarzenie zakończenia najechania kursorem na przycisk "Deposit"
     @FXML
     private void handlePayInButtonExit() {
         if (slotMachineService.getGameService().isGameRunning()) {
-            spinButton.setStyle("-fx-background-image: url('views/button_payin_normal.png');");
+            depositButton.getStyleClass().clear(); // Wyczyść wszystkie style
+            depositButton.getStyleClass().add("deposit-normal"); // Dodaj styl dla stanu normalnego
+            slotMachineImageView.setImage(new Image("views/button_payin_normal.png"));
         } else {
-            spinButton.setStyle("-fx-background-image: url('views/button_payin_disable.png');");
+            depositButton.getStyleClass().clear(); // Wyczyść wszystkie style
+            depositButton.getStyleClass().add("deposit-disable"); // Dodaj styl dla stanu wyłączonego
+            slotMachineImageView.setImage(new Image("views/button_payin_disable.png"));
         }
     }
 
@@ -275,7 +286,6 @@ public class SlotMachineController implements Initializable {
     }
 
     public SlotMachineController() {
-        // Kod konstruktora, jeśli jest potrzebny
     }
 
 }

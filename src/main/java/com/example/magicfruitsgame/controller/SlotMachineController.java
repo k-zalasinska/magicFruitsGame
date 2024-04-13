@@ -28,7 +28,6 @@ public class SlotMachineController implements Initializable {
 
     @FXML
     private ImageView[][] reelImageViews;
-
     @FXML
     private ImageView reelImageView1_1;
     @FXML
@@ -74,13 +73,7 @@ public class SlotMachineController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Inicjalizacja tablicy reels
-//        int[][] reels = {
-//                {0, 4, 0, 0, 0, 2, 2, 3, 1, 4, 0, 6, 0, 1, 0, 0, 5, 1, 1, 3},
-//                {2, 5, 1, 2, 0, 1, 3, 5, 2, 6, 1, 0, 0, 0, 1, 3, 4, 4, 0, 4},
-//                {5, 2, 1, 0, 0, 3, 4, 0, 2, 6, 0, 2, 0, 0, 0, 1, 1, 3, 0, 4}
-//        };
-        // Inicjalizacja pól obrazów bębnów
+        // Inicjalizacja tablicy reelImageViews
         initializeReelImageViews();
 
         // Dodanie obsługi zdarzeń dla przycisku "Start"
@@ -133,7 +126,6 @@ public class SlotMachineController implements Initializable {
         reelImageViews[0] = new ImageView[]{reelImageView1_1, reelImageView1_2, reelImageView1_3};
         reelImageViews[1] = new ImageView[]{reelImageView2_1, reelImageView2_2, reelImageView2_3};
         reelImageViews[2] = new ImageView[]{reelImageView3_1, reelImageView3_2, reelImageView3_3};
-        slotMachineService.setReelImageViews(reelImageViews);
     }
 
     // Metoda obsługująca kliknięcie przycisku "Start"
@@ -212,17 +204,6 @@ public class SlotMachineController implements Initializable {
             spinButton.setStyle("-fx-background-image: url('views/button_payin_normal.png');");
         } else {
             spinButton.setStyle("-fx-background-image: url('views/button_payin_disable.png');");
-        }
-    }
-
-    // Metoda do aktualizacji obrazów bębnów
-    private void updateReelImages(int[][] spinSymbols) {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                int symbolIndex = spinSymbols[i][j];
-                ImageView imageView = reelImageViews[i][j];
-                imageView.setImage(slotMachineService.getSymbolImage(symbolIndex));
-            }
         }
     }
 

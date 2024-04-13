@@ -13,12 +13,12 @@
 }
 
 
-/* Pozostałe style */
-
 #mainBorderPane {
     -fx-background-image: url("../background.jpg");
     -fx-background-size: cover;
+    -fx-background-position: center;
 }
+
 
 .balance-label {
     -fx-text-fill: black;
@@ -31,32 +31,22 @@
     -fx-font-size: 16px; /* Rozmiar czcionki */
 }
 
-#depositButton {
-    -fx-background-image: url("views/button_payin_normal.png");
-    -fx-margin: 10px; /* Ustawienie marginesu */
+
+/* Styl domyślny dla przycisku PAY IN */
+.button#startButton {
+    -fx-background-image: url("/views/button_payin_normal.png");
 }
 
-#depositButton {
-    -fx-background-image: url("views/button_payin_normal.png");
-    -fx-position: absolute; /* Ustawienie absolutnego pozycjonowania */
-    -fx-top: 20px; /* Odległość od góry */
-    -fx-right: 20px; /* Odległość od prawej krawędzi */
+.button#startButton:hover {
+    -fx-background-image: url("/views/button_payin_onhover.png");
 }
 
-#depositButton {
-    -fx-background-image: url('views/button_payin_normal.png');
+.button#startButton:pressed {
+    -fx-background-image: url("/views/button_payin_onpress.png");
 }
 
-#depositButton:hover {
-    -fx-background-image: url('views/button_payin_onhover.png');
-}
-
-#depositButton:pressed {
-    -fx-background-image: url('views/button_payin_onpress.png');
-}
-
-#depositButton:disabled {
-    -fx-background-image: url('views/button_payin_disable.png');
+.button#startButton:disabled {
+    -fx-background-image: url("/views/button_payin_disable.png");
 }
 
 
@@ -75,25 +65,4 @@
 
 .button#startButton:disabled {
     -fx-background-image: url("/views/button_start_disable.png");
-}
-
-
-#mainBorderPane {
-    -fx-background-color: url("../background.jpg"), linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8));
-    -fx-background-size: cover;
-    -fx-background-position: center;
-    -fx-background-repeat: no-repeat;
-    -fx-padding: 100px;
-    -fx-font-size: 100px;
-    -fx-text-fill: yellow;
-}
-
-.stake-label {
-    -fx-background-image: url('background.jpg');
-    -fx-background-size: contain;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-padding: 10px; /* Doda dodatkowy odstęp wokół tekstu */
-    -fx-text-fill: white; /* Kolor tekstu */
-    -fx-font-size: 20px; /* Rozmiar czcionki */
 }

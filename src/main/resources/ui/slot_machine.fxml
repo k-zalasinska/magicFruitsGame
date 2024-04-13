@@ -43,17 +43,8 @@
     </center>
 
     <bottom>
-        <HBox alignment="TOP_RIGHT">
-            <!-- Placeholder for spacing -->
-            <Region prefWidth="7"/>
-
-            <Button fx:id="depositButton" text="Pay In" onMouseEntered="#handlePayInButtonHover"
-                    onMousePressed="#handlePayInButtonPress" onMouseExited="#handlePayInButtonExit"/>
-        </HBox>
-    </bottom>
-
-    <bottom>
         <Button fx:id="startButton" text="Start" styleClass="button"/>
+        <Button fx:id="depositButton" text="Start" styleClass="button"/>
     </bottom>
 
 

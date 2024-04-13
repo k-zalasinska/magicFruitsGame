@@ -15,6 +15,7 @@ public class SlotMachineService {
     private int lastWin;
     private ImageView[][] reelImageViews;
 
+
     public SlotMachineService(ReelService reelService, GameService gameService) {
         this.reelService = reelService;
         this.gameService = gameService;
@@ -86,48 +87,23 @@ public class SlotMachineService {
         }
     }
 
-    public void evaluateResult(int[][] spinSymbols) {
-        if (checkWin(spinSymbols)) {
-            calculateWinAmount(spinSymbols);
-            System.out.println("Congratulations! You won " + getLastWin() + " credits.");
-        } else {
-            setLastWin(0);
-            System.out.println("No win. Try again!");
-        }
-    }
-
-    private boolean checkWin(int[][] spinSymbols) {
-        // Sprawdź poziome linie wygrywające
+    public void calculateWinAmount(int[][] spinSymbols) {
+        // Sprawdź poziome linie
         for (int i = 0; i < 3; i++) {
-            if (spinSymbols[i][0] == spinSymbols[i][1] && spinSymbols[i][1] == spinSymbols[i][2]) {
-                return true;
-            }
-        }
-
-        // Sprawdź przekątne linie
-        return (spinSymbols[0][0] == spinSymbols[1][1] && spinSymbols[1][1] == spinSymbols[2][2]) ||
-                (spinSymbols[0][2] == spinSymbols[1][1] && spinSymbols[1][1] == spinSymbols[2][0]);
-    }
-
-    private void calculateWinAmount(int[][] spinSymbols) {
-        // Sprawdza trzy poziome linie
-        for (int row = 0; row < 3; row++) {
-            int[] symbols = new int[3]; // Przechowuje symbole na danej linii
-            for (int col = 0; col < 3; col++) {
-                symbols[col] = spinSymbols[col][row];
-            }
+            int[] symbols = new int[3];
+            System.arraycopy(spinSymbols[i], 0, symbols, 0, 3);
             checkWin(symbols);
         }
 
-        // Sprawdza dwie linie na ukos
-        int[] diagonalSymbols1 = new int[3]; // Pierwsza linia na ukos
-        int[] diagonalSymbols2 = new int[3]; // Druga linia na ukos
+        // Sprawdź dwie przekątne linie
+        int[] diagonalSymbols1 = new int[3];
+        int[] diagonalSymbols2 = new int[3];
         for (int i = 0; i < 3; i++) {
             diagonalSymbols1[i] = spinSymbols[i][i];
             diagonalSymbols2[i] = spinSymbols[i][2 - i];
         }
-        checkWin(diagonalSymbols1); // Sprawdza wygraną dla pierwszej linii na ukos
-        checkWin(diagonalSymbols2); // Sprawdza wygraną dla drugiej linii na ukos
+        checkWin(diagonalSymbols1);
+        checkWin(diagonalSymbols2);
     }
 
     private void checkWin(int[] symbols) {

@@ -12,7 +12,9 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 
 import java.net.URL;
 import java.util.Optional;
@@ -65,8 +67,6 @@ public class SlotMachineController implements Initializable {
     @FXML
     private BorderPane mainBorderPane;
 
-    @FXML
-    private VBox container;
 
     public SlotMachineController() {
         // Konstruktor bezparametrowy
@@ -220,4 +220,57 @@ public class SlotMachineController implements Initializable {
     public ImageView[][] getReelImageViews() {
         return reelImageViews;
     }
+
+
+    public void evaluateResult(int[][] spinSymbols) {
+        boolean horizontalWin = false;
+        boolean diagonalWin = false;
+
+        // Sprawdź poziome linie wygrywające
+        for (int i = 0; i < 3; i++) {
+            if (spinSymbols[i][0] == spinSymbols[i][1] && spinSymbols[i][1] == spinSymbols[i][2]) {
+                horizontalWin = true;
+                drawWinningLine(i, 0, i, 2); // Dodaj przekreślenie poziomej linii
+            }
+        }
+
+        // Sprawdź przekątne linie
+        if ((spinSymbols[0][0] == spinSymbols[1][1] && spinSymbols[1][1] == spinSymbols[2][2]) ||
+                (spinSymbols[0][2] == spinSymbols[1][1] && spinSymbols[1][1] == spinSymbols[2][0])) {
+            diagonalWin = true;
+            // Dodaj przekreślenia dla obu przekątnych linii
+            drawWinningLine(0, 0, 2, 2);
+            drawWinningLine(0, 2, 2, 0);
+        }
+
+        // Obsługa wygranej
+        if (horizontalWin || diagonalWin) {
+            slotMachineService.calculateWinAmount(spinSymbols);
+            System.out.println("Congratulations! You won " + slotMachineService.getLastWin() + " credits.");
+        } else {
+            slotMachineService.setLastWin(0);
+            System.out.println("No win. Try again!");
+        }
+
+    }
+
+    @FXML
+    private Pane container; // Załóżmy, że masz kontroler z polem container reprezentującym kontener
+
+    private void drawWinningLine(int startX, int startY, int endX, int endY) {
+        // Zmienna lokalna dla metody drawWinningLine
+        double symbolWidth = 100.0; // Przykładowa szerokość symbolu
+        double symbolHeight = 100.0; // Przykładowa wysokość symbolu
+
+        Line line = new Line();
+        line.setStartX(startX * symbolWidth + symbolWidth / 2);
+        line.setStartY(startY * symbolHeight + symbolHeight / 2);
+        line.setEndX(endX * symbolWidth + symbolWidth / 2);
+        line.setEndY(endY * symbolHeight + symbolHeight / 2);
+        line.setStrokeWidth(3);
+        line.setStroke(Color.RED);
+        // Dodaj przekreślenie do kontenera
+        container.getChildren().add(line);
+    }
+
 }

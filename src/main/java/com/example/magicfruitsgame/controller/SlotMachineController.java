@@ -49,7 +49,7 @@ public class SlotMachineController implements Initializable {
     private ImageView reelImageView3_3;
 
     @FXML
-    private Button buttonStart;
+    private Button startButton;
 
     @FXML
     private Label balanceLabel;
@@ -82,7 +82,7 @@ public class SlotMachineController implements Initializable {
         initializeReelImageViews();
 
         // Dodanie obsługi zdarzeń dla przycisku "Start"
-        buttonStart.setOnAction(event -> handleStartButton());
+        startButton.setOnAction(event -> handleStartButton());
 
         // Inicjalizacja ReelService i GameService
         ReelService reelService = new ReelService(reels);
@@ -117,10 +117,10 @@ public class SlotMachineController implements Initializable {
 
         // Ustawienie stylu przycisku "Start" w zależności od stanu gry
         if (slotMachineService.getGameService().isGameRunning()) {
-            buttonStart.setStyle("-fx-background-image: url('views/button_start_normal.png');");
+            startButton.setStyle("-fx-background-image: url('views/button_start_normal.png');");
             slotMachineImageView.setImage(new Image("views/button_start_normal.png"));
         } else {
-            buttonStart.setStyle("-fx-background-image: url('views/button_start_disable.png');");
+            startButton.setStyle("-fx-background-image: url('views/button_start_disable.png');");
             slotMachineImageView.setImage(new Image("views/button_start_disable.png"));
         }
     }
@@ -160,7 +160,7 @@ public class SlotMachineController implements Initializable {
         });
     }
 
-    // Metoda obsługująca zdarzenie najechania kursorem na przycisk "Spin"
+    // Metoda obsługująca zdarzenie najechania kursorem na przycisk "Start"
     @FXML
     private void handleSpinButtonHover() {
         if (slotMachineService.getGameService().isGameRunning()) {
@@ -168,7 +168,7 @@ public class SlotMachineController implements Initializable {
         }
     }
 
-    // Metoda obsługująca zdarzenie naciśnięcia przycisku "Spin"
+    // Metoda obsługująca zdarzenie naciśnięcia przycisku "Start"
     @FXML
     private void handleSpinButtonPress() {
         if (slotMachineService.getGameService().isGameRunning()) {
@@ -176,7 +176,7 @@ public class SlotMachineController implements Initializable {
         }
     }
 
-    // Metoda obsługująca zdarzenie zakończenia najechania kursorem na przycisk "Spin"
+    // Metoda obsługująca zdarzenie zakończenia najechania kursorem na przycisk "Start"
     @FXML
     private void handleSpinButtonExit() {
         if (slotMachineService.getGameService().isGameRunning()) {

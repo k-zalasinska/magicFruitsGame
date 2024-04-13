@@ -33,6 +33,10 @@
         </HBox>
     </bottom>
 
+    <Button fx:id="startButton" text="Start" styleClass="button" onMouseEntered="#handleSpinButtonHover"
+            onMousePressed="#handleSpinButtonPress" onMouseExited="#handleSpinButtonExit"/>
+
+
     <VBox fx:id="container" xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml">
         <!-- Zawartość kontenera -->

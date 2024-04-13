@@ -48,19 +48,25 @@
     -fx-background-image: url("views/button_payin_disable.png");
 }
 
-/* Style for START button */
+
+/* Styl domyślny dla przycisku START */
 .button#startButton {
     -fx-background-image: url("views/button_start_normal.png");
 }
 
+/* Zmiana wyglądu po najechaniu kursorem na przycisk */
 .button#startButton:hover {
+    /* Jeśli gra trwa */
     -fx-background-image: url("views/button_start_onhover.png");
 }
 
+/* Zmiana wyglądu po naciśnięciu przycisku */
 .button#startButton:pressed {
+    /* Jeśli gra trwa */
     -fx-background-image: url("views/button_start_onpress.png");
 }
 
+/* Dodatkowy styl dla wyłączonego przycisku */
 .button#startButton:disabled {
     -fx-background-image: url("views/button_start_disable.png");
 }

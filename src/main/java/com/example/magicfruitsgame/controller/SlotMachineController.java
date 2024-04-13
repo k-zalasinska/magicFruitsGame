@@ -1,109 +1,161 @@
 package com.example.magicfruitsgame.controller;
 
+import com.example.magicfruitsgame.model.Game;
+import com.example.magicfruitsgame.service.GameService;
+import com.example.magicfruitsgame.service.ReelService;
 import com.example.magicfruitsgame.service.SlotMachineService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class SlotMachineController implements Initializable {
-    private final SlotMachineService slotMachineService;
+    private SlotMachineService slotMachineService;
+
+    private final int[][] reels = {
+            {0, 4, 0, 0, 0, 2, 2, 3, 1, 4, 0, 6, 0, 1, 0, 0, 5, 1, 1, 3},
+            {2, 5, 1, 2, 0, 1, 3, 5, 2, 6, 1, 0, 0, 0, 1, 3, 4, 4, 0, 4},
+            {5, 2, 1, 0, 0, 3, 4, 0, 2, 6, 0, 2, 0, 0, 0, 1, 1, 3, 0, 4}
+    };
 
     @FXML
-    private ImageView reelImageView1;
+    private ImageView[][] reelImageViews;
 
     @FXML
-    private ImageView reelImageView2;
+    private ImageView reelImageView1_1;
+    @FXML
+    private ImageView reelImageView1_2;
+    @FXML
+    private ImageView reelImageView1_3;
+    @FXML
+    private ImageView reelImageView2_1;
+    @FXML
+    private ImageView reelImageView2_2;
+    @FXML
+    private ImageView reelImageView2_3;
+    @FXML
+    private ImageView reelImageView3_1;
+    @FXML
+    private ImageView reelImageView3_2;
+    @FXML
+    private ImageView reelImageView3_3;
 
     @FXML
-    private ImageView reelImageView3;
+    private Button buttonStart;
 
     @FXML
     private Label balanceLabel;
-
     @FXML
     private Label lastWinLabel;
-
     @FXML
     private Label stakeLabel;
     @FXML
     private Button spinButton;
-
     @FXML
     private ImageView slotMachineImageView;
-
     @FXML
-    private TextField depositAmountField;
+    private VBox container;
 
-    public SlotMachineController(SlotMachineService slotMachineService) {
-        this.slotMachineService = slotMachineService;
+    public SlotMachineController() {
+        // Konstruktor bezparametrowy
     }
 
-    @FXML
-    private void handleSpinButton() {
-        if (slotMachineService.getGameService().isGameRunning()) {
-            int[][] symbols = slotMachineService.spinReels();
-            slotMachineService.evaluateResult(symbols);
-            updateUI();
-        } else {
-            slotMachineService.getGameService().startGame();
-            updateUI();
-        }
+    public SlotMachineController(ReelService reelService, GameService gameService) {
+        this.slotMachineService = new SlotMachineService(reelService, gameService);
     }
 
-    @FXML
-    private void handleSpinButtonHover() {
-        if (slotMachineService.getGameService().isGameRunning()) {
-            spinButton.setStyle("-fx-background-image: url('button_start_onhover.png');");
-        }
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // Inicjalizacja tablicy reels
+//        int[][] reels = {
+//                {0, 4, 0, 0, 0, 2, 2, 3, 1, 4, 0, 6, 0, 1, 0, 0, 5, 1, 1, 3},
+//                {2, 5, 1, 2, 0, 1, 3, 5, 2, 6, 1, 0, 0, 0, 1, 3, 4, 4, 0, 4},
+//                {5, 2, 1, 0, 0, 3, 4, 0, 2, 6, 0, 2, 0, 0, 0, 1, 1, 3, 0, 4}
+//        };
+        // Inicjalizacja pól obrazów bębnów
+        initializeReelImageViews();
+
+        // Dodanie obsługi zdarzeń dla przycisku "Start"
+        buttonStart.setOnAction(event -> handleStartButton());
+
+        // Inicjalizacja ReelService i GameService
+        ReelService reelService = new ReelService(reels);
+        GameService gameService = new GameService(new Game());
+
+        // Inicjalizacja tablicy reelImageViews
+        ImageView[][] reelImageViews = new ImageView[][]{
+                {reelImageView1_1, reelImageView1_2, reelImageView1_3},
+                {reelImageView2_1, reelImageView2_2, reelImageView2_3},
+                {reelImageView3_1, reelImageView3_2, reelImageView3_3}
+        };
+
+        // Utworzenie instancji SlotMachineService
+        this.slotMachineService = new SlotMachineService(reelService, gameService);
+        slotMachineService.setReelImageViews(reelImageViews);
+        // Aktualizacja interfejsu użytkownika
+        updateUI();
     }
 
-    @FXML
-    private void handleSpinButtonPress() {
-        if (slotMachineService.getGameService().isGameRunning()) {
-            spinButton.setStyle("-fx-background-image: url('button_start_onpress.png');");
-        }
-    }
 
-    @FXML
-    private void handleSpinButtonExit() {
-        if (slotMachineService.getGameService().isGameRunning()) {
-            spinButton.setStyle("-fx-background-image: url('button_start_normal.png');");
-        } else {
-            spinButton.setStyle("-fx-background-image: url('button_start_disable.png');");
-        }
-    }
-
+    // Metoda do aktualizacji interfejsu użytkownika
     private void updateUI() {
+        // Pobierz wartości do wyświetlenia
+        int balance = slotMachineService.getBalance();
+        int lastWin = slotMachineService.getLastWin();
+        int stake = slotMachineService.getStake();
+
+        // Ustaw wartości na kontrolkach UI
+        balanceLabel.setText("Balance: " + balance);
+        lastWinLabel.setText("Last Win: " + lastWin);
+        stakeLabel.setText("Stake: " + stake);
+
+        // Ustawienie stylu przycisku "Start" w zależności od stanu gry
         if (slotMachineService.getGameService().isGameRunning()) {
-            spinButton.setStyle("-fx-background-image: url('button_start_normal.png');");
-            slotMachineImageView.setImage(new Image("button_start_normal.png"));
+            buttonStart.setStyle("-fx-background-image: url('views/button_start_normal.png');");
+            slotMachineImageView.setImage(new Image("views/button_start_normal.png"));
         } else {
-            spinButton.setStyle("-fx-background-image: url('button_start_disable.png');");
-            slotMachineImageView.setImage(new Image("button_start_disable.png"));
+            buttonStart.setStyle("-fx-background-image: url('views/button_start_disable.png');");
+            slotMachineImageView.setImage(new Image("views/button_start_disable.png"));
         }
     }
 
+    // Metoda inicjalizująca pola ImageView
+    public void initializeReelImageViews() {
+        reelImageViews = new ImageView[3][3];
+        reelImageViews[0] = new ImageView[]{reelImageView1_1, reelImageView1_2, reelImageView1_3};
+        reelImageViews[1] = new ImageView[]{reelImageView2_1, reelImageView2_2, reelImageView2_3};
+        reelImageViews[2] = new ImageView[]{reelImageView3_1, reelImageView3_2, reelImageView3_3};
+        slotMachineService.setReelImageViews(reelImageViews);
+    }
+
+    // Metoda obsługująca kliknięcie przycisku "Start"
+    @FXML
+    private void handleStartButton() {
+        int[][] spinSymbols = slotMachineService.spinReels();
+        slotMachineService.startSpinningAnimation(spinSymbols);
+    }
+
+    // Metoda obsługująca kliknięcie przycisku "Deposit"
     @FXML
     private void handlePayInButton() {
-        // Tworzymy okno dialogowe do wprowadzenia kwoty doładowania
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Deposit");
         dialog.setHeaderText("Enter the amount to deposit:");
         dialog.setContentText("Amount:");
 
-        // Pobieramy wprowadzoną kwotę z okna dialogowego
-        dialog.showAndWait().ifPresent(amount -> {
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(amount -> {
             try {
                 int depositAmount = Integer.parseInt(amount);
-                slotMachineService.getGameService().deposit(depositAmount);
+                slotMachineService.topUpBalance(depositAmount);
                 updateUI();
             } catch (NumberFormatException e) {
                 System.err.println("Invalid input. Please enter a valid number.");
@@ -111,73 +163,75 @@ public class SlotMachineController implements Initializable {
         });
     }
 
+    // Metoda obsługująca zdarzenie najechania kursorem na przycisk "Spin"
+    @FXML
+    private void handleSpinButtonHover() {
+        if (slotMachineService.getGameService().isGameRunning()) {
+            spinButton.setStyle("-fx-background-image: url('views/button_start_onhover.png');");
+        }
+    }
 
+    // Metoda obsługująca zdarzenie naciśnięcia przycisku "Spin"
+    @FXML
+    private void handleSpinButtonPress() {
+        if (slotMachineService.getGameService().isGameRunning()) {
+            spinButton.setStyle("-fx-background-image: url('views/button_start_onpress.png');");
+        }
+    }
+
+    // Metoda obsługująca zdarzenie zakończenia najechania kursorem na przycisk "Spin"
+    @FXML
+    private void handleSpinButtonExit() {
+        if (slotMachineService.getGameService().isGameRunning()) {
+            spinButton.setStyle("-fx-background-image: url('views/button_start_normal.png');");
+        } else {
+            spinButton.setStyle("-fx-background-image: url('views/button_start_disable.png');");
+        }
+    }
+
+    // Metoda obsługująca zdarzenie najechania kursorem na przycisk "Deposit"
     @FXML
     private void handlePayInButtonHover() {
         if (slotMachineService.getGameService().isGameRunning()) {
-            spinButton.setStyle("-fx-background-image: url('button_payin_onhover.png');");
+            spinButton.setStyle("-fx-background-image: url('views/button_payin_onhover.png');");
         }
     }
 
+    // Metoda obsługująca zdarzenie naciśnięcia przycisku "Deposit"
     @FXML
     private void handlePayInButtonPress() {
         if (slotMachineService.getGameService().isGameRunning()) {
-            spinButton.setStyle("-fx-background-image: url('button_payin_onpress.png');");
+            spinButton.setStyle("-fx-background-image: url('views/button_payin_onpress.png');");
         }
     }
 
+    // Metoda obsługująca zdarzenie zakończenia najechania kursorem na przycisk "Deposit"
     @FXML
     private void handlePayInButtonExit() {
         if (slotMachineService.getGameService().isGameRunning()) {
-            spinButton.setStyle("-fx-background-image: url('button_payin_normal.png');");
+            spinButton.setStyle("-fx-background-image: url('views/button_payin_normal.png');");
         } else {
-            spinButton.setStyle("-fx-background-image: url('button_payin_disable.png');");
+            spinButton.setStyle("-fx-background-image: url('views/button_payin_disable.png');");
         }
     }
 
-    @FXML
-    private void handleStartButton() {
-        // Rozpoczyna animację obracania bębnów
-        int[][] spinSymbols = slotMachineService.spinReels();
-
-        // Wykonuje rozgrywkę
-        slotMachineService.play();
-        updateLabels();
-
-        // Aktualizuje obrazy bębnów na interfejsie użytkownika po zakończeniu animacji
-        updateReelImages(spinSymbols);
-    }
-
-
-    // Metoda aktualizująca etykiety na interfejsie użytkownika
-    private void updateLabels() {
-        balanceLabel.setText("Balance: " + slotMachineService.getBalance());
-        lastWinLabel.setText("Last Win: " + slotMachineService.getLastWin());
-        stakeLabel.setText("Stake: " + slotMachineService.getStake());
-    }
-
+    // Metoda do aktualizacji obrazów bębnów
     private void updateReelImages(int[][] spinSymbols) {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 int symbolIndex = spinSymbols[i][j];
-                Image symbolImage = slotMachineService.getSymbolImage(symbolIndex);
-                ImageView imageView = getReelImageView(i, j);
-                imageView.setImage(symbolImage);
+                ImageView imageView = reelImageViews[i][j];
+                imageView.setImage(slotMachineService.getSymbolImage(symbolIndex));
             }
         }
     }
 
-    private ImageView getReelImageView(int i, int j) {
-        return switch (i) {
-            case 0 -> reelImageView1;
-            case 1 -> reelImageView2;
-            case 2 -> reelImageView3;
-            default -> throw new IllegalArgumentException("Invalid reel index: " + i);
-        };
+    // Metoda do ustawiania usługi SlotMachineService
+    public void setSlotMachineService(SlotMachineService slotMachineService) {
+        this.slotMachineService = slotMachineService;
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        updateUI();
+    public ImageView[][] getReelImageViews() {
+        return reelImageViews;
     }
 }

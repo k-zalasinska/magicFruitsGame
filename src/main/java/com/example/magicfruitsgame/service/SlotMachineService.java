@@ -1,5 +1,6 @@
 package com.example.magicfruitsgame.service;
 
+import com.example.magicfruitsgame.controller.SlotMachineController;
 import com.example.magicfruitsgame.model.Symbol;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -12,29 +13,28 @@ public class SlotMachineService {
     private final ReelService reelService;
     private final GameService gameService;
     private int lastWin;
-    private ImageView reelImageView1;
-    private ImageView reelImageView2;
-    private ImageView reelImageView3;
+    private ImageView[][] reelImageViews;
 
-    ImageView[][] reelImageViews = {
-            {reelImageView1},
-            {reelImageView2},
-            {reelImageView3}
-    };
-
-    public SlotMachineService(ReelService reelService, GameService gameService, ImageView reelImageView1,
-                              ImageView reelImageView2, ImageView reelImageView3) {
+    public SlotMachineService(ReelService reelService, GameService gameService) {
         this.reelService = reelService;
         this.gameService = gameService;
-        this.reelImageView1 = reelImageView1;
-        this.reelImageView2 = reelImageView2;
-        this.reelImageView3 = reelImageView3;
+
+        // Inicjalizacja tablicy reelImageViews
+        reelImageViews = new ImageView[3][3];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                reelImageViews[i][j] = new ImageView();
+            }
+        }
+    }
+
+    public void setReelImageViews(ImageView[][] reelImageViews) {
+        this.reelImageViews = reelImageViews;
     }
 
     public GameService getGameService() {
         return gameService;
     }
-
 
     public int[] play() {
         int[][] reelsSymbols = new int[3][];
@@ -48,12 +48,7 @@ public class SlotMachineService {
         return reelsSymbols[1];
     }
 
-//    ImageView[][] reelImageViews = {{reelImageView1[0], reelImageView1[1], reelImageView1[2]},
-//            {reelImageView2[0], reelImageView2[1], reelImageView2[2]},
-//            {reelImageView3[0], reelImageView3[1], reelImageView3[2]}};
-
-
-    public void animateSpinning(ImageView[][] reelImageViews, int[][] spinSymbols) {
+    public void animateSpinning(int[][] spinSymbols) {
         int frameDuration = 3; // czas trwania jednego KeyFrame'a
         int cycles = 9 / frameDuration; // liczba cykli animacji
         Timeline timeline = new Timeline(); // tworzymy nową animację
@@ -64,7 +59,7 @@ public class SlotMachineService {
             // Tworzymy KeyFrame dla każdego cyklu
             KeyFrame keyFrame = new KeyFrame(Duration.seconds(frameDuration * i), e -> {
                 // Wywołujemy metodę aktualizacji bębnów dla danego cyklu
-                updateReels(reelImageViews, spinSymbols, cycleIndex);
+                updateReels(spinSymbols, cycleIndex);
             });
 
             // Dodajemy KeyFrame do animacji
@@ -75,8 +70,7 @@ public class SlotMachineService {
         timeline.play();
     }
 
-
-    private void updateReels(ImageView[][] reelImageViews, int[][] spinSymbols, int cycleIndex) {
+    private void updateReels(int[][] spinSymbols, int cycleIndex) {
         int numberOfSymbols = spinSymbols.length;
         int symbolsPerReel = spinSymbols[0].length;
 
@@ -154,14 +148,13 @@ public class SlotMachineService {
     }
 
     // Metoda uruchamiająca animację obracania się bębnów
-    public void startSpinningAnimation(ImageView[][] reelImageViews, int[][] spinSymbols) {
-        animateSpinning(reelImageViews, spinSymbols);
+    public void startSpinningAnimation(int[][] spinSymbols) {
+        animateSpinning(spinSymbols);
     }
 
     public Image getSymbolImage(int symbolIndex) {
         return symbolService.getSymbols().get(symbolIndex).image();
     }
-
 
     // Metoda rozpoczynająca nową grę
     public void startGame() {
@@ -191,4 +184,11 @@ public class SlotMachineService {
         this.lastWin = lastWin;
     }
 
+    public ImageView[][] getReelImageViews() {
+        return reelImageViews;
+    }
+
+    public void setSlotMachineController(SlotMachineController slotMachineController) {
+        // Możesz dodać logikę do obsługi kontrolera slotu tutaj
+    }
 }

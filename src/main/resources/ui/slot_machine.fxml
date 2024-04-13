@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.magicfruitsgame.controller.SlotMachineController"
+            fx:id="mainBorderPane">
+
+
+    <center>
+        <GridPane fx:id="reelsGridPane">
+            <!-- Reels ImageView -->
+            <ImageView fx:id="reelImageView1_1"/>
+            <ImageView fx:id="reelImageView1_2"/>
+            <ImageView fx:id="reelImageView1_3"/>
+            <ImageView fx:id="reelImageView2_1"/>
+            <ImageView fx:id="reelImageView2_2"/>
+            <ImageView fx:id="reelImageView2_3"/>
+            <ImageView fx:id="reelImageView3_1"/>
+            <ImageView fx:id="reelImageView3_2"/>
+            <ImageView fx:id="reelImageView3_3"/>
+        </GridPane>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER_RIGHT">
+            <!-- Placeholder for spacing -->
+            <Region prefWidth="10"/>
+            <Button text="START" onAction="#handleStartButton"/>
+
+        </HBox>
+    </bottom>
+
+    <VBox fx:id="container" xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml">
+        <!-- Zawartość kontenera -->
+        <Button fx:id="buttonStart" text="Start"/>
+        <Label fx:id="balanceLabel" text="Balance:"/>
+        <Label fx:id="lastWinLabel" text="Last Win:"/>
+        <Label fx:id="stakeLabel" text="Stake:"/>
+    </VBox>
+
+    <ImageView fx:id="slotMachineImageView"/>
+
+
+</BorderPane>

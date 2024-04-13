@@ -9,6 +9,7 @@ public class ReelService {
         this.reelsDefinition = reelsDefinition;
     }
 
+
     public int[] spin(int reelIndex) {
         int[] reelSymbols = new int[3];
         Random random = new Random();

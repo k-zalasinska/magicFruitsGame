@@ -1,43 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.GridPane?>
 
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.GridPane?>
 <GridPane xmlns="http://javafx.com/javafx"
 >
     <ImageView>
         <image>
-            <Image url="symbol_cherry.png"/>
+            <Image url="../symbols/symbol_cherry.png"/>
         </image>
     </ImageView>
     <ImageView>
         <image>
-            <Image url="symbol_plum.png"/>
+            <Image url="../symbols/symbol_plum.png"/>
         </image>
     </ImageView>
     <ImageView>
         <image>
-            <Image url="symbol_orange.png"/>
+            <Image url="../symbols/symbol_orange.png"/>
         </image>
     </ImageView>
     <ImageView>
         <image>
-            <Image url="symbol_pineapple.png"/>
+            <Image url="../symbols/symbol_pineapple.png"/>
         </image>
     </ImageView>
     <ImageView>
         <image>
-            <Image url="symbol_strawberry.png"/>
+            <Image url="../symbols/symbol_strawberry.png"/>
         </image>
     </ImageView>
     <ImageView>
         <image>
-            <Image url="symbol_watermelon.png"/>
+            <Image url="../symbols/symbol_watermelon.png"/>
         </image>
     </ImageView>
     <ImageView>
         <image>
-            <Image url="symbol_seven.png"/>
+            <Image url="../symbols/symbol_seven.png"/>
         </image>
     </ImageView>
 </GridPane>

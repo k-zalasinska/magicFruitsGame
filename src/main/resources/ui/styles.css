@@ -6,11 +6,12 @@
 
 /* Styl dla każdego ImageView reprezentującego symbol */
 .reel-image {
-    -fx-pref-width: 0, 2px; /* Szerokość obrazu */
-    -fx-pref-height: 0, 2px; /* Wysokość obrazu */
-    -fx-padding: 9px; /* Odstęp wokół obrazu */
-    -fx-translate-x: 300px; /* Przesunięcie w prawo */
+    -fx-pref-width: 6px; /* Szerokość obrazu */
+    -fx-pref-height: 6px; /* Wysokość obrazu */
+    -fx-padding: 6px; /* Odstęp wokół obrazu */
+    -fx-translate-x: 290px; /* Przesunięcie w prawo */
 }
+
 
 /* Pozostałe style */
 

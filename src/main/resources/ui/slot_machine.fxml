@@ -7,7 +7,6 @@
             fx:controller="com.example.magicfruitsgame.controller.SlotMachineController"
             fx:id="mainBorderPane">
 
-
     <center>
         <GridPane fx:id="reelsGridPane">
             <!-- Reels ImageView -->
@@ -42,6 +41,5 @@
     </VBox>
 
     <ImageView fx:id="slotMachineImageView"/>
-
 
 </BorderPane>

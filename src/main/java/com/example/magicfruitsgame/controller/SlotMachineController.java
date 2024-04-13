@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
@@ -60,6 +61,10 @@ public class SlotMachineController implements Initializable {
     private Button spinButton;
     @FXML
     private ImageView slotMachineImageView;
+
+    @FXML
+    private BorderPane mainBorderPane;
+
     @FXML
     private VBox container;
 

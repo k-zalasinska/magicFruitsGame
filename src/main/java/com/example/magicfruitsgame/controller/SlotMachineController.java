@@ -68,8 +68,9 @@ public class SlotMachineController implements Initializable {
     private BorderPane mainBorderPane;
 
 
-    public SlotMachineController() {
+    public SlotMachineController(ImageView slotMachineImageView) {
         // Konstruktor bezparametrowy
+        this.slotMachineImageView = slotMachineImageView;
     }
 
     public SlotMachineController(ReelService reelService, GameService gameService) {
@@ -271,6 +272,10 @@ public class SlotMachineController implements Initializable {
         line.setStroke(Color.RED);
         // Dodaj przekreślenie do kontenera
         container.getChildren().add(line);
+    }
+
+    public SlotMachineController() {
+        // Kod konstruktora, jeśli jest potrzebny
     }
 
 }

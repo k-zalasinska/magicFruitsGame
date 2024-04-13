@@ -8,6 +8,22 @@
             fx:id="mainBorderPane"
             stylesheets="@styles.css">
 
+    <!-- Background Image -->
+    <ImageView fx:id="slotMachineImageView">
+        <image>
+            <Image url="/background.jpg"/>
+        </image>
+    </ImageView>
+
+    <!-- Labels for Balance, Last Win, and Stake -->
+    <bottom>
+        <VBox alignment="CENTER">
+            <Label fx:id="balanceLabel" text="Balance:" styleClass="label"/>
+            <Label fx:id="lastWinLabel" text="Last Win:" styleClass="label"/>
+            <Label fx:id="stakeLabel" text="Stake:" styleClass="label"/>
+        </VBox>
+    </bottom>
+
     <center>
         <GridPane fx:id="reelsGridPane">
             <!-- Reels ImageView -->
@@ -20,7 +36,6 @@
             <ImageView fx:id="reelImageView3_1" styleClass="reel-image" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
             <ImageView fx:id="reelImageView3_2" styleClass="reel-image" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
             <ImageView fx:id="reelImageView3_3" styleClass="reel-image" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
-
         </GridPane>
     </center>
 
@@ -29,23 +44,10 @@
             <!-- Placeholder for spacing -->
             <Region prefWidth="10"/>
             <Button text="START" onAction="#handleStartButton"/>
-
         </HBox>
     </bottom>
 
     <Button fx:id="startButton" text="Start" styleClass="button" onMouseEntered="#handleSpinButtonHover"
             onMousePressed="#handleSpinButtonPress" onMouseExited="#handleSpinButtonExit"/>
-
-
-    <VBox fx:id="container" xmlns="http://javafx.com/javafx"
-          xmlns:fx="http://javafx.com/fxml">
-        <!-- Zawartość kontenera -->
-        <Button fx:id="buttonStart" text="Start"/>
-        <Label fx:id="balanceLabel" text="Balance:"/>
-        <Label fx:id="lastWinLabel" text="Last Win:"/>
-        <Label fx:id="stakeLabel" text="Stake:"/>
-    </VBox>
-
-    <ImageView fx:id="slotMachineImageView"/>
 
 </BorderPane>

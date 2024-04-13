@@ -31,22 +31,31 @@ public class SlotMachineController implements Initializable {
 
     @FXML
     private ImageView[][] reelImageViews;
+
     @FXML
     private ImageView reelImageView1_1;
+
     @FXML
     private ImageView reelImageView1_2;
+
     @FXML
     private ImageView reelImageView1_3;
+
     @FXML
     private ImageView reelImageView2_1;
+
     @FXML
     private ImageView reelImageView2_2;
+
     @FXML
     private ImageView reelImageView2_3;
+
     @FXML
     private ImageView reelImageView3_1;
+
     @FXML
     private ImageView reelImageView3_2;
+
     @FXML
     private ImageView reelImageView3_3;
 
@@ -58,18 +67,21 @@ public class SlotMachineController implements Initializable {
 
     @FXML
     private Label balanceLabel;
+
     @FXML
     private Label lastWinLabel;
+
     @FXML
     private Label stakeLabel;
+
     @FXML
     private Button spinButton;
+
     @FXML
     private ImageView slotMachineImageView;
 
     @FXML
     private BorderPane mainBorderPane;
-
 
     public SlotMachineController(ImageView slotMachineImageView) {
         // Konstruktor bezparametrowy

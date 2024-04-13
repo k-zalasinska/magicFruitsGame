@@ -4,34 +4,6 @@
     -fx-vgap: 5px; /* Odstęp między wierszami */
 }
 
-/* Styl dla każdego ImageView reprezentującego symbol */
-.reel-image {
-    -fx-pref-width: 5px; /* Szerokość obrazu */
-    -fx-pref-height: 5px; /* Wysokość obrazu */
-    -fx-padding: 6px; /* Odstęp wokół obrazu */
-    -fx-translate-x: 190px; /* Przesunięcie w prawo */
-}
-
-
-#mainBorderPane {
-    -fx-background-image: url("../background.jpg");
-    -fx-background-size: cover;
-    -fx-background-position: center;
-}
-
-
-.balance-label {
-    -fx-text-fill: black;
-    -fx-font-size: 80px;
-}
-
-/* Styl dla etykiet */
-.stake-label {
-    -fx-text-fill: white; /* Kolor tekstu */
-    -fx-font-size: 16px; /* Rozmiar czcionki */
-}
-
-
 /* Styl domyślny dla przycisku PAY IN */
 .button#startButton {
     -fx-background-image: url("/views/button_payin_normal.png");

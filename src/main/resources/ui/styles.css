@@ -6,10 +6,10 @@
 
 /* Styl dla każdego ImageView reprezentującego symbol */
 .reel-image {
-    -fx-pref-width: 6px; /* Szerokość obrazu */
-    -fx-pref-height: 6px; /* Wysokość obrazu */
+    -fx-pref-width: 5px; /* Szerokość obrazu */
+    -fx-pref-height: 5px; /* Wysokość obrazu */
     -fx-padding: 6px; /* Odstęp wokół obrazu */
-    -fx-translate-x: 290px; /* Przesunięcie w prawo */
+    -fx-translate-x: 190px; /* Przesunięcie w prawo */
 }
 
 
@@ -61,21 +61,20 @@
 
 
 /* Styl domyślny dla przycisku START */
-
-#startNormal {
-    -fx-background-image: url('views/button_start_normal.png');
+.button#startButton {
+    -fx-background-image: url("/views/button_start_normal.png");
 }
 
-#startOnhover {
-    -fx-background-image: url('views/button_start_onhover.png');
+.button#startButton:hover {
+    -fx-background-image: url("/views/button_start_onhover.png");
 }
 
-#startOnpress {
-    -fx-background-image: url('views/button_start_onpress.png');
+.button#startButton:pressed {
+    -fx-background-image: url("/views/button_start_onpress.png");
 }
 
-#startDisable {
-    -fx-background-image: url('views/button_start_disable.png');
+.button#startButton:disabled {
+    -fx-background-image: url("/views/button_start_disable.png");
 }
 
 
@@ -84,14 +83,17 @@
     -fx-background-size: cover;
     -fx-background-position: center;
     -fx-background-repeat: no-repeat;
-    -fx-padding: 20px;
-    -fx-font-size: 20px;
+    -fx-padding: 100px;
+    -fx-font-size: 100px;
     -fx-text-fill: yellow;
 }
 
 .stake-label {
-    -fx-background-color: rgba(255, 255, 255, 0.5);
-    -fx-padding: 5px;
-    -fx-border-radius: 5px;
-    -fx-background-insets: 0 0 0 10px;
+    -fx-background-image: url('background.jpg');
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-padding: 10px; /* Doda dodatkowy odstęp wokół tekstu */
+    -fx-text-fill: white; /* Kolor tekstu */
+    -fx-font-size: 20px; /* Rozmiar czcionki */
 }

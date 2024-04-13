@@ -39,10 +39,6 @@
             <ImageView fx:id="reelImageView3_2" styleClass="reel-image" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
             <ImageView fx:id="reelImageView3_3" styleClass="reel-image" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
 
-            <ImageView fx:id="startNormal" styleClass="reel-image"/>
-            <ImageView fx:id="startOnhover" styleClass="reel-image"/>
-            <ImageView fx:id="startOnpress" styleClass="reel-image"/>
-            <ImageView fx:id="startDisable" styleClass="reel-image"/>
         </GridPane>
     </center>
 
@@ -57,10 +53,7 @@
     </bottom>
 
     <bottom>
-        <HBox alignment="BASELINE_LEFT">
-            <Button fx:id="startButton" text="Start" styleClass="button" onMouseEntered="#handleSpinButtonHover"
-                    onMousePressed="#handleSpinButtonPress" onMouseExited="#handleSpinButtonExit"/>
-        </HBox>
+        <Button fx:id="startButton" text="Start" styleClass="button"/>
     </bottom>
 
 

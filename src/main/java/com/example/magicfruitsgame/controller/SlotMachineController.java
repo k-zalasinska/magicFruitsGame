@@ -121,13 +121,14 @@ public class SlotMachineController implements Initializable {
         stakeLabel.setText("Stake: " + stake);
 
         // Ustawienie stylu przycisku "Start" w zależności od stanu gry
-        if (slotMachineService.getGameService().isGameRunning()) {
-            startButton.setStyle("-fx-background-image: url('views/button_start_normal.png');");
-            slotMachineImageView.setImage(new Image("views/button_start_normal.png"));
-        } else {
-            startButton.setStyle("-fx-background-image: url('views/button_start_disable.png');");
-            slotMachineImageView.setImage(new Image("views/button_start_disable.png"));
-        }
+//        if (slotMachineService.getGameService().isGameRunning()) {
+//            startButton.setStyle("-fx-background-image: url('views/button_start_normal.png');");
+//            slotMachineImageView.setImage(new Image("views/button_start_normal.png"));
+//        } else {
+//            startButton.setStyle("-fx-background-image: url('views/button_start_disable.png');");
+//            slotMachineImageView.setImage(new Image("views/button_start_disable.png"));
+//        }
+
     }
 
     // Metoda inicjalizująca pola ImageView
@@ -145,31 +146,20 @@ public class SlotMachineController implements Initializable {
         slotMachineService.startSpinningAnimation(spinSymbols);
     }
 
-
-    // Metoda obsługująca zdarzenie najechania kursorem na przycisk "Start"
+    // Metoda obsługująca kliknięcie przycisku "Start"
     @FXML
-    private void handleSpinButtonHover() {
-        if (slotMachineService.getGameService().isGameRunning()) {
-            spinButton.setStyle("-fx-background-image: url('views/button_start_onhover.png');");
-        }
+    private void handleStartButtonHover() {
+        startButton.getStyleClass().add("hover");
     }
 
-    // Metoda obsługująca zdarzenie naciśnięcia przycisku "Start"
     @FXML
-    private void handleSpinButtonPress() {
-        if (slotMachineService.getGameService().isGameRunning()) {
-            spinButton.setStyle("-fx-background-image: url('views/button_start_onpress.png');");
-        }
+    private void handleStartButtonPressed() {
+        startButton.getStyleClass().add("pressed");
     }
 
-    // Metoda obsługująca zdarzenie zakończenia najechania kursorem na przycisk "Start"
     @FXML
-    private void handleSpinButtonExit() {
-        if (slotMachineService.getGameService().isGameRunning()) {
-            spinButton.setStyle("-fx-background-image: url('views/button_start_normal.png');");
-        } else {
-            spinButton.setStyle("-fx-background-image: url('views/button_start_disable.png');");
-        }
+    private void handleStartButtonExit() {
+        startButton.getStyleClass().removeAll("hover", "pressed");
     }
 
     // Metoda obsługująca kliknięcie przycisku "Deposit"

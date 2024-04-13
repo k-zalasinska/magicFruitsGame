@@ -1,3 +1,19 @@
+/* Ustawienie rozmiaru i odstępu dla symboli w siatce */
+#reelsGridPane {
+    -fx-hgap: 5px; /* Odstęp między kolumnami */
+    -fx-vgap: 5px; /* Odstęp między wierszami */
+}
+
+/* Styl dla każdego ImageView reprezentującego symbol */
+.reel-image {
+    -fx-pref-width: 0, 2px; /* Szerokość obrazu */
+    -fx-pref-height: 0, 2px; /* Wysokość obrazu */
+    -fx-padding: 9px; /* Odstęp wokół obrazu */
+    -fx-translate-x: 300px; /* Przesunięcie w prawo */
+}
+
+/* Pozostałe style */
+
 #mainBorderPane {
     -fx-background-image: url("../background.jpg");
     -fx-background-size: cover;
@@ -13,7 +29,6 @@
     -fx-text-fill: white;
     -fx-font-size: 14px;
 }
-
 
 /* Style for PAY IN button */
 .button#payInButton {

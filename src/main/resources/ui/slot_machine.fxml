@@ -5,7 +5,8 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.magicfruitsgame.controller.SlotMachineController"
-            fx:id="mainBorderPane">
+            fx:id="mainBorderPane"
+            stylesheets="@styles.css">
 
     <center>
         <GridPane fx:id="reelsGridPane">
@@ -23,7 +24,7 @@
     </center>
 
     <bottom>
-        <HBox alignment="CENTER_RIGHT">
+        <HBox alignment="TOP_CENTER">
             <!-- Placeholder for spacing -->
             <Region prefWidth="10"/>
             <Button text="START" onAction="#handleStartButton"/>

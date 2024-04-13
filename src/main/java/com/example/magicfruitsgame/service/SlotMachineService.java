@@ -1,10 +1,8 @@
 package com.example.magicfruitsgame.service;
 
-import com.example.magicfruitsgame.controller.SlotMachineController;
 import com.example.magicfruitsgame.model.Symbol;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
@@ -35,18 +33,6 @@ public class SlotMachineService {
 
     public GameService getGameService() {
         return gameService;
-    }
-
-    public int[] play() {
-        int[][] reelsSymbols = new int[3][];
-
-        // Obrót każdego z trzech bębnów
-        for (int i = 0; i < 3; i++) {
-            reelsSymbols[i] = reelService.spin(i);
-        }
-
-        // Zwracamy symbole z drugiego bębna, ponieważ to właśnie na nim wyświetlany jest wynik
-        return reelsSymbols[1];
     }
 
     public void animateSpinning(int[][] spinSymbols) {
@@ -128,15 +114,6 @@ public class SlotMachineService {
         animateSpinning(spinSymbols);
     }
 
-    public Image getSymbolImage(int symbolIndex) {
-        return symbolService.getSymbols().get(symbolIndex).image();
-    }
-
-    // Metoda rozpoczynająca nową grę
-    public void startGame() {
-        gameService.startGame();
-    }
-
     // Metoda doładowująca stan konta
     public void topUpBalance(int amount) {
         gameService.topUpBalance(amount);
@@ -160,11 +137,4 @@ public class SlotMachineService {
         this.lastWin = lastWin;
     }
 
-    public ImageView[][] getReelImageViews() {
-        return reelImageViews;
-    }
-
-    public void setSlotMachineController(SlotMachineController slotMachineController) {
-        // Możesz dodać logikę do obsługi kontrolera slotu tutaj
-    }
 }

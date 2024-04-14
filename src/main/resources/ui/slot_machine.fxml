@@ -44,15 +44,15 @@
 
     <bottom>
 
-        <Button fx:id="depositButton" text="Pay In" styleClass="button" prefWidth="180" prefHeight="90"/>
+        <Button fx:id="depositButton" text="Pay In" styleClass="button" prefWidth="250" prefHeight="125"/>
 
     </bottom>
     <top>
         <HBox alignment="TOP_LEFT">
             <!-- Placeholder for spacing -->
-            <Region prefWidth="10"/>
+            <Region prefWidth="30"/>
 
-            <Button fx:id="startButton" text="Start" styleClass="button" prefWidth="180" prefHeight="90"/>
+            <Button fx:id="startButton" text="Start" styleClass="button" prefWidth="800" prefHeight="600"/>
         </HBox>
     </top>
 

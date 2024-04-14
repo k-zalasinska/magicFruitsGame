@@ -26,8 +26,8 @@
 .button#depositButton {
     -fx-background-image: url("/views/button_payin_normal.png");
     -fx-background-size: cover; /* dostosuj rozmiar tła przycisku */
-    -fx-pref-width: 100px; /* preferowana szerokość przycisku */
-    -fx-pref-height: 50px; /* preferowana wysokość przycisku */
+    -fx-pref-width: 140px; /* preferowana szerokość przycisku */
+    -fx-pref-height: 70px; /* preferowana wysokość przycisku */
     -fx-margin-bottom: 30px; /* margines od dolnej krawędzi */
 }
 
@@ -53,8 +53,8 @@
 .button#startButton {
     -fx-background-image: url("/views/button_start_normal.png");
     -fx-background-size: cover; /* dostosuj rozmiar tła przycisku */
-    -fx-pref-width: 100px; /* preferowana szerokość przycisku */
-    -fx-pref-height: 50px; /* preferowana wysokość przycisku */
+    -fx-pref-width: 140px; /* preferowana szerokość przycisku */
+    -fx-pref-height: 70px; /* preferowana wysokość przycisku */
     -fx-margin-bottom: 30px; /* margines od dolnej krawędzi */
 }
 

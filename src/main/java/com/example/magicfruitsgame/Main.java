@@ -44,7 +44,7 @@ public class Main extends Application {
             // Ustawienie kontrolera w serwisie
             controller.setSlotMachineService(slotMachineService);
 
-            Scene scene = new Scene(root, 400, 200);
+            Scene scene = new Scene(root, 800, 600);
             primaryStage.setTitle("Slot Machine Game");
             primaryStage.setScene(scene);
             primaryStage.show();

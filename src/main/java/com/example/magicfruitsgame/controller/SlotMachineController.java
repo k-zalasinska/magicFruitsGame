@@ -11,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -79,14 +78,6 @@ public class SlotMachineController implements Initializable {
 
     @FXML
     private ImageView slotMachineImageView;
-
-    @FXML
-    private BorderPane mainBorderPane;
-
-    public SlotMachineController(ImageView slotMachineImageView) {
-        // Konstruktor bezparametrowy
-        this.slotMachineImageView = slotMachineImageView;
-    }
 
     public SlotMachineController(ReelService reelService, GameService gameService) {
         this.slotMachineService = new SlotMachineService(reelService, gameService);

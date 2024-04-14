@@ -5,13 +5,14 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.magicfruitsgame.controller.SlotMachineController"
+            prefWidth="500" prefHeight="350"
             fx:id="mainBorderPane"
             stylesheets="@styles.css">
 
     <!-- Background Image -->
-    <ImageView fx:id="slotMachineImageView">
+    <ImageView fx:id="slotMachineImageView" fitWidth="1540" fitHeight="890">
         <image>
-            <Image url="/background.jpg"/>
+            <Image url="/views/background.jpg"/>
         </image>
     </ImageView>
 
@@ -44,7 +45,7 @@
 
     <bottom>
 
-        <Button fx:id="depositButton" text="Pay In" styleClass="button" prefWidth="250" prefHeight="125"/>
+        <Button fx:id="depositButton" text="" styleClass="button" prefWidth="250" prefHeight="125"/>
 
     </bottom>
     <top>
@@ -52,7 +53,7 @@
             <!-- Placeholder for spacing -->
             <Region prefWidth="30"/>
 
-            <Button fx:id="startButton" text="Start" styleClass="button" prefWidth="800" prefHeight="600"/>
+            <Button fx:id="startButton" text="" styleClass="button" prefWidth="800" prefHeight="600"/>
         </HBox>
     </top>
 

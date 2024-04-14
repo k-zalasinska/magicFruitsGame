@@ -1,34 +1,17 @@
-#mainBorderPane {
-    -fx-background-image: url("/background.jpg");
-    -fx-background-size: cover; /* Dopasuj rozmiar tła do kontenera */
-    -fx-background-position: center; /* Wyśrodkuj tło */
-    -fx-background-repeat: no-repeat; /* Nie powtarzaj tła */
-    -fx-pref-width: 400px; /* Preferowana szerokość tła */
-    -fx-pref-height: 200px; /* Preferowana wysokość tła */
-}
-
-
-/* Styl dla każdego ImageView reprezentującego symbol */
-
-
 /* Ustawienie rozmiaru i odstępu dla symboli w siatce */
 #reelsGridPane {
     -fx-hgap: 5px; /* Odstęp między kolumnami */
     -fx-vgap: 5px; /* Odstęp między wierszami */
 }
 
-.reel-image {
-    -fx-pref-width: 120px; /* Szerokość obrazu */
-    -fx-pref-height: 120px; /* Wysokość obrazu */
-}
 
 /* Styl domyślny dla przycisku PAY IN */
 .button#depositButton {
     -fx-background-image: url("/views/button_payin_normal.png");
     -fx-background-size: cover; /* dostosuj rozmiar tła przycisku */
-    -fx-pref-width: 140px; /* preferowana szerokość przycisku */
-    -fx-pref-height: 70px; /* preferowana wysokość przycisku */
-    -fx-margin-bottom: 30px; /* margines od dolnej krawędzi */
+    -fx-pref-width: 10px; /* preferowana szerokość przycisku */
+    -fx-pref-height: 50px; /* preferowana wysokość przycisku */
+    /*-fx-margin-bottom: 30px; !* margines od dolnej krawędzi *!*/
 }
 
 /* Styl domyślny dla przycisku PAY IN */
@@ -48,14 +31,18 @@
     -fx-background-image: url("/views/button_payin_disable.png");
 }
 
+.button#depositButton {
+    -fx-z-index: 1;
+}
+
 
 /* Styl domyślny dla przycisku START */
 .button#startButton {
     -fx-background-image: url("/views/button_start_normal.png");
     -fx-background-size: cover; /* dostosuj rozmiar tła przycisku */
-    -fx-pref-width: 140px; /* preferowana szerokość przycisku */
-    -fx-pref-height: 70px; /* preferowana wysokość przycisku */
-    -fx-margin-bottom: 30px; /* margines od dolnej krawędzi */
+    -fx-pref-width: 100px; /* preferowana szerokość przycisku */
+    -fx-pref-height: 50px; /* preferowana wysokość przycisku */
+    /*-fx-margin-bottom: 30px; !* margines od dolnej krawędzi *!*/
 }
 
 /* Styl domyślny dla przycisku START */
@@ -73,4 +60,9 @@
 
 .button#startButton:disabled {
     -fx-background-image: url("/views/button_start_disable.png");
+}
+
+/* Nadanie większego priorytetu z-index dla przycisków */
+.button#startButton {
+    -fx-z-index: 1;
 }

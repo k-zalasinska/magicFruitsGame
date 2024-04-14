@@ -22,38 +22,50 @@
             <Label fx:id="balanceLabel" text="Balance:" styleClass="label"/>
             <Label fx:id="lastWinLabel" text="Last Win:" styleClass="label"/>
             <Label fx:id="stakeLabel" text="10" styleClass="stake-label"/>
-
-
         </VBox>
     </bottom>
 
+    <Pane fx:id="backgroundPane" styleClass="background-container">
+        <!-- Kontrolka tekstowa z wartością "10" -->
+        <Label text="10" styleClass="stake-label"/>
+    </Pane>
+
+
     <center>
-        <GridPane fx:id="reelsGridPane">
+        <GridPane fx:id="reelsGridPane" alignment="CENTER">
             <!-- Reels ImageView -->
-            <ImageView fx:id="reelImageView1_1" styleClass="reel-image" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-            <ImageView fx:id="reelImageView1_2" styleClass="reel-image" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-            <ImageView fx:id="reelImageView1_3" styleClass="reel-image" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
-            <ImageView fx:id="reelImageView2_1" styleClass="reel-image" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-            <ImageView fx:id="reelImageView2_2" styleClass="reel-image" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-            <ImageView fx:id="reelImageView2_3" styleClass="reel-image" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
-            <ImageView fx:id="reelImageView3_1" styleClass="reel-image" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-            <ImageView fx:id="reelImageView3_2" styleClass="reel-image" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-            <ImageView fx:id="reelImageView3_3" styleClass="reel-image" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+            <ImageView fx:id="reelImageView1_1" styleClass="reel-image" GridPane.columnIndex="0" GridPane.rowIndex="0"
+                       fitWidth="200" fitHeight="200"/>
+            <ImageView fx:id="reelImageView1_2" styleClass="reel-image" GridPane.columnIndex="1" GridPane.rowIndex="0"
+                       fitWidth="200" fitHeight="200"/>
+            <ImageView fx:id="reelImageView1_3" styleClass="reel-image" GridPane.columnIndex="2" GridPane.rowIndex="0"
+                       fitWidth="200" fitHeight="200"/>
+            <ImageView fx:id="reelImageView2_1" styleClass="reel-image" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                       fitWidth="200" fitHeight="200"/>
+            <ImageView fx:id="reelImageView2_2" styleClass="reel-image" GridPane.columnIndex="1" GridPane.rowIndex="1"
+                       fitWidth="200" fitHeight="200"/>
+            <ImageView fx:id="reelImageView2_3" styleClass="reel-image" GridPane.columnIndex="2" GridPane.rowIndex="1"
+                       fitWidth="200" fitHeight="200"/>
+            <ImageView fx:id="reelImageView3_1" styleClass="reel-image" GridPane.columnIndex="0" GridPane.rowIndex="2"
+                       fitWidth="200" fitHeight="200"/>
+            <ImageView fx:id="reelImageView3_2" styleClass="reel-image" GridPane.columnIndex="1" GridPane.rowIndex="2"
+                       fitWidth="200" fitHeight="200"/>
+            <ImageView fx:id="reelImageView3_3" styleClass="reel-image" GridPane.columnIndex="2" GridPane.rowIndex="2"
+                       fitWidth="200" fitHeight="200"/>
 
         </GridPane>
     </center>
 
     <bottom>
+        <HBox>
+            <Button fx:id="depositButton" text="" styleClass="button"/>
+        </HBox>
 
-        <Button fx:id="depositButton" text="" styleClass="button" prefWidth="250" prefHeight="125"/>
 
     </bottom>
     <top>
-        <HBox alignment="TOP_LEFT">
-            <!-- Placeholder for spacing -->
-            <Region prefWidth="30"/>
-
-            <Button fx:id="startButton" text="" styleClass="button" prefWidth="800" prefHeight="600"/>
+        <HBox>
+            <Button fx:id="startButton" text="" styleClass="button"/>
         </HBox>
     </top>
 

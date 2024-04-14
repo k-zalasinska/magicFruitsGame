@@ -106,6 +106,13 @@ public class SlotMachineController implements Initializable {
         this.slotMachineService = new SlotMachineService(reelService, gameService);
         slotMachineService.setReelImageViews(reelImageViews);
 
+        // Inicjalizacja przycisku START
+        startButton.setTranslateX(1060);
+        startButton.setTranslateY(789);
+
+        depositButton.setTranslateX(280);
+        depositButton.setTranslateY(-25);
+
         // Aktualizacja interfejsu użytkownika
         updateUI();
     }

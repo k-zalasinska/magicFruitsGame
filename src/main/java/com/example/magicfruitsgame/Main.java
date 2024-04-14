@@ -44,7 +44,7 @@ public class Main extends Application {
         // Ustawienie kontrolera w serwisie
         controller.setSlotMachineService(slotMachineService);
 
-        Scene scene = new Scene(root, 1000, 900);
+        Scene scene = new Scene(root, 1000, 0);
 //        scene.getStylesheets().add(getClass().getResource("/ui/styles.css").toExternalForm());
 //        root.getStyleClass().add("background"); // Dodaj klasę stylu do korzenia sceny
         primaryStage.setScene(scene);

@@ -1,16 +1,53 @@
-/* Ustawienie rozmiaru i odstępu dla symboli w siatce */
 #reelsGridPane {
-    -fx-hgap: 5px; /* Odstęp między kolumnami */
-    -fx-vgap: 5px; /* Odstęp między wierszami */
+    -fx-hgap: 10px; /* Odstęp między kolumnami */
+    -fx-vgap: 10px; /* Odstęp między wierszami */
+    -fx-padding: 10px 40px 20px 40px; /* Marginesy dla góry, prawej, dołu i lewej kolejno */
 }
 
+/* Zwiększamy margines dla kolumny skrajnie prawej */
+.reel-image[columnIndex="2"] {
+    -fx-padding: 0px 200px 0px 0px; /* Marginesy dla góry, prawej, dołu i lewej kolejno */
+}
+
+/* Zwiększamy margines dla kolumny skrajnie lewej */
+.reel-image[columnIndex="0"] {
+    -fx-padding: 0px 0px 0px 200px; /* Marginesy dla góry, prawej, dołu i lewej kolejno */
+}
+
+/* Styl dla kontenera tła */
+.background-container {
+    display: grid; /* Ustawienie siatki */
+    place-items: center; /* Wyśrodkowanie zawartości */
+    width: 100%; /* Szerokość równa szerokości rodzica */
+    height: 100%; /* Wysokość równa wysokości rodzica */
+    background-image: url("/views/background.jpg"); /* Dodanie tła */
+    background-size: cover; /* Dostosowanie rozmiaru tła */
+    background-position: center; /* Wyśrodkowanie tła */
+}
+
+.background-container {
+    -fx-alignment: center; /* Wyśrodkowanie zawartości */
+    -fx-padding: 20px; /* Dodatkowy wewnętrzny odstęp */
+    -fx-background-color: rgba(0, 0, 0, 0.5); /* Przykładowe tło z przezroczystością */
+}
+
+.stake-label {
+    -fx-font-size: 30px; /* Rozmiar czcionki */
+    -fx-font-weight: bold; /* Pogrubienie tekstu */
+    -fx-text-fill: white; /* Kolor tekstu */
+    -fx-alignment: center; /* Wyśrodkowanie tekstu */
+}
 
 /* Styl domyślny dla przycisku PAY IN */
 .button#depositButton {
+    -fx-background-color: transparent; /* Ustawienie przezroczystego tła */
+    -fx-padding: 0px; /* Usunięcie wewnętrznego odstępu */
+    -fx-background-radius: 0px; /* Usunięcie zaokrąglenia rogów */
+    -fx-border-style: none; /* Usunięcie stylu obramowania */
     -fx-background-image: url("/views/button_payin_normal.png");
     -fx-background-size: cover; /* dostosuj rozmiar tła przycisku */
-    -fx-pref-width: 10px; /* preferowana szerokość przycisku */
-    -fx-pref-height: 50px; /* preferowana wysokość przycisku */
+    -fx-pref-width: 200px; /* preferowana szerokość przycisku */
+    -fx-pref-height: 75px; /* preferowana wysokość przycisku */
     /*-fx-margin-bottom: 30px; !* margines od dolnej krawędzi *!*/
 }
 
@@ -38,11 +75,15 @@
 
 /* Styl domyślny dla przycisku START */
 .button#startButton {
+    -fx-background-color: transparent; /* Ustawienie przezroczystego tła */
+    -fx-padding: 0px; /* Usunięcie wewnętrznego odstępu */
+    -fx-background-radius: 0px; /* Usunięcie zaokrąglenia rogów */
+    -fx-border-style: none; /* Usunięcie stylu obramowania */
     -fx-background-image: url("/views/button_start_normal.png");
     -fx-background-size: cover; /* dostosuj rozmiar tła przycisku */
-    -fx-pref-width: 100px; /* preferowana szerokość przycisku */
-    -fx-pref-height: 50px; /* preferowana wysokość przycisku */
-    /*-fx-margin-bottom: 30px; !* margines od dolnej krawędzi *!*/
+    -fx-pref-width: 200px; /* preferowana szerokość przycisku */
+    -fx-pref-height: 75px; /* preferowana wysokość przycisku */
+    /*-fx-margin: 0 20px 20px 0; !* Margines od prawej i dolnej krawędzi *!*/
 }
 
 /* Styl domyślny dla przycisku START */
@@ -60,9 +101,4 @@
 
 .button#startButton:disabled {
     -fx-background-image: url("/views/button_start_disable.png");
-}
-
-/* Nadanie większego priorytetu z-index dla przycisków */
-.button#startButton {
-    -fx-z-index: 1;
 }

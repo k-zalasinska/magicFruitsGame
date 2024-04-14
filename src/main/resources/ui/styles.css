@@ -15,27 +15,42 @@
 }
 
 /* Styl dla kontenera tła */
-.background-container {
-    display: grid; /* Ustawienie siatki */
-    place-items: center; /* Wyśrodkowanie zawartości */
-    width: 100%; /* Szerokość równa szerokości rodzica */
-    height: 100%; /* Wysokość równa wysokości rodzica */
-    background-image: url("/views/background.jpg"); /* Dodanie tła */
-    background-size: cover; /* Dostosowanie rozmiaru tła */
-    background-position: center; /* Wyśrodkowanie tła */
+/*.background-container {*/
+/*    display: grid; !* Ustawienie siatki *!*/
+/*    place-items: center; !* Wyśrodkowanie zawartości *!*/
+/*    width: 100%; !* Szerokość równa szerokości rodzica *!*/
+/*    height: 100%; !* Wysokość równa wysokości rodzica *!*/
+/*    background-image: url("/views/background.jpg"); !* Dodanie tła *!*/
+/*    background-size: cover; !* Dostosowanie rozmiaru tła *!*/
+/*    background-position: center; !* Wyśrodkowanie tła *!*/
+/*}*/
+
+/*.background-container {*/
+/*    -fx-alignment: center; !* Wyśrodkowanie zawartości *!*/
+/*    -fx-padding: 20px; !* Dodatkowy wewnętrzny odstęp *!*/
+/*    -fx-background-color: rgba(0, 0, 0, 0.5); !* Przykładowe tło z przezroczystością *!*/
+/*}*/
+
+
+.balance-label {
+    -fx-font-size: 30px; /* Rozmiar czcionki */
+    -fx-font-weight: bold; /* Pogrubienie tekstu */
+    -fx-text-fill: white; /* Kolor tekstu */
+    /*-fx-alignment: left; !* Wyśrodkowanie tekstu *!*/
 }
 
-.background-container {
-    -fx-alignment: center; /* Wyśrodkowanie zawartości */
-    -fx-padding: 20px; /* Dodatkowy wewnętrzny odstęp */
-    -fx-background-color: rgba(0, 0, 0, 0.5); /* Przykładowe tło z przezroczystością */
+.last-win-label {
+    -fx-font-size: 30px; /* Rozmiar czcionki */
+    -fx-font-weight: bold; /* Pogrubienie tekstu */
+    -fx-text-fill: white; /* Kolor tekstu */
+    /*-fx-alignment: center; !* Wyśrodkowanie tekstu *!*/
 }
 
 .stake-label {
     -fx-font-size: 30px; /* Rozmiar czcionki */
     -fx-font-weight: bold; /* Pogrubienie tekstu */
     -fx-text-fill: white; /* Kolor tekstu */
-    -fx-alignment: center; /* Wyśrodkowanie tekstu */
+    /*-fx-alignment: right; !* Wyśrodkowanie tekstu *!*/
 }
 
 /* Styl domyślny dla przycisku PAY IN */

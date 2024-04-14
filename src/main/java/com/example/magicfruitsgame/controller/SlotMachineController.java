@@ -116,10 +116,14 @@ public class SlotMachineController implements Initializable {
         depositButton.setTranslateX(280);
         depositButton.setTranslateY(-25);
 
-        stakeLabel.setText("10");
-        stakeLabel.setTranslateX(921);
-        stakeLabel.setTranslateY(777);
+        balanceLabel.setTranslateX(550);
+        balanceLabel.setTranslateY(815);
 
+        lastWinLabel.setTranslateX(762);
+        lastWinLabel.setTranslateY(770);
+
+        stakeLabel.setTranslateX(939);
+        stakeLabel.setTranslateY(722);
         // Aktualizacja interfejsu użytkownika
         updateUI();
     }
@@ -133,8 +137,8 @@ public class SlotMachineController implements Initializable {
         int stake = slotMachineService.getStake();
 
         // Ustaw wartości na kontrolkach UI
-        balanceLabel.setText("Balance: " + balance);
-        lastWinLabel.setText("Last Win: " + lastWin);
+        balanceLabel.setText("" + balance);
+        lastWinLabel.setText("" + lastWin);
         stakeLabel.setText("" + stake);
 
         // Ustawienie stylu przycisku "Start" w zależności od stanu gry

@@ -16,19 +16,30 @@
         </image>
     </ImageView>
 
-    <!-- Labels for Balance, Last Win, and Stake -->
-    <bottom>
+
+    <Pane fx:id="labelsPane" styleClass="labels-container">
         <VBox alignment="CENTER">
             <Label fx:id="balanceLabel" text="Balance:" styleClass="label"/>
             <Label fx:id="lastWinLabel" text="Last Win:" styleClass="label"/>
             <Label fx:id="stakeLabel" text="10" styleClass="stake-label"/>
         </VBox>
-    </bottom>
-
-    <Pane fx:id="backgroundPane" styleClass="background-container">
-        <!-- Kontrolka tekstowa z wartością "10" -->
-        <Label text="10" styleClass="stake-label"/>
     </Pane>
+
+
+    <!-- Labels for Balance, Last Win, and Stake -->
+    <!--    <bottom>-->
+    <!--        <VBox alignment="CENTER">-->
+    <!--            <Label fx:id="balanceLabel" text="Balance:" styleClass="label"/>-->
+    <!--            <Label fx:id="lastWinLabel" text="Last Win:" styleClass="label"/>-->
+    <!--            <Label fx:id="stakeLabel" text="10" styleClass="stake-label"/>-->
+    <!--        </VBox>-->
+    <!--    </bottom>-->
+
+
+    <!--    <Pane fx:id="backgroundPane" styleClass="background-container">-->
+    <!--        &lt;!&ndash; Kontrolka tekstowa z wartością "10" &ndash;&gt;-->
+    <!--        <Label text="10" styleClass="stake-label"/>-->
+    <!--    </Pane>-->
 
 
     <center>

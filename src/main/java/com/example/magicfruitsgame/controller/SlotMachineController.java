@@ -71,6 +71,9 @@ public class SlotMachineController implements Initializable {
     private Label lastWinLabel;
 
     @FXML
+    private Pane backgroundPane;
+
+    @FXML
     private Label stakeLabel;
 
     @FXML
@@ -113,6 +116,10 @@ public class SlotMachineController implements Initializable {
         depositButton.setTranslateX(280);
         depositButton.setTranslateY(-25);
 
+        stakeLabel.setText("10");
+        stakeLabel.setTranslateX(921);
+        stakeLabel.setTranslateY(777);
+
         // Aktualizacja interfejsu użytkownika
         updateUI();
     }
@@ -128,7 +135,7 @@ public class SlotMachineController implements Initializable {
         // Ustaw wartości na kontrolkach UI
         balanceLabel.setText("Balance: " + balance);
         lastWinLabel.setText("Last Win: " + lastWin);
-        stakeLabel.setText("Stake: " + stake);
+        stakeLabel.setText("" + stake);
 
         // Ustawienie stylu przycisku "Start" w zależności od stanu gry
 //        if (slotMachineService.getGameService().isGameRunning()) {

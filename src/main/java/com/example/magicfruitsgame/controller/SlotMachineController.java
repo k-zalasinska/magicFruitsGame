@@ -10,6 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -18,6 +20,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SlotMachineController implements Initializable {
+    public GridPane reelsGridPane;
     private SlotMachineService slotMachineService;
 
     private final int[][] reels = {{0, 4, 0, 0, 0, 2, 2, 3, 1, 4, 0, 6, 0, 1, 0, 0, 5, 1, 1, 3},
@@ -137,14 +140,16 @@ public class SlotMachineController implements Initializable {
         }
     }
 
-    // Metoda obsługująca kliknięcie przycisku "Pay in"
+    // Metoda obsługująca "Pay in"
     @FXML
     private void handlePayInButton() {
-        // Pokaż pole tekstowe po kliknięciu przycisku
         depositAmountField.setVisible(true);
-        // Przenieś fokus na pole tekstowe
         depositAmountField.requestFocus();
-        System.out.println("Pay in button clicked");
+        depositAmountField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                processDeposit();
+            }
+        });
     }
 
     @FXML
@@ -152,10 +157,14 @@ public class SlotMachineController implements Initializable {
         String amountText = depositAmountField.getText();
         try {
             int depositAmount = Integer.parseInt(amountText);
-            performDeposit(depositAmount);
-            depositAmountField.setVisible(false);
-            depositAmountField.clear();
-            System.out.println("Deposit processed successfully");
+            if (depositAmount > 0) {
+                performDeposit(depositAmount);
+                depositAmountField.setVisible(false);
+                depositAmountField.clear();
+                System.out.println("Deposit processed successfully");
+            } else {
+                System.err.println("Invalid input. Please enter a positive number.");
+            }
         } catch (NumberFormatException e) {
             System.err.println("Invalid input. Please enter a valid number.");
         }

@@ -18,6 +18,7 @@ public class SlotMachineService {
         this.reelService = reelService;
         this.gameService = gameService;
 
+
         // Inicjalizacja tablicy reelImageViews
         reelImageViews = new ImageView[3][3];
         for (int i = 0; i < 3; i++) {
@@ -26,6 +27,7 @@ public class SlotMachineService {
             }
         }
     }
+
 
     public void setReelImageViews(ImageView[][] reelImageViews) {
         this.reelImageViews = reelImageViews;

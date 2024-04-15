@@ -1,8 +1,5 @@
 package com.example.magicfruitsgame.controller;
 
-import com.example.magicfruitsgame.model.Game;
-import com.example.magicfruitsgame.service.GameService;
-import com.example.magicfruitsgame.service.ReelService;
 import com.example.magicfruitsgame.service.SlotMachineService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,10 +19,6 @@ import java.util.ResourceBundle;
 public class SlotMachineController implements Initializable {
     public GridPane reelsGridPane;
     private SlotMachineService slotMachineService;
-
-    private final int[][] reels = {{0, 4, 0, 0, 0, 2, 2, 3, 1, 4, 0, 6, 0, 1, 0, 0, 5, 1, 1, 3},
-            {2, 5, 1, 2, 0, 1, 3, 5, 2, 6, 1, 0, 0, 0, 1, 3, 4, 4, 0, 4},
-            {5, 2, 1, 0, 0, 3, 4, 0, 2, 6, 0, 2, 0, 0, 0, 1, 1, 3, 0, 4}};
 
     @FXML
     private ImageView[][] reelImageViews;
@@ -75,25 +68,18 @@ public class SlotMachineController implements Initializable {
     @FXML
     private Label stakeLabel;
 
-    public SlotMachineController(ReelService reelService, GameService gameService) {
-        this.slotMachineService = new SlotMachineService(reelService, gameService);
+    public SlotMachineController(SlotMachineService slotMachineService) {
+        this.slotMachineService = slotMachineService;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Inicjalizacja ReelService i GameService
-        ReelService reelService = new ReelService(reels);
-        GameService gameService = new GameService(new Game());
-
         // Inicjalizacja tablicy reelImageViews
         ImageView[][] reelImageViews = new ImageView[][]{
                 {reelImageView1_1, reelImageView1_2, reelImageView1_3},
                 {reelImageView2_1, reelImageView2_2, reelImageView2_3},
                 {reelImageView3_1, reelImageView3_2, reelImageView3_3}};
 
-
-        // Utworzenie instancji SlotMachineService
-        this.slotMachineService = new SlotMachineService(reelService, gameService);
         slotMachineService.setReelImageViews(reelImageViews);
 
         // Inicjalizacja tablicy reelImageViews
@@ -217,9 +203,6 @@ public class SlotMachineController implements Initializable {
         line.setStroke(Color.RED);
         // Dodaj przekreślenie do kontenera
         container.getChildren().add(line);
-    }
-
-    public SlotMachineController() {
     }
 
     @FXML

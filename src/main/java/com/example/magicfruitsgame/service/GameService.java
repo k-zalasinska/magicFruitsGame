@@ -31,8 +31,6 @@ public class GameService {
         }
     }
 
-
-    // Metoda pobierająca stan konta
     public int getBalance() {
         return game.getBalance();
     }
@@ -61,7 +59,7 @@ public class GameService {
         if (topUpAmount <= 0) {
             throw new IllegalArgumentException("Top-up amount must be greater than zero.");
         }
-        int currentBalance = game.getBalance();
-        game.setBalance(currentBalance + topUpAmount);
+        game.setBalance(game.getBalance() + topUpAmount);
     }
+
 }

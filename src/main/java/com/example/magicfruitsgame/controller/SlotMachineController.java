@@ -171,9 +171,7 @@ public class SlotMachineController implements Initializable {
     }
 
     private void performDeposit(int depositAmount) {
-        int currentBalance = slotMachineService.getBalance();
-        int newBalance = currentBalance + depositAmount;
-        slotMachineService.topUpBalance(newBalance);
+        slotMachineService.topUpBalance(depositAmount);
         updateUI();
         System.out.println("Deposit amount: " + depositAmount);
     }

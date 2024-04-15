@@ -8,24 +8,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class SlotMachineController implements Initializable {
     private SlotMachineService slotMachineService;
 
-    private final int[][] reels = {
-            {0, 4, 0, 0, 0, 2, 2, 3, 1, 4, 0, 6, 0, 1, 0, 0, 5, 1, 1, 3},
+    private final int[][] reels = {{0, 4, 0, 0, 0, 2, 2, 3, 1, 4, 0, 6, 0, 1, 0, 0, 5, 1, 1, 3},
             {2, 5, 1, 2, 0, 1, 3, 5, 2, 6, 1, 0, 0, 0, 1, 3, 4, 4, 0, 4},
-            {5, 2, 1, 0, 0, 3, 4, 0, 2, 6, 0, 2, 0, 0, 0, 1, 1, 3, 0, 4}
-    };
+            {5, 2, 1, 0, 0, 3, 4, 0, 2, 6, 0, 2, 0, 0, 0, 1, 1, 3, 0, 4}};
 
     @FXML
     private ImageView[][] reelImageViews;
@@ -61,7 +58,10 @@ public class SlotMachineController implements Initializable {
     private Button startButton;
 
     @FXML
-    private Button depositButton;
+    private TextField depositAmountField;
+
+    @FXML
+    private Button payInButton;
 
     @FXML
     private Label balanceLabel;
@@ -72,25 +72,12 @@ public class SlotMachineController implements Initializable {
     @FXML
     private Label stakeLabel;
 
-    @FXML
-    private Button spinButton;
-
-    @FXML
-    private ImageView slotMachineImageView;
-
     public SlotMachineController(ReelService reelService, GameService gameService) {
         this.slotMachineService = new SlotMachineService(reelService, gameService);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Inicjalizacja tablicy reelImageViews
-        initializeReelImageViews();
-
-        // Dodanie obsługi zdarzeń dla przycisku "Start"
-        startButton.setOnAction(event -> handleStartButton());
-        depositButton.setOnAction(event -> handlePayInButton());
-
         // Inicjalizacja ReelService i GameService
         ReelService reelService = new ReelService(reels);
         GameService gameService = new GameService(new Game());
@@ -99,19 +86,30 @@ public class SlotMachineController implements Initializable {
         ImageView[][] reelImageViews = new ImageView[][]{
                 {reelImageView1_1, reelImageView1_2, reelImageView1_3},
                 {reelImageView2_1, reelImageView2_2, reelImageView2_3},
-                {reelImageView3_1, reelImageView3_2, reelImageView3_3}
-        };
+                {reelImageView3_1, reelImageView3_2, reelImageView3_3}};
 
         // Utworzenie instancji SlotMachineService
         this.slotMachineService = new SlotMachineService(reelService, gameService);
         slotMachineService.setReelImageViews(reelImageViews);
 
-        // Inicjalizacja przycisku START
+        // Inicjalizacja tablicy reelImageViews
+        initializeReelImageViews();
+
+        balanceLabel.setText("100");
+        lastWinLabel.setText("0");
+        stakeLabel.setText("10");
+
+        // Dodanie obsługi zdarzeń dla przycisku "Start"
+        startButton.setOnAction(event -> handleStartButton());
+
+        depositAmountField.setVisible(false);
+        payInButton.setOnAction(event -> handlePayInButton());
+
         startButton.setTranslateX(1060);
         startButton.setTranslateY(789);
 
-        depositButton.setTranslateX(280);
-        depositButton.setTranslateY(-25);
+        payInButton.setTranslateX(280);
+        payInButton.setTranslateY(-25);
 
         balanceLabel.setTranslateX(550);
         balanceLabel.setTranslateY(815);
@@ -122,22 +120,7 @@ public class SlotMachineController implements Initializable {
         stakeLabel.setTranslateX(939);
         stakeLabel.setTranslateY(722);
 
-        // Aktualizacja interfejsu użytkownika
         updateUI();
-    }
-
-
-    // Metoda do aktualizacji interfejsu użytkownika
-    private void updateUI() {
-        // Pobierz wartości do wyświetlenia
-        int balance = slotMachineService.getBalance();
-        int lastWin = slotMachineService.getLastWin();
-        int stake = slotMachineService.getStake();
-
-        // Ustaw wartości na kontrolkach UI
-        balanceLabel.setText("" + balance);
-        lastWinLabel.setText("" + lastWin);
-        stakeLabel.setText("" + stake);
     }
 
     // Metoda inicjalizująca pola ImageView
@@ -151,31 +134,63 @@ public class SlotMachineController implements Initializable {
     // Metoda obsługująca kliknięcie przycisku "Start"
     @FXML
     private void handleStartButton() {
-        int[][] spinSymbols = slotMachineService.spinReels();
-        slotMachineService.startSpinningAnimation(spinSymbols);
+        int[] spinSymbols = slotMachineService.spinReels();
+        if (spinSymbols != null && spinSymbols.length > 0) {
+            slotMachineService.startSpinningAnimation(spinSymbols);
+        } else {
+            System.err.println("Error: Unable to retrieve symbols for spinning.");
+        }
     }
 
-    // Metoda obsługująca kliknięcie przycisku "Deposit"
+    // Metoda obsługująca kliknięcie przycisku "Pay in"
     @FXML
     private void handlePayInButton() {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Deposit");
-        dialog.setHeaderText("Enter the amount to deposit:");
-        dialog.setContentText("Amount:");
-
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(amount -> {
-            try {
-                int depositAmount = Integer.parseInt(amount);
-                slotMachineService.topUpBalance(depositAmount);
-                updateUI();
-            } catch (NumberFormatException e) {
-                System.err.println("Invalid input. Please enter a valid number.");
-            }
-        });
+        // Pokaż pole tekstowe po kliknięciu przycisku
+        depositAmountField.setVisible(true);
+        // Przenieś fokus na pole tekstowe
+        depositAmountField.requestFocus();
+        System.out.println("Pay in button clicked");
     }
 
-    // Metoda do ustawiania usługi SlotMachineService
+    @FXML
+    private void processDeposit() {
+        String amountText = depositAmountField.getText();
+        try {
+            int depositAmount = Integer.parseInt(amountText);
+            performDeposit(depositAmount);
+            depositAmountField.setVisible(false);
+            depositAmountField.clear();
+            System.out.println("Deposit processed successfully");
+        } catch (NumberFormatException e) {
+            System.err.println("Invalid input. Please enter a valid number.");
+        }
+    }
+
+    private void performDeposit(int depositAmount) {
+        int currentBalance = slotMachineService.getBalance();
+        int newBalance = currentBalance + depositAmount;
+        slotMachineService.topUpBalance(newBalance);
+        updateUI();
+        System.out.println("Deposit amount: " + depositAmount);
+    }
+
+    @FXML
+    private void initialize() {
+        depositAmountField = new TextField();
+
+    }
+
+    private void updateUI() {
+        int balance = slotMachineService.getBalance();
+        int lastWin = slotMachineService.getLastWin();
+        int stake = slotMachineService.getStake();
+
+        // Ustawia wartości na kontrolkach UI
+        balanceLabel.setText("" + balance);
+        lastWinLabel.setText("" + lastWin);
+        stakeLabel.setText("" + stake);
+    }
+
     public void setSlotMachineService(SlotMachineService slotMachineService) {
         this.slotMachineService = slotMachineService;
     }
@@ -184,46 +199,12 @@ public class SlotMachineController implements Initializable {
         return reelImageViews;
     }
 
-
-    public void evaluateResult(int[][] spinSymbols) {
-        boolean horizontalWin = false;
-        boolean diagonalWin = false;
-
-        // Sprawdź poziome linie wygrywające
-        for (int i = 0; i < 3; i++) {
-            if (spinSymbols[i][0] == spinSymbols[i][1] && spinSymbols[i][1] == spinSymbols[i][2]) {
-                horizontalWin = true;
-                drawWinningLine(i, 0, i, 2); // Dodaj przekreślenie poziomej linii
-            }
-        }
-
-        // Sprawdź przekątne linie
-        if ((spinSymbols[0][0] == spinSymbols[1][1] && spinSymbols[1][1] == spinSymbols[2][2]) ||
-                (spinSymbols[0][2] == spinSymbols[1][1] && spinSymbols[1][1] == spinSymbols[2][0])) {
-            diagonalWin = true;
-            // Dodaj przekreślenia dla obu przekątnych linii
-            drawWinningLine(0, 0, 2, 2);
-            drawWinningLine(0, 2, 2, 0);
-        }
-
-        // Obsługa wygranej
-        if (horizontalWin || diagonalWin) {
-            slotMachineService.calculateWinAmount(spinSymbols);
-            System.out.println("Congratulations! You won " + slotMachineService.getLastWin() + " credits.");
-        } else {
-            slotMachineService.setLastWin(0);
-            System.out.println("No win. Try again!");
-        }
-
-    }
-
     @FXML
-    private Pane container; // Załóżmy, że masz kontroler z polem container reprezentującym kontener
+    private Pane container;
 
     private void drawWinningLine(int startX, int startY, int endX, int endY) {
-        // Zmienna lokalna dla metody drawWinningLine
-        double symbolWidth = 100.0; // Przykładowa szerokość symbolu
-        double symbolHeight = 100.0; // Przykładowa wysokość symbolu
+        double symbolWidth = 100.0;
+        double symbolHeight = 100.0;
 
         Line line = new Line();
         line.setStartX(startX * symbolWidth + symbolWidth / 2);
@@ -233,10 +214,16 @@ public class SlotMachineController implements Initializable {
         line.setStrokeWidth(3);
         line.setStroke(Color.RED);
         // Dodaj przekreślenie do kontenera
-//        container.getChildren().add(line);
+        container.getChildren().add(line);
     }
 
     public SlotMachineController() {
     }
 
+    @FXML
+    private void evaluateResult(int[] spinSymbols) {
+        slotMachineService.evaluateResult(spinSymbols);
+        updateUI();
+
+    }
 }

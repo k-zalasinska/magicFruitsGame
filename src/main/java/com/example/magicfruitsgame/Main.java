@@ -38,15 +38,11 @@ public class Main extends Application {
         // Inicjalizacja ImageView dla bębnów
         controller.initializeReelImageViews();
 
-        // Ustawienie ImageView w serwisie
         slotMachineService.setReelImageViews(controller.getReelImageViews());
 
-        // Ustawienie kontrolera w serwisie
         controller.setSlotMachineService(slotMachineService);
 
-        Scene scene = new Scene(root, 1000, 0);
-//        scene.getStylesheets().add(getClass().getResource("/ui/styles.css").toExternalForm());
-//        root.getStyleClass().add("background"); // Dodaj klasę stylu do korzenia sceny
+        Scene scene = new Scene(root, 1000, 50);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Slot Machine Game");
         primaryStage.show();

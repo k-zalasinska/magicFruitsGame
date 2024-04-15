@@ -52,7 +52,8 @@
 
     <bottom>
         <HBox>
-            <Button fx:id="depositButton" styleClass="button"/>
+            <Button fx:id="payInButton" styleClass="payIn" onAction="#handlePayInButton"/>
+            <TextField fx:id="depositAmountField"/>
         </HBox>
 
 
@@ -60,6 +61,7 @@
     <top>
         <HBox>
             <Button fx:id="startButton" styleClass="button"/>
+
         </HBox>
     </top>
 

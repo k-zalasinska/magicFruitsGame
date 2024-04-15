@@ -1,8 +1,10 @@
 package com.example.magicfruitsgame.controller;
 
 import com.example.magicfruitsgame.service.SlotMachineService;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -17,38 +19,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SlotMachineController implements Initializable {
-    public GridPane reelsGridPane;
     private SlotMachineService slotMachineService;
-
-    @FXML
     private ImageView[][] reelImageViews;
 
     @FXML
-    private ImageView reelImageView1_1;
-
-    @FXML
-    private ImageView reelImageView1_2;
-
-    @FXML
-    private ImageView reelImageView1_3;
-
-    @FXML
-    private ImageView reelImageView2_1;
-
-    @FXML
-    private ImageView reelImageView2_2;
-
-    @FXML
-    private ImageView reelImageView2_3;
-
-    @FXML
-    private ImageView reelImageView3_1;
-
-    @FXML
-    private ImageView reelImageView3_2;
-
-    @FXML
-    private ImageView reelImageView3_3;
+    private GridPane reelsImageViews;
 
     @FXML
     private Button startButton;
@@ -72,18 +47,26 @@ public class SlotMachineController implements Initializable {
         this.slotMachineService = slotMachineService;
     }
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Inicjalizacja tablicy reelImageViews
-        ImageView[][] reelImageViews = new ImageView[][]{
-                {reelImageView1_1, reelImageView1_2, reelImageView1_3},
-                {reelImageView2_1, reelImageView2_2, reelImageView2_3},
-                {reelImageView3_1, reelImageView3_2, reelImageView3_3}};
+        ObservableList<Node> children = reelsImageViews.getChildren();
 
+        reelImageViews = new ImageView[3][3]; // Inicjalizacja pola reelImageViews
+
+        int index = 0;
+
+        for (Node child : children) {
+            if (child instanceof ImageView imageView) {
+                int row = index / 3;
+                int col = index % 3;
+                reelImageViews[row][col] = imageView;
+                index++;
+            }
+        }
+//        reelImageViews[row][col] = (ImageView) child;
+        // Ustawienie reelImageViews w SlotMachineService
         slotMachineService.setReelImageViews(reelImageViews);
-
-        // Inicjalizacja tablicy reelImageViews
-        initializeReelImageViews();
 
         balanceLabel.setText("100");
         lastWinLabel.setText("0");
@@ -105,14 +88,6 @@ public class SlotMachineController implements Initializable {
         stakeLabel.setTranslateY(722);
 
         updateUI();
-    }
-
-    // Metoda inicjalizująca pola ImageView
-    public void initializeReelImageViews() {
-        reelImageViews = new ImageView[3][3];
-        reelImageViews[0] = new ImageView[]{reelImageView1_1, reelImageView1_2, reelImageView1_3};
-        reelImageViews[1] = new ImageView[]{reelImageView2_1, reelImageView2_2, reelImageView2_3};
-        reelImageViews[2] = new ImageView[]{reelImageView3_1, reelImageView3_2, reelImageView3_3};
     }
 
     // Metoda obsługująca kliknięcie przycisku "Start"

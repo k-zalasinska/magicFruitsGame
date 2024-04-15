@@ -58,7 +58,7 @@ public class SlotMachineService {
             int cycleIndex = i; // index cyklu, używany w lambdzie
 
             // Tworzymy KeyFrame dla każdego cyklu
-            KeyFrame keyFrame = new KeyFrame(Duration.seconds(0), e -> {
+            KeyFrame keyFrame = new KeyFrame(Duration.seconds(frameDuration), e -> {
                 // Przesuwamy symbole na bębnach w dół
                 for (int j = spinSymbols.length - 1; j >= 0; j--) {
                     if (j == 0) {

@@ -25,28 +25,32 @@
     </Pane>
 
     <center>
-        <GridPane fx:id="reelsGridPane" alignment="CENTER">
-            <!-- Reels ImageView -->
-            <ImageView fx:id="reelImageView1_1" styleClass="reel-image" GridPane.columnIndex="0" GridPane.rowIndex="0"
-                       fitWidth="200" fitHeight="200"/>
-            <ImageView fx:id="reelImageView1_2" styleClass="reel-image" GridPane.columnIndex="1" GridPane.rowIndex="0"
-                       fitWidth="200" fitHeight="200"/>
-            <ImageView fx:id="reelImageView1_3" styleClass="reel-image" GridPane.columnIndex="2" GridPane.rowIndex="0"
-                       fitWidth="200" fitHeight="200"/>
-            <ImageView fx:id="reelImageView2_1" styleClass="reel-image" GridPane.columnIndex="0" GridPane.rowIndex="1"
-                       fitWidth="200" fitHeight="200"/>
-            <ImageView fx:id="reelImageView2_2" styleClass="reel-image" GridPane.columnIndex="1" GridPane.rowIndex="1"
-                       fitWidth="200" fitHeight="200"/>
-            <ImageView fx:id="reelImageView2_3" styleClass="reel-image" GridPane.columnIndex="2" GridPane.rowIndex="1"
-                       fitWidth="200" fitHeight="200"/>
-            <ImageView fx:id="reelImageView3_1" styleClass="reel-image" GridPane.columnIndex="0" GridPane.rowIndex="2"
-                       fitWidth="200" fitHeight="200"/>
-            <ImageView fx:id="reelImageView3_2" styleClass="reel-image" GridPane.columnIndex="1" GridPane.rowIndex="2"
-                       fitWidth="200" fitHeight="200"/>
-            <ImageView fx:id="reelImageView3_3" styleClass="reel-image" GridPane.columnIndex="2" GridPane.rowIndex="2"
-                       fitWidth="200" fitHeight="200"/>
-
+        <GridPane fx:id="reelsImageViews">
+            <children>
+                <ImageView>
+                    <Image url="/symbols/symbol_cherry.png"/>
+                </ImageView>
+                <ImageView>
+                    <Image url="/symbols/symbol_orange.png"/>
+                </ImageView>
+                <ImageView>
+                    <Image url="/symbols/symbol_pineapple.png"/>
+                </ImageView>
+                <ImageView>
+                    <Image url="/symbols/symbol_plum.png"/>
+                </ImageView>
+                <ImageView>
+                    <Image url="/symbols/symbol_seven.png"/>
+                </ImageView>
+                <ImageView>
+                    <Image url="/symbols/symbol_strawberry.png"/>
+                </ImageView>
+                <ImageView>
+                    <Image url="/symbols/symbol_watermelon.png"/>
+                </ImageView>
+            </children>
         </GridPane>
+
     </center>
 
     <bottom>

@@ -88,6 +88,7 @@ public class SlotMachineController implements Initializable {
                 {reelImageView2_1, reelImageView2_2, reelImageView2_3},
                 {reelImageView3_1, reelImageView3_2, reelImageView3_3}};
 
+
         // Utworzenie instancji SlotMachineService
         this.slotMachineService = new SlotMachineService(reelService, gameService);
         slotMachineService.setReelImageViews(reelImageViews);
@@ -104,12 +105,6 @@ public class SlotMachineController implements Initializable {
 
         depositAmountField.setVisible(false);
         payInButton.setOnAction(event -> handlePayInButton());
-
-        startButton.setTranslateX(1060);
-        startButton.setTranslateY(789);
-
-        payInButton.setTranslateX(280);
-        payInButton.setTranslateY(-25);
 
         balanceLabel.setTranslateX(550);
         balanceLabel.setTranslateY(815);

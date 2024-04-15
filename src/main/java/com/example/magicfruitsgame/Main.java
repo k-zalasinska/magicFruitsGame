@@ -42,7 +42,7 @@ public class Main extends Application {
 
         controller.setSlotMachineService(slotMachineService);
 
-        Scene scene = new Scene(root, 1000, 50);
+        Scene scene = new Scene(root, 1000, 60);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Slot Machine Game");
         primaryStage.show();

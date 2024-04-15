@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -11,9 +12,7 @@
 
     <!-- Background Image -->
     <ImageView fx:id="slotMachineImageView" fitWidth="1540" fitHeight="890">
-        <image>
-            <Image url="/views/background.jpg"/>
-        </image>
+        <Image url="/views/background.jpg"/>
     </ImageView>
 
 

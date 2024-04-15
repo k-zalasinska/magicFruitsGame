@@ -4,6 +4,9 @@
     -fx-padding: 10px 40px 20px 40px; /* Marginesy dla góry, prawej, dołu i lewej kolejno */
 }
 
+.reel-image {
+}
+
 .balance-label {
     -fx-font-size: 30px; /* Rozmiar czcionki */
     -fx-font-weight: bold; /* Pogrubienie tekstu */
@@ -66,12 +69,9 @@
 }
 
 .button#startButton:pressed {
-    -fx-background-image: url("/views/button_start_onpress.png");
+    -fx-background-image: url('/views/button_start_onpress.png');
 }
 
 .button#startButton:disabled {
-    -fx-background-image: url("/views/button_start_disable.png");
-}
-
-.reel-image {
+    -fx-background-image: url('/views/button_start_disable.png');
 }

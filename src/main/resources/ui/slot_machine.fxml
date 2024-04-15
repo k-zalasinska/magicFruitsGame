@@ -52,14 +52,14 @@
 
     <bottom>
         <HBox>
-            <Button fx:id="depositButton" text="" styleClass="button"/>
+            <Button fx:id="depositButton" styleClass="button"/>
         </HBox>
 
 
     </bottom>
     <top>
         <HBox>
-            <Button fx:id="startButton" text="" styleClass="button"/>
+            <Button fx:id="startButton" styleClass="button"/>
         </HBox>
     </top>
 

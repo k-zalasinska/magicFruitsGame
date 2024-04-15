@@ -83,9 +83,9 @@
     -fx-background-image: url("/views/button_payin_disable.png");
 }
 
-.button#depositButton {
-    -fx-z-index: 1;
-}
+/*.button#depositButton {*/
+/*    -fx-z-index: 1;*/
+/*}*/
 
 
 /* Styl domyślny dla przycisku START */
@@ -101,7 +101,6 @@
     /*-fx-margin: 0 20px 20px 0; !* Margines od prawej i dolnej krawędzi *!*/
 }
 
-/* Styl domyślny dla przycisku START */
 .button#startButton {
     -fx-background-image: url("/views/button_start_normal.png");
 }

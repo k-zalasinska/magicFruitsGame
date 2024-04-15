@@ -1,5 +1,6 @@
 package com.example.magicfruitsgame.service;
 
+import com.example.magicfruitsgame.controller.SlotMachineController;
 import com.example.magicfruitsgame.model.Symbol;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -7,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 public class SlotMachineService {
+    private SlotMachineController slotMachineController;
     private final SymbolService symbolService = new SymbolService();
     private final ReelService reelService;
     private final GameService gameService;
@@ -36,6 +38,7 @@ public class SlotMachineService {
     }
 
     public void animateSpinning(int[][] spinSymbols) {
+
         int frameDuration = 3; // czas trwania jednego KeyFrame'a
         int cycles = 9 / frameDuration; // liczba cykli animacji
         Timeline timeline = new Timeline(); // tworzymy nową animację
@@ -55,6 +58,9 @@ public class SlotMachineService {
 
         // Odpalamy animację
         timeline.play();
+
+        // Dodajmy wywołanie evaluateResult na końcu animacji
+        timeline.setOnFinished(event -> slotMachineController.evaluateResult(spinSymbols));
     }
 
     private void updateReels(int[][] spinSymbols, int cycleIndex) {

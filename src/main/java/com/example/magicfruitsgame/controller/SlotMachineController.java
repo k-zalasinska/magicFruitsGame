@@ -48,13 +48,11 @@ public class SlotMachineController {
 
     @FXML
     private void handleStartButton() {
-        // Sprawdź, czy gra jest uruchomiona
         if (!gameService.isGameRunning()) {
-            gameService.startGame(); // Uruchom grę
-            gameService.spinBoard(); // Obróć bębnami
-            updateLabels(); // Zaktualizuj etykiety wyświetlające stan gry
+            gameService.startGame();
+            gameService.spinBoard();
+            updateLabels();
 
-            // Sprawdź, czy wystąpiła wygrana
             if (gameService.getLastWin() > 0) {
                 Alert winAlert = new Alert(Alert.AlertType.INFORMATION);
                 winAlert.setTitle("Congratulations!");
@@ -63,7 +61,6 @@ public class SlotMachineController {
                 winAlert.showAndWait();
             }
 
-            // Sprawdź, czy gra została zakończona
             if (!gameService.isGameRunning()) {
                 Alert endGameAlert = new Alert(Alert.AlertType.INFORMATION);
                 endGameAlert.setTitle("Game Over");

@@ -1,77 +1,45 @@
-#reelsGridPane {
-    -fx-hgap: 10px; /* Odstęp między kolumnami */
-    -fx-vgap: 10px; /* Odstęp między wierszami */
-    -fx-padding: 10px 40px 20px 40px; /* Marginesy dla góry, prawej, dołu i lewej kolejno */
-}
-
-.reel-image {
-}
-
-.balance-label {
-    -fx-font-size: 30px; /* Rozmiar czcionki */
-    -fx-font-weight: bold; /* Pogrubienie tekstu */
-    -fx-text-fill: white; /* Kolor tekstu */
-    /*-fx-alignment: left; !* Wyśrodkowanie tekstu *!*/
-}
-
-.last-win-label {
-    -fx-font-size: 30px; /* Rozmiar czcionki */
-    -fx-font-weight: bold; /* Pogrubienie tekstu */
-    -fx-text-fill: white; /* Kolor tekstu */
-    /*-fx-alignment: center; !* Wyśrodkowanie tekstu *!*/
+.stack-pane {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url('/views/background.jpg');
+    background-size: 50% 70%; /* szerokość 20%, wysokość 10% */
+    background-position: center;
 }
 
 .stake-label {
-    -fx-font-size: 30px; /* Rozmiar czcionki */
-    -fx-font-weight: bold; /* Pogrubienie tekstu */
     -fx-text-fill: white; /* Kolor tekstu */
-    /*-fx-alignment: right; !* Wyśrodkowanie tekstu *!*/
+    -fx-font-size: 16px; /* Rozmiar czcionki */
 }
 
-/* Styl domyślny dla przycisku PAY IN */
-.payIn#payInButton {
-    -fx-background-color: transparent; /* Ustawienie przezroczystego tła */
-    -fx-padding: 0px; /* Usunięcie wewnętrznego odstępu */
-    -fx-background-radius: 0px; /* Usunięcie zaokrąglenia rogów */
-    -fx-border-style: none; /* Usunięcie stylu obramowania */
-    -fx-background-image: url("/views/button_payin_normal.png");
-    -fx-background-size: cover; /* dostosuj rozmiar tła przycisku */
-    -fx-pref-width: 200px; /* preferowana szerokość przycisku */
-    -fx-pref-height: 75px; /* preferowana wysokość przycisku */
+#startButton {
+    -fx-background-image: url('views/button_start_normal.png');
 }
 
-.payIn#payInButton:hover {
-    -fx-background-image: url("/views/button_payin_onhover.png");
+#startButton:hover {
+    -fx-background-image: url('views/button_start_onhover.png');
 }
 
-.payIn#payInButton:pressed {
-    -fx-background-image: url("/views/button_payin_onpress.png");
+#startButton:pressed {
+    -fx-background-image: url('views/button_start_onpress.png');
 }
 
-.payIn#payInButton:disabled {
-    -fx-background-image: url("/views/button_payin_disable.png");
+#startButton:disabled {
+    -fx-background-image: url('views/button_start_disable.png');
 }
 
-/* Styl domyślny dla przycisku START */
-.button#startButton {
-    -fx-background-color: transparent; /* Ustawienie przezroczystego tła */
-    -fx-padding: 0px; /* Usunięcie wewnętrznego odstępu */
-    -fx-background-radius: 0px; /* Usunięcie zaokrąglenia rogów */
-    -fx-border-style: none; /* Usunięcie stylu obramowania */
-    -fx-background-image: url("/views/button_start_normal.png");
-    -fx-background-size: cover; /* dostosuj rozmiar tła przycisku */
-    -fx-pref-width: 200px; /* preferowana szerokość przycisku */
-    -fx-pref-height: 75px; /* preferowana wysokość przycisku */
+#depositButton {
+    -fx-background-image: url('views/button_payin_normal.png');
 }
 
-.button#startButton:hover {
-    -fx-background-image: url("/views/button_start_onhover.png");
+#depositButton:hover {
+    -fx-background-image: url('views/button_payin_onhover.png');
 }
 
-.button#startButton:pressed {
-    -fx-background-image: url('/views/button_start_onpress.png');
+#depositButton:pressed {
+    -fx-background-image: url('views/button_payin_onpress.png');
 }
 
-.button#startButton:disabled {
-    -fx-background-image: url('/views/button_start_disable.png');
+#depositButton:disabled {
+    -fx-background-image: url('views/button_payin_disable.png');
 }

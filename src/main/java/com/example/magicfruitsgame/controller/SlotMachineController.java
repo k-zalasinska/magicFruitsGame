@@ -9,7 +9,9 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.net.URL;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 public class SlotMachineController {
     private final GameService gameService;
@@ -34,7 +36,7 @@ public class SlotMachineController {
     }
 
     @FXML
-    private void initialize() {
+    private void initialize(URL location, ResourceBundle resources) {
         updateLabels();
 
         Image startImage = new Image(getClass().getResourceAsStream("/views/button_start_normal.png"));

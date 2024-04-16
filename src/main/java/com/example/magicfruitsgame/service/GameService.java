@@ -5,13 +5,11 @@ import com.example.magicfruitsgame.model.Symbol;
 
 public class GameService {
     private final ReelService reelService;
-    private final SymbolService symbolService;
     private final Game game;
     private final Symbol[][] board;
 
-    public GameService(ReelService reelService, SymbolService symbolService, Game game) {
+    public GameService(ReelService reelService, Game game) {
         this.reelService = reelService;
-        this.symbolService = symbolService;
         this.game = game;
         this.board = new Symbol[3][3];
     }
@@ -48,7 +46,7 @@ public class GameService {
     }
 
     public int calculateWin(int symbolId) {
-        Symbol symbol = symbolService.getSymbol(symbolId);
+        Symbol symbol = reelService.symbolService.getSymbol(symbolId);
         return symbol.winMultiplier() * game.getStake();
     }
 

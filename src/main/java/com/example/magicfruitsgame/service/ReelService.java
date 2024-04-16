@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class ReelService {
     private final Random random;
-    private final SymbolService symbolService;
+    final SymbolService symbolService;
 
     public ReelService(SymbolService symbolService) {
         this.random = new Random();

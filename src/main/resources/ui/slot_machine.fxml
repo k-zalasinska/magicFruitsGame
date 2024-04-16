@@ -32,8 +32,9 @@
     </VBox>
 
 
-    <Button fx:id="startButton" text="Start" styleClass="button"/>
-    <Button fx:id="depositButton" text="Pay In"/>
+    <Button fx:id="payInButton" text="Pay In" onAction="#handlePayInButton"/>
+
+    <Button fx:id="startButton" text="Start" onAction="#handleStartButton"/>
 
 
 </StackPane>

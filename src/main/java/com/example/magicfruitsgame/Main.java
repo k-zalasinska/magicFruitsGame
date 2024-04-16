@@ -45,8 +45,8 @@ public class Main extends Application {
 // Ustawienie skalowania tła do rozmiaru sceny
         background.setPreserveRatio(true); // zachowanie proporcji obrazu
         // Ustawienie skali obrazu w procentach
-        double scaleX = 0.9; // 50% szerokości okna
-        double scaleY = 0.8; // 50% wysokości okna
+        double scaleX = 0.65; // 50% szerokości okna
+        double scaleY = 0.83; // 50% wysokości okna
 
 // Ustawienie szerokości obrazu na 50% szerokości okna
         background.fitWidthProperty().bind(primaryStage.widthProperty().multiply(scaleX));

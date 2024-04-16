@@ -1,12 +1,81 @@
 package com.example.magicfruitsgame.service;
 
 import com.example.magicfruitsgame.model.Game;
+import com.example.magicfruitsgame.model.Symbol;
 
 public class GameService {
+    private final ReelService reelService;
+    private final SymbolService symbolService;
     private final Game game;
+    private final int[][] board;
 
-    public GameService(Game game) {
+    public GameService(ReelService reelService, SymbolService symbolService, Game game) {
+        this.reelService = reelService;
+        this.symbolService = symbolService;
         this.game = game;
+        this.board = new int[3][3];
+    }
+
+    public int[][] spinBoard() {
+        if (!game.isGameRunning()) {
+            throw new IllegalStateException("Game is not running.");
+        }
+        for (int i = 0; i < 3; i++) {
+            board[i] = reelService.spin();
+        }
+        if (checkWin()) {
+            int win = calculateWin(board[1][0]);
+            updateBalance(win);
+            game.setLastWin(win);
+        } else {
+            game.setLastWin(0);
+        }
+        return board;
+    }
+
+    public boolean checkWin() {
+        for (int i = 0; i < 3; i++) {
+            int symbol = board[i][1]; //sprawdza środk rząd każdego bębna
+            if (board[i][0] != symbol || board[i][2] != symbol) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public int calculateWin(int symbolId) {
+        Symbol symbol = symbolService.getSymbol(symbolId);
+        return symbol.winMultiplier() * game.getStake();
+    }
+
+    public void updateBalance(int win) {
+        int currentBalance = game.getBalance();
+        int newBalance = currentBalance + win;
+        game.setBalance(newBalance);
+    }
+
+    public void deposit(int amount) {
+        if (amount > 0) {
+            game.setBalance(game.getBalance() + amount);
+        } else {
+            throw new IllegalArgumentException("The top-up amount must be greater than zero.");
+        }
+    }
+
+    public int getBalance() {
+        return game.getBalance();
+    }
+
+    public int getStake() {
+        return game.getStake();
+    }
+
+    public int getLastWin() {
+        return game.getLastWin();
+    }
+
+    public void startGame() {
+        game.startGame();
     }
 
     public Game getGame() {
@@ -17,49 +86,14 @@ public class GameService {
         return game.isGameRunning();
     }
 
-    public void startGame() {
-        game.startGame();
-    }
-
-    // Metoda doładowująca stan konta
-    public void deposit(int amount) {
-        if (amount > 0) {
-            int currentBalance = game.getBalance();
-            game.setBalance(currentBalance + amount);
-        } else {
-            throw new IllegalArgumentException("The top-up amount must be greater than zero.");
-        }
-    }
-
-    public int getBalance() {
-        return game.getBalance();
-    }
-
     // Metoda odjęcia stawki od stanu konta za rozgrywkę
     public void deduct() {
         int currentBalance = game.getBalance();
-        if (currentBalance >= 10) {
-            game.setBalance(currentBalance - 10);
+        int stake = game.getStake();
+        if (currentBalance >= stake) {
+            game.setBalance(currentBalance - stake);
         } else {
             throw new IllegalArgumentException("Insufficient funds in the account.");
         }
     }
-
-    // Metoda dodająca wygraną z rozgrywki do salda gracza
-    public void addWinnings(int winnings) {
-        if (winnings <= 0) {
-            throw new IllegalArgumentException("Winning amount must be greater than zero.");
-        }
-        int currentBalance = game.getBalance();
-        game.setBalance(currentBalance + winnings);
-    }
-
-    // Metoda doładowująca saldo konta gracza
-    public void topUpBalance(int topUpAmount) {
-        if (topUpAmount <= 0) {
-            throw new IllegalArgumentException("Top-up amount must be greater than zero.");
-        }
-        game.setBalance(game.getBalance() + topUpAmount);
-    }
-
 }

@@ -1,189 +1,123 @@
 package com.example.magicfruitsgame.controller;
 
-import com.example.magicfruitsgame.service.SlotMachineService;
-import javafx.collections.ObservableList;
+import com.example.magicfruitsgame.service.GameService;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.Optional;
 
-public class SlotMachineController implements Initializable {
-    private SlotMachineService slotMachineService;
-    private ImageView[][] reelImageViews;
-
-    @FXML
-    private GridPane reelsImageViews;
-
-    @FXML
-    private Button startButton;
-
-    @FXML
-    private TextField depositAmountField;
-
-    @FXML
-    private Button payInButton;
+public class SlotMachineController {
+    private final GameService gameService;
 
     @FXML
     private Label balanceLabel;
 
     @FXML
+    private Label stakeLabel;
+
+    @FXML
     private Label lastWinLabel;
 
     @FXML
-    private Label stakeLabel;
-
-    public SlotMachineController(SlotMachineService slotMachineService) {
-        this.slotMachineService = slotMachineService;
-    }
-
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        ObservableList<Node> children = reelsImageViews.getChildren();
-
-        reelImageViews = new ImageView[3][3]; // Inicjalizacja pola reelImageViews
-
-        int index = 0;
-
-        for (Node child : children) {
-            if (child instanceof ImageView imageView) {
-                int row = index / 3;
-                int col = index % 3;
-                reelImageViews[row][col] = imageView;
-                index++;
-            }
-        }
-//        reelImageViews[row][col] = (ImageView) child;
-        // Ustawienie reelImageViews w SlotMachineService
-        slotMachineService.setReelImageViews(reelImageViews);
-
-        balanceLabel.setText("100");
-        lastWinLabel.setText("0");
-        stakeLabel.setText("10");
-
-        // Dodanie obsługi zdarzeń dla przycisku "Start"
-        startButton.setOnAction(event -> handleStartButton());
-
-        depositAmountField.setVisible(false);
-        payInButton.setOnAction(event -> handlePayInButton());
-
-        balanceLabel.setTranslateX(550);
-        balanceLabel.setTranslateY(815);
-
-        lastWinLabel.setTranslateX(762);
-        lastWinLabel.setTranslateY(770);
-
-        stakeLabel.setTranslateX(939);
-        stakeLabel.setTranslateY(722);
-
-        updateUI();
-    }
-
-    // Metoda obsługująca kliknięcie przycisku "Start"
-    @FXML
-    private void handleStartButton() {
-        int[] spinSymbols = slotMachineService.spinReels();
-        if (spinSymbols != null && spinSymbols.length > 0) {
-            slotMachineService.startSpinningAnimation(spinSymbols);
-        } else {
-            System.err.println("Error: Unable to retrieve symbols for spinning.");
-        }
-    }
-
-    // Metoda obsługująca "Pay in"
-    @FXML
-    private void handlePayInButton() {
-        depositAmountField.setVisible(true);
-        depositAmountField.requestFocus();
-        depositAmountField.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                processDeposit();
-            }
-        });
-    }
+    private Button startButton;
 
     @FXML
-    private void processDeposit() {
-        String amountText = depositAmountField.getText();
-        try {
-            int depositAmount = Integer.parseInt(amountText);
-            if (depositAmount > 0) {
-                performDeposit(depositAmount);
-                depositAmountField.setVisible(false);
-                depositAmountField.clear();
-                System.out.println("Deposit processed successfully");
-            } else {
-                System.err.println("Invalid input. Please enter a positive number.");
-            }
-        } catch (NumberFormatException e) {
-            System.err.println("Invalid input. Please enter a valid number.");
-        }
-    }
+    Button payInButton;
 
-    private void performDeposit(int depositAmount) {
-        slotMachineService.topUpBalance(depositAmount);
-        updateUI();
-        System.out.println("Deposit amount: " + depositAmount);
+    public SlotMachineController(GameService gameService) {
+        this.gameService = gameService;
     }
 
     @FXML
     private void initialize() {
-        depositAmountField = new TextField();
+        updateLabels();
 
-    }
+        Image startImage = new Image(getClass().getResourceAsStream("/views/button_start_normal.png"));
+        ImageView startImageView = new ImageView(startImage);
+        startButton.setGraphic(startImageView);
 
-    private void updateUI() {
-        int balance = slotMachineService.getBalance();
-        int lastWin = slotMachineService.getLastWin();
-        int stake = slotMachineService.getStake();
-
-        // Ustawia wartości na kontrolkach UI
-        balanceLabel.setText("" + balance);
-        lastWinLabel.setText("" + lastWin);
-        stakeLabel.setText("" + stake);
-    }
-
-    public void setSlotMachineService(SlotMachineService slotMachineService) {
-        this.slotMachineService = slotMachineService;
-    }
-
-    public ImageView[][] getReelImageViews() {
-        return reelImageViews;
+        Image payInImage = new Image(getClass().getResourceAsStream("/views/button_payin_normal.png"));
+        ImageView payInImageView = new ImageView(payInImage);
+        payInButton.setGraphic(payInImageView);
     }
 
     @FXML
-    private Pane container;
+    private void handleStartButton() {
+        // Sprawdź, czy gra jest uruchomiona
+        if (!gameService.isGameRunning()) {
+            gameService.startGame(); // Uruchom grę
+            gameService.spinBoard(); // Obróć bębnami
+            updateLabels(); // Zaktualizuj etykiety wyświetlające stan gry
 
-    private void drawWinningLine(int startX, int startY, int endX, int endY) {
-        double symbolWidth = 100.0;
-        double symbolHeight = 100.0;
+            // Sprawdź, czy wystąpiła wygrana
+            if (gameService.getLastWin() > 0) {
+                Alert winAlert = new Alert(Alert.AlertType.INFORMATION);
+                winAlert.setTitle("Congratulations!");
+                winAlert.setHeaderText(null);
+                winAlert.setContentText("You won: " + gameService.getLastWin());
+                winAlert.showAndWait();
+            }
 
-        Line line = new Line();
-        line.setStartX(startX * symbolWidth + symbolWidth / 2);
-        line.setStartY(startY * symbolHeight + symbolHeight / 2);
-        line.setEndX(endX * symbolWidth + symbolWidth / 2);
-        line.setEndY(endY * symbolHeight + symbolHeight / 2);
-        line.setStrokeWidth(3);
-        line.setStroke(Color.RED);
-        // Dodaj przekreślenie do kontenera
-        container.getChildren().add(line);
+            // Sprawdź, czy gra została zakończona
+            if (!gameService.isGameRunning()) {
+                Alert endGameAlert = new Alert(Alert.AlertType.INFORMATION);
+                endGameAlert.setTitle("Game Over");
+                endGameAlert.setHeaderText(null);
+                endGameAlert.setContentText("Game has ended. Your final balance: " + gameService.getBalance());
+                endGameAlert.showAndWait();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText(null);
+            alert.setContentText("Game is already running.");
+            alert.showAndWait();
+        }
     }
 
     @FXML
-    private void evaluateResult(int[] spinSymbols) {
-        slotMachineService.evaluateResult(spinSymbols);
-        updateUI();
+    private void handlePayInButton() {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Deposit");
+        dialog.setHeaderText("Enter the amount you want to deposit:");
+        dialog.setContentText("Amount:");
 
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(amount -> {
+            try {
+                int depositAmount = Integer.parseInt(amount);
+                gameService.deposit(depositAmount);
+                updateLabels();
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                successAlert.setTitle("Deposit Success");
+                successAlert.setHeaderText(null);
+                successAlert.setContentText("Balance has been successfully deposited.");
+                successAlert.showAndWait();
+            } catch (NumberFormatException e) {
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Invalid Amount");
+                errorAlert.setHeaderText(null);
+                errorAlert.setContentText("Please enter a valid integer amount.");
+                errorAlert.showAndWait();
+            } catch (IllegalArgumentException e) {
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Invalid Amount");
+                errorAlert.setHeaderText(null);
+                errorAlert.setContentText(e.getMessage());
+                errorAlert.showAndWait();
+            }
+        });
     }
+
+    private void updateLabels() {
+        balanceLabel.setText(Integer.toString(gameService.getBalance()));
+        stakeLabel.setText(Integer.toString(gameService.getStake()));
+        lastWinLabel.setText(Integer.toString(gameService.getLastWin()));
+    }
+
 }

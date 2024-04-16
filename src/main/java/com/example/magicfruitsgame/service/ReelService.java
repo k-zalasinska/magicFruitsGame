@@ -14,17 +14,17 @@ public class ReelService {
         this.symbolService = symbolService;
     }
 
-    public int[] spin() {
+    public Symbol[] spin() {
         List<Symbol> symbols = symbolService.getSymbols();
 
         if (symbols.isEmpty()) {
             throw new IllegalStateException("No symbols available for spinning.");
         }
 
-        int[] reelSymbols = new int[3];
+        Symbol[] reelSymbols = new Symbol[3];
         for (int i = 0; i < 3; i++) {
             int symbolIndex = random.nextInt(symbols.size());
-            reelSymbols[i] = symbols.get(symbolIndex).id();
+            reelSymbols[i] = symbols.get(symbolIndex);
         }
 
         return reelSymbols;

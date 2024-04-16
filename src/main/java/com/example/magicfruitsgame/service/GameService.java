@@ -7,40 +7,44 @@ public class GameService {
     private final ReelService reelService;
     private final SymbolService symbolService;
     private final Game game;
-    private final int[][] board;
+    private final Symbol[][] board;
 
     public GameService(ReelService reelService, SymbolService symbolService, Game game) {
         this.reelService = reelService;
         this.symbolService = symbolService;
         this.game = game;
-        this.board = new int[3][3];
+        this.board = new Symbol[3][3];
     }
 
-    public int[][] spinBoard() {
+    public void spinBoard() {
         if (!game.isGameRunning()) {
             throw new IllegalStateException("Game is not running.");
         }
+
         for (int i = 0; i < 3; i++) {
-            board[i] = reelService.spin();
+            Symbol[] reelSymbols = reelService.spin();
+            board[i] = reelSymbols;
         }
+
         if (checkWin()) {
-            int win = calculateWin(board[1][0]);
+            int win = calculateWin(board[1][0].id());
             updateBalance(win);
             game.setLastWin(win);
         } else {
             game.setLastWin(0);
         }
-        return board;
     }
+
 
     public boolean checkWin() {
         for (int i = 0; i < 3; i++) {
-            int symbol = board[i][1]; //sprawdza środk rząd każdego bębna
-            if (board[i][0] != symbol || board[i][2] != symbol) {
-                return false;
+            if (board[i][0] != null && board[i][0] == board[i][1] && board[i][1] == board[i][2]) { //symb w rzędach
+                return true;
             }
         }
-        return true;
+        if (board[0][0] != null && board[0][0] == board[1][1] && board[1][1] == board[2][2]) {
+            return true;
+        } else return board[0][2] != null && board[0][2] == board[1][1] && board[1][1] == board[2][0];
     }
 
     public int calculateWin(int symbolId) {

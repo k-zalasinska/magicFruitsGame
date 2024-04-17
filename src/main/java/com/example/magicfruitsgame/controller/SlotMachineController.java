@@ -63,12 +63,14 @@ public class SlotMachineController {
         Symbol[][] symbols = gameService.spinBoard();
         updateLabels();
 
+        int lastWin;
+
         if (gameService.checkWin(symbols)) {
-            int win = gameService.getLastWin();
+            lastWin = gameService.calculateWin(symbols[1][0].id());
             Alert winAlert = new Alert(Alert.AlertType.INFORMATION);
             winAlert.setTitle("Congratulations!");
             winAlert.setHeaderText(null);
-            winAlert.setContentText("You won: " + win);
+            winAlert.setContentText("You won: " + lastWin);
             winAlert.showAndWait();
         }
     }

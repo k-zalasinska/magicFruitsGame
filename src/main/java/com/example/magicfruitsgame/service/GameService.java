@@ -89,8 +89,4 @@ public class GameService {
         return game.getLastWin();
     }
 
-    public void setLastWin(int lastWin) {
-        game.setLastWin(lastWin);
-    }
-
 }

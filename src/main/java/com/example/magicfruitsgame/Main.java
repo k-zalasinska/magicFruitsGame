@@ -17,13 +17,12 @@ public class Main extends Application {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/slot_machine.fxml"));
 
-        GameService gameService = createGameService();
-        loader.setControllerFactory(x -> {
-            if (x == SlotMachineController.class) {
-                return new SlotMachineController(gameService);
+        loader.setControllerFactory(controllerClass -> {
+            if (SlotMachineController.class.isAssignableFrom(controllerClass)) {
+                return new SlotMachineController(new GameService(new SymbolService()));
             } else {
                 try {
-                    return x.getDeclaredConstructor().newInstance();
+                    return controllerClass.getDeclaredConstructor().newInstance();
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -38,10 +37,6 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    private GameService createGameService() {
-        SymbolService symbolService = new SymbolService();
-        return new GameService(symbolService);
-    }
 
     public static void main(String[] args) {
         launch(args);

@@ -49,7 +49,6 @@ public class SlotMachineController {
 
     @FXML
     private void handleStartButton() {
-        gameService.startGame();
         try {
             gameService.deduct();
         } catch (IllegalArgumentException e) {
@@ -88,7 +87,6 @@ public class SlotMachineController {
             try {
                 int depositAmount = Integer.parseInt(amount);
                 gameService.deposit(depositAmount);
-                updateLabels();
                 Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
                 successAlert.setTitle("Deposit Success");
                 successAlert.setHeaderText(null);
@@ -108,12 +106,14 @@ public class SlotMachineController {
                 errorAlert.showAndWait();
             }
         });
+        updateLabels();
     }
 
     private void updateLabels() {
         balanceLabel.setText(Integer.toString(gameService.getBalance()));
         stakeLabel.setText(Integer.toString(gameService.getStake()));
-        lastWinLabel.setText(Integer.toString(gameService.getLastWin()));
+        int lastWin = 0;
+        lastWinLabel.setText(Integer.toString(lastWin));
     }
 
 

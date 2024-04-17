@@ -1,6 +1,5 @@
 package com.example.magicfruitsgame.service;
 
-import com.example.magicfruitsgame.model.Game;
 import com.example.magicfruitsgame.model.Symbol;
 
 import java.util.List;
@@ -9,15 +8,13 @@ import java.util.Random;
 public class GameService {
     private static final Random random = new Random();
     private final SymbolService symbolService;
-    private final Game game = new Game();
+    private final int stake;
+    private int balance;
 
     public GameService(SymbolService symbolService) {
         this.symbolService = symbolService;
-    }
-
-    public void startGame() {
-        game.setBalance(1000);
-        game.setLastWin(0);
+        this.stake = 10;
+        this.balance = 1000;
     }
 
     public Symbol[][] spinBoard() {
@@ -39,31 +36,31 @@ public class GameService {
 
     public boolean checkWin(Symbol[][] symbols) {
         for (int i = 0; i < 3; i++) {
-            if (symbols[i][0] != null && symbols[i][0] == symbols[i][1] && symbols[i][1] == symbols[i][2]) { //symb w rzędach
+            if (symbols[i][0] != null && symbols[i][0].equals(symbols[i][1]) && symbols[i][1].equals(symbols[i][2])) {
                 return true;
             }
         }
-        if (symbols[0][0] != null && symbols[0][0] == symbols[1][1] && symbols[1][1] == symbols[2][2]) {
+        if (symbols[0][0] != null && symbols[0][0].equals(symbols[1][1]) && symbols[1][1].equals(symbols[2][2])) {
             return true;
-        } else return symbols[0][2] != null && symbols[0][2] == symbols[1][1] && symbols[1][1] == symbols[2][0];
+        } else
+            return symbols[0][2] != null && symbols[0][2].equals(symbols[1][1]) && symbols[1][1].equals(symbols[2][0]);
     }
+
 
     public int calculateWin(int symbolId) {
         Symbol symbol = symbolService.getSymbol(symbolId);
-        return symbol.winMultiplier() * game.getStake();
+        return symbol.winMultiplier() * stake;
     }
 
     public void updateBalance(int win) {
-        int currentBalance = game.getBalance();
-        int newBalance = currentBalance + win;
-        game.setBalance(newBalance);
+        int currentBalance = balance;
+        balance = currentBalance + win;
     }
 
     public void deduct() {
-        int currentBalance = game.getBalance();
-        int stake = game.getStake();
+        int currentBalance = balance;
         if (currentBalance >= stake) {
-            game.setBalance(currentBalance - stake);
+            balance = currentBalance - stake;
         } else {
             throw new IllegalArgumentException("Insufficient funds in the account.");
         }
@@ -71,22 +68,17 @@ public class GameService {
 
     public void deposit(int amount) {
         if (amount > 0) {
-            game.setBalance(game.getBalance() + amount);
+            balance = balance + amount;
         } else {
             throw new IllegalArgumentException("The top-up amount must be greater than zero.");
         }
     }
 
     public int getBalance() {
-        return game.getBalance();
+        return balance;
     }
 
     public int getStake() {
-        return game.getStake();
+        return stake;
     }
-
-    public int getLastWin() {
-        return game.getLastWin();
-    }
-
 }

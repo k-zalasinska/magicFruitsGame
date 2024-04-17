@@ -37,15 +37,15 @@ public class GameService {
         return board;
     }
 
-    public boolean checkWin(Symbol[][] board) {
+    public boolean checkWin(Symbol[][] symbols) {
         for (int i = 0; i < 3; i++) {
-            if (board[i][0] != null && board[i][0] == board[i][1] && board[i][1] == board[i][2]) { //symb w rzędach
+            if (symbols[i][0] != null && symbols[i][0] == symbols[i][1] && symbols[i][1] == symbols[i][2]) { //symb w rzędach
                 return true;
             }
         }
-        if (board[0][0] != null && board[0][0] == board[1][1] && board[1][1] == board[2][2]) {
+        if (symbols[0][0] != null && symbols[0][0] == symbols[1][1] && symbols[1][1] == symbols[2][2]) {
             return true;
-        } else return board[0][2] != null && board[0][2] == board[1][1] && board[1][1] == board[2][0];
+        } else return symbols[0][2] != null && symbols[0][2] == symbols[1][1] && symbols[1][1] == symbols[2][0];
     }
 
     public int calculateWin(int symbolId) {

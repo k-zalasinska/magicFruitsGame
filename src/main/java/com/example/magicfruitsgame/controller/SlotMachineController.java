@@ -1,5 +1,6 @@
 package com.example.magicfruitsgame.controller;
 
+import com.example.magicfruitsgame.model.Symbol;
 import com.example.magicfruitsgame.service.GameService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -59,36 +60,18 @@ public class SlotMachineController {
             errorAlert.showAndWait();
             return;
         }
-        gameService.spinBoard();
+        Symbol[][] symbols = gameService.spinBoard();
         updateLabels();
 
-        if (gameService.getLastWin() > 0) {
+        if (gameService.checkWin(symbols)) {
+            int win = gameService.getLastWin();
             Alert winAlert = new Alert(Alert.AlertType.INFORMATION);
             winAlert.setTitle("Congratulations!");
             winAlert.setHeaderText(null);
-            winAlert.setContentText("You won: " + gameService.getLastWin());
+            winAlert.setContentText("You won: " + win);
             winAlert.showAndWait();
         }
     }
-//
-//        //sprawdz czy gra została zakończ
-//        if (!game.isGameRunning()) {
-//            Alert endGameAlert = new Alert(Alert.AlertType.INFORMATION);
-//            endGameAlert.setTitle("Game Over");
-//            endGameAlert.setHeaderText(null);
-//            endGameAlert.setContentText("Game has ended. Your final balance: " + game.getBalance());
-//            endGameAlert.showAndWait();
-//        }
-//    } else
-//
-//    {
-//        //wyświetl komuo błędzie, jeśli gra jest już uruchom
-//        Alert alert = new Alert(Alert.AlertType.WARNING);
-//        alert.setTitle("Warning");
-//        alert.setHeaderText(null);
-//        alert.setContentText("Game is already running.");
-//        alert.showAndWait();
-//    }
 
 
     @FXML

@@ -1,40 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<StackPane fx:controller="com.example.magicfruitsgame.controller.SlotMachineController"
-           prefWidth="500" prefHeight="350"
-           stylesheets="@styles.css" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import java.net.URL?>
+<AnchorPane fx:id="anchorPane"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.magicfruitsgame.controller.SlotMachineController">
 
-    <!-- Główna zawartość aplikacji -->
-    <!-- Główna zawartość aplikacji jest wyśrodkowana zarówno poziomo, jak i pionowo -->
     <VBox styleClass="centered-content" alignment="CENTER">
-        <!-- Tutaj możesz dodać dodatkowe elementy, jeśli są potrzebne -->
+        <children>
+            <!-- Przyciski -->
+            <Button fx:id="startButton" text="Start" onAction="#handleStartButton"/>
+            <Button fx:id="payInButton" text="Pay In" onAction="#handlePayInButton"/>
+
+            <!-- Etykiety -->
+            <Label fx:id="balanceLabel" text="1000"/>
+            <Label fx:id="stakeLabel" text="10"/>
+            <Label fx:id="lastWinLabel" text="0"/>
+        </children>
     </VBox>
 
-    <!-- Dół aplikacji -->
-    <VBox alignment="CENTER" spacing="20" style="-fx-alignment: CENTER;">
-        <!-- Tutaj możesz dodać inne elementy, takie jak przyciski, etykiety itp. -->
-        <Button fx:id="startButton" text="Start" onAction="#handleStartButton"/>
-        <!-- Pozostała zawartość -->
-    </VBox>
-    <VBox alignment="CENTER_LEFT" spacing="20" style="-fx-alignment: CENTER_LEFT">
-        <Button fx:id="payInButton" onAction="#handlePayInButton"
-                style="-fx-alignment: BOTTOM_LEFT; -fx-pref-width: 200px; -fx-pref-height: 75px;"/>
-        <!-- Pozostała zawartość -->
-    </VBox>
-
-
-    <VBox styleClass="stack-pane">
-        <Label fx:id="balanceLabel" text="1000"/>
-        <Label fx:id="stakeLabel" text="10"/>
-        <Label fx:id="lastWinLabel" text="0"/>
-    </VBox>
-
-
-    <Button fx:id="payInButton" text="Pay In" onAction="#handlePayInButton"/>
-
-    <Button fx:id="startButton" text="Start" onAction="#handleStartButton"/>
-
-
-</StackPane>
+    <stylesheets>
+        <URL value="@styles.css"/>
+    </stylesheets>
+</AnchorPane>

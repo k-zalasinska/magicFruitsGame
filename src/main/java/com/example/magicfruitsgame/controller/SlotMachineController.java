@@ -9,9 +9,7 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.net.URL;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
 public class SlotMachineController {
     private final GameService gameService;
@@ -31,12 +29,13 @@ public class SlotMachineController {
     @FXML
     Button payInButton;
 
+
     public SlotMachineController(GameService gameService) {
         this.gameService = gameService;
     }
 
     @FXML
-    private void initialize(URL location, ResourceBundle resources) {
+    private void initialize() {
         updateLabels();
 
         Image startImage = new Image(getClass().getResourceAsStream("/views/button_start_normal.png"));
@@ -118,5 +117,6 @@ public class SlotMachineController {
         stakeLabel.setText(Integer.toString(gameService.getStake()));
         lastWinLabel.setText(Integer.toString(gameService.getLastWin()));
     }
+
 
 }

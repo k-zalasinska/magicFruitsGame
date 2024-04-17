@@ -1,46 +1,40 @@
-.stack-pane {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-image: url('/views/background.jpg');
-    background-size: 30% 10%; /* szerokość 20%, wysokość 10% */
-    background-position: center;
+/* AnchorPane */
+#anchorPane {
+    -fx-background-image: url('/views/background.jpg');
+    -fx-background-size: cover;
+    -fx-background-position: center;
 }
 
+/* Buttons */
+#startButton, #payInButton {
+    -fx-background-color: transparent; /* Ustawienie tła przycisku na przezroczyste */
+    -fx-text-fill: white; /* Kolor tekstu */
+    -fx-font-size: 16px; /* Rozmiar czcionki */
+    -fx-padding: 10px 20px; /* Wewnętrzny padding */
+    -fx-border-color: white; /* Kolor obramowania */
+    -fx-border-width: 2px; /* Grubość obramowania */
+}
 
-.stake-label {
+#startButton:hover, #payInButton:hover {
+    -fx-border-color: yellow; /* Zmiana koloru obramowania po najechaniu myszką */
+}
+
+#startButton:pressed, #payInButton:pressed {
+    -fx-background-color: white; /* Zmiana koloru tła po wciśnięciu przycisku */
+    -fx-text-fill: black; /* Zmiana koloru tekstu po wciśnięciu przycisku */
+}
+
+#startButton:disabled, #payInButton:disabled {
+    -fx-opacity: 0.5; /* Zmniejszenie przezroczystości przycisku, jeśli jest wyłączony */
+}
+
+/* Labels */
+#balanceLabel, #stakeLabel, #lastWinLabel {
     -fx-text-fill: white; /* Kolor tekstu */
     -fx-font-size: 16px; /* Rozmiar czcionki */
 }
 
-#startButton {
-    -fx-background-image: url('views/button_start_normal.png');
-}
-
-#startButton:hover {
-    -fx-background-image: url('views/button_start_onhover.png');
-}
-
-#startButton:pressed {
-    -fx-background-image: url('views/button_start_onpress.png');
-}
-
-#startButton:disabled {
-    -fx-background-image: url('views/button_start_disable.png');
-}
-
-#depositButton {
-    -fx-background-image: url('views/button_payin_normal.png');
-}
-
-#depositButton:hover {
-    -fx-background-image: url('views/button_payin_onhover.png');
-}
-
-#depositButton:pressed {
-    -fx-background-image: url('views/button_payin_onpress.png');
-}
-
-#depositButton:disabled {
-    -fx-background-image: url('views/button_payin_disable.png');
+/* VBox */
+.centered-content {
+    -fx-alignment: center; /* Wyśrodkowanie zawartości */
 }

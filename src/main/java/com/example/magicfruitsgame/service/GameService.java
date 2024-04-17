@@ -7,28 +7,23 @@ import java.util.List;
 import java.util.Random;
 
 public class GameService {
-    private final SymbolService symbolService = new SymbolService();
-    private final Game game;
     private static final Random random = new Random();
-    private final Symbol[][] board;
+    private final SymbolService symbolService;
+    private final Game game = new Game();
 
-    public GameService(Game game) {
-        this.game = game;
-        this.board = new Symbol[3][3];
+    public GameService(SymbolService symbolService) {
+        this.symbolService = symbolService;
+    }
+
+    public void startGame() {
+        game.setBalance(1000);
+        game.setLastWin(0);
     }
 
     public Symbol[][] spinBoard() {
-        if (!game.isGameRunning()) {
-            throw new IllegalStateException("Game is not running.");
-        }
-
         Symbol[][] board = new Symbol[3][3];
         for (int i = 0; i < 3; i++) {
             List<Symbol> symbols = symbolService.getSymbols();
-
-            if (symbols.isEmpty()) {
-                throw new IllegalStateException("No symbols available for spinning.");
-            }
 
             Symbol[] reelSymbols = new Symbol[3];
             for (int j = 0; j < 3; j++) {
@@ -39,18 +34,10 @@ public class GameService {
             board[i] = reelSymbols;
         }
 
-        if (checkWin(board)) {
-            int win = calculateWin(board[1][0].id());
-            updateBalance(win);
-            game.setLastWin(win);
-        } else {
-            game.setLastWin(0);
-        }
-
         return board;
     }
 
-    private boolean checkWin(Symbol[][] board) {
+    public boolean checkWin(Symbol[][] board) {
         for (int i = 0; i < 3; i++) {
             if (board[i][0] != null && board[i][0] == board[i][1] && board[i][1] == board[i][2]) { //symb w rzędach
                 return true;
@@ -70,6 +57,16 @@ public class GameService {
         int currentBalance = game.getBalance();
         int newBalance = currentBalance + win;
         game.setBalance(newBalance);
+    }
+
+    public void deduct() {
+        int currentBalance = game.getBalance();
+        int stake = game.getStake();
+        if (currentBalance >= stake) {
+            game.setBalance(currentBalance - stake);
+        } else {
+            throw new IllegalArgumentException("Insufficient funds in the account.");
+        }
     }
 
     public void deposit(int amount) {
@@ -92,31 +89,8 @@ public class GameService {
         return game.getLastWin();
     }
 
-    public void startGame() {
-        game.startGame();
-    }
-
-    public Game getGame() {
-        return game;
-    }
-
-    public boolean isGameRunning() {
-        return game.isGameRunning();
-    }
-
-    // Metoda odjęcia stawki od stanu konta za rozgrywkę
-    public void deduct() {
-        int currentBalance = game.getBalance();
-        int stake = game.getStake();
-        if (currentBalance >= stake) {
-            game.setBalance(currentBalance - stake);
-        } else {
-            throw new IllegalArgumentException("Insufficient funds in the account.");
-        }
-    }
-
-    public Symbol[][] getBoard() {
-        return board;
+    public void setLastWin(int lastWin) {
+        game.setLastWin(lastWin);
     }
 
 }

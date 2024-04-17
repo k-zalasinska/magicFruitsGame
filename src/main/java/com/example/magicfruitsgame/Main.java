@@ -1,8 +1,8 @@
 package com.example.magicfruitsgame;
 
 import com.example.magicfruitsgame.controller.SlotMachineController;
-import com.example.magicfruitsgame.model.Game;
 import com.example.magicfruitsgame.service.GameService;
+import com.example.magicfruitsgame.service.SymbolService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -39,7 +39,8 @@ public class Main extends Application {
     }
 
     private GameService createGameService() {
-        return new GameService(new Game());
+        SymbolService symbolService = new SymbolService();
+        return new GameService(symbolService);
     }
 
     public static void main(String[] args) {

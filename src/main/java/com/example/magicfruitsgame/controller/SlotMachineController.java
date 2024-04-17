@@ -1,8 +1,6 @@
 package com.example.magicfruitsgame.controller;
 
-import com.example.magicfruitsgame.model.Symbol;
 import com.example.magicfruitsgame.service.GameService;
-import com.example.magicfruitsgame.service.SymbolService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -11,13 +9,11 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.Objects;
 import java.util.Optional;
 
 public class SlotMachineController {
     private final GameService gameService;
-
-    @FXML
-    private SymbolService symbolService;
 
     @FXML
     private Label balanceLabel;
@@ -41,70 +37,59 @@ public class SlotMachineController {
 
     @FXML
     public void initialize() {
-        symbolService = new SymbolService();
-        symbolService.setSymbolsDirectory(new Image(getClass().getResourceAsStream("/symbols")));
-
-
-        Image startImage = new Image(getClass().getResourceAsStream("/views/button_start_normal.png"));
+        Image startImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/views/button_start_normal.png")));
         ImageView startImageView = new ImageView(startImage);
         startButton.setGraphic(startImageView);
 
-        Image payInImage = new Image(getClass().getResourceAsStream("/views/button_payin_normal.png"));
+        Image payInImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/views/button_payin_normal.png")));
         ImageView payInImageView = new ImageView(payInImage);
         payInButton.setGraphic(payInImageView);
     }
 
     @FXML
     private void handleStartButton() {
-        if (!gameService.isGameRunning()) {
-            // Rozpoczęcie gry
-            gameService.startGame();
+        gameService.startGame();
+        try {
+            gameService.deduct();
+        } catch (IllegalArgumentException e) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Insufficient Funds");
+            errorAlert.setHeaderText(null);
+            errorAlert.setContentText(e.getMessage());
+            errorAlert.showAndWait();
+            return;
+        }
+        gameService.spinBoard();
+        updateLabels();
 
-            // Odejmowanie stawki od salda
-            try {
-                gameService.deduct(); // Odejmowanie stawki od salda
-            } catch (IllegalArgumentException e) {
-                // Obsługa przypadku braku wystarczających środków na koncie
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setTitle("Insufficient Funds");
-                errorAlert.setHeaderText(null);
-                errorAlert.setContentText(e.getMessage());
-                errorAlert.showAndWait();
-                return; // Zakończ metodę w przypadku braku wystarczających środków
-            }
-
-            // Przekręcenie bębnów
-            gameService.spinBoard();
-
-            // Aktualizacja etykiet
-            updateLabels();
-
-            // Wyświetlenie komunikatu o wygranej, jeśli jest
-            if (gameService.getLastWin() > 0) {
-                Alert winAlert = new Alert(Alert.AlertType.INFORMATION);
-                winAlert.setTitle("Congratulations!");
-                winAlert.setHeaderText(null);
-                winAlert.setContentText("You won: " + gameService.getLastWin());
-                winAlert.showAndWait();
-            }
-
-            // Sprawdzenie, czy gra została zakończona
-            if (!gameService.isGameRunning()) {
-                Alert endGameAlert = new Alert(Alert.AlertType.INFORMATION);
-                endGameAlert.setTitle("Game Over");
-                endGameAlert.setHeaderText(null);
-                endGameAlert.setContentText("Game has ended. Your final balance: " + gameService.getBalance());
-                endGameAlert.showAndWait();
-            }
-        } else {
-            // Wyświetlenie komunikatu o błędzie, jeśli gra jest już uruchomiona
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText(null);
-            alert.setContentText("Game is already running.");
-            alert.showAndWait();
+        if (gameService.getLastWin() > 0) {
+            Alert winAlert = new Alert(Alert.AlertType.INFORMATION);
+            winAlert.setTitle("Congratulations!");
+            winAlert.setHeaderText(null);
+            winAlert.setContentText("You won: " + gameService.getLastWin());
+            winAlert.showAndWait();
         }
     }
+//
+//        //sprawdz czy gra została zakończ
+//        if (!game.isGameRunning()) {
+//            Alert endGameAlert = new Alert(Alert.AlertType.INFORMATION);
+//            endGameAlert.setTitle("Game Over");
+//            endGameAlert.setHeaderText(null);
+//            endGameAlert.setContentText("Game has ended. Your final balance: " + game.getBalance());
+//            endGameAlert.showAndWait();
+//        }
+//    } else
+//
+//    {
+//        //wyświetl komuo błędzie, jeśli gra jest już uruchom
+//        Alert alert = new Alert(Alert.AlertType.WARNING);
+//        alert.setTitle("Warning");
+//        alert.setHeaderText(null);
+//        alert.setContentText("Game is already running.");
+//        alert.showAndWait();
+//    }
+
 
     @FXML
     private void handlePayInButton() {
@@ -141,8 +126,6 @@ public class SlotMachineController {
     }
 
     private void updateLabels() {
-        Symbol[][] board = gameService.getBoard();
-
         balanceLabel.setText(Integer.toString(gameService.getBalance()));
         stakeLabel.setText(Integer.toString(gameService.getStake()));
         lastWinLabel.setText(Integer.toString(gameService.getLastWin()));

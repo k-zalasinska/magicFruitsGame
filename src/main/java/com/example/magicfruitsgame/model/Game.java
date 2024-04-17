@@ -4,21 +4,11 @@ public class Game {
     private int balance;
     private final int stake;
     private int lastWin;
-    private boolean running;
 
     public Game() {
         this.balance = 1000;
         this.stake = 10;
         this.lastWin = 0;
-        this.running = false;
-    }
-
-    public boolean isGameRunning() {
-        return running;
-    }
-
-    public void startGame() {
-        running = true;
     }
 
     public int getBalance() {

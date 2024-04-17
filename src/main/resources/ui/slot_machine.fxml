@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.example.magicfruitsgame.service.SymbolService?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import java.net.URL?>
-<AnchorPane fx:id="anchorPane"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.magicfruitsgame.controller.SlotMachineController">
+<StackPane fx:id="stackPane"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.example.magicfruitsgame.controller.SlotMachineController">
+    <fx:define>
+        <SymbolService fx:id="symbolService"/>
+    </fx:define>
 
-    <VBox styleClass="centered-content" alignment="CENTER">
-        <children>
-            <!-- Przyciski -->
-            <Button fx:id="startButton" text="Start" onAction="#handleStartButton"/>
-            <Button fx:id="payInButton" text="Pay In" onAction="#handlePayInButton"/>
 
-            <!-- Etykiety -->
-            <Label fx:id="balanceLabel" text="1000"/>
-            <Label fx:id="stakeLabel" text="10"/>
-            <Label fx:id="lastWinLabel" text="0"/>
-        </children>
+    <VBox fx:id="container" styleClass="stakeLabel">
+        <!-- Labels -->
+        <Label fx:id="balanceLabel" text="1000"/>
+        <Label fx:id="stakeLabel" text="10"/>
+        <Label fx:id="lastWinLabel" text="0"/>
     </VBox>
+
+
+    <children>
+        <Button fx:id="startButton" onAction="#handleStartButton" StackPane.alignment="CENTER_LEFT"/>
+        <Button fx:id="payInButton" onAction="#handlePayInButton" StackPane.alignment="BOTTOM_LEFT"/>
+    </children>
 
     <stylesheets>
         <URL value="@styles.css"/>
     </stylesheets>
-</AnchorPane>
+</StackPane>

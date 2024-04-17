@@ -18,7 +18,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws IOException {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/slot_machine.fxml"));
-        Parent root = loader.load();
+
 
         // Tworzenie fabryki kontrolerów
         GameService gameService = createGameService();
@@ -34,6 +34,7 @@ public class Main extends Application {
             }
         });
 
+        Parent root = loader.load();
         Scene scene = new Scene(root);
 
         // Ustawia scenę w primaryStage

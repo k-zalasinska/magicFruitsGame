@@ -6,35 +6,35 @@ import com.example.magicfruitsgame.model.Symbol;
 public class GameService {
     private final ReelService reelService;
     private final Game game;
-    private final Symbol[][] board;
 
     public GameService(ReelService reelService, Game game) {
         this.reelService = reelService;
         this.game = game;
-        this.board = new Symbol[3][3];
     }
 
-    public void spinBoard() {
+    public Symbol[][] spinBoard() {
         if (!game.isGameRunning()) {
             throw new IllegalStateException("Game is not running.");
         }
 
+        Symbol[][] board = new Symbol[3][3];
         for (int i = 0; i < 3; i++) {
             Symbol[] reelSymbols = reelService.spin();
             board[i] = reelSymbols;
         }
 
-        if (checkWin()) {
+        if (checkWin(board)) {
             int win = calculateWin(board[1][0].id());
             updateBalance(win);
             game.setLastWin(win);
         } else {
             game.setLastWin(0);
         }
+
+        return board;
     }
 
-
-    public boolean checkWin() {
+    private boolean checkWin(Symbol[][] board) {
         for (int i = 0; i < 3; i++) {
             if (board[i][0] != null && board[i][0] == board[i][1] && board[i][1] == board[i][2]) { //symb w rzędach
                 return true;
@@ -46,7 +46,7 @@ public class GameService {
     }
 
     public int calculateWin(int symbolId) {
-        Symbol symbol = reelService.symbolService.getSymbol(symbolId);
+        Symbol symbol = reelService.getSymbolService().getSymbol(symbolId);
         return symbol.winMultiplier() * game.getStake();
     }
 

@@ -1,6 +1,7 @@
 package com.example.magicfruitsgame.controller;
 
 import com.example.magicfruitsgame.service.GameService;
+import com.example.magicfruitsgame.service.SymbolService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -15,6 +16,9 @@ public class SlotMachineController {
     private final GameService gameService;
 
     @FXML
+    private SymbolService symbolService;
+
+    @FXML
     private Label balanceLabel;
 
     @FXML
@@ -27,7 +31,7 @@ public class SlotMachineController {
     private Button startButton;
 
     @FXML
-    Button payInButton;
+    private Button payInButton;
 
 
     public SlotMachineController(GameService gameService) {
@@ -36,6 +40,9 @@ public class SlotMachineController {
 
     @FXML
     private void initialize() {
+        symbolService = new SymbolService();
+        symbolService.setSymbolsDirectory("/symbols");
+
         updateLabels();
 
         Image startImage = new Image(getClass().getResourceAsStream("/views/button_start_normal.png"));

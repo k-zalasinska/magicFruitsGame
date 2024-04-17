@@ -1,5 +1,12 @@
-/* AnchorPane */
-#anchorPane {
+#stackPane {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#container {
     -fx-background-image: url('/views/background.jpg');
     -fx-background-size: cover;
     -fx-background-position: center;
@@ -7,16 +14,11 @@
 
 /* Buttons */
 #startButton, #payInButton {
-    -fx-background-color: transparent; /* Ustawienie tła przycisku na przezroczyste */
-    -fx-text-fill: white; /* Kolor tekstu */
-    -fx-font-size: 16px; /* Rozmiar czcionki */
-    -fx-padding: 10px 20px; /* Wewnętrzny padding */
-    -fx-border-color: white; /* Kolor obramowania */
-    -fx-border-width: 2px; /* Grubość obramowania */
-}
+    -fx-background-color: transparent; /* Usunięcie tła przycisku */
+    -fx-padding: 0; /* Usunięcie wewnętrznego marginesu */
+    -fx-background-insets: 0; /* Usunięcie wewnętrznego wypełnienia */
+    -fx-border-width: 0; /* Usunięcie obramowania */
 
-#startButton:hover, #payInButton:hover {
-    -fx-border-color: yellow; /* Zmiana koloru obramowania po najechaniu myszką */
 }
 
 #startButton:pressed, #payInButton:pressed {
@@ -28,13 +30,35 @@
     -fx-opacity: 0.5; /* Zmniejszenie przezroczystości przycisku, jeśli jest wyłączony */
 }
 
+/*!* Labels *!*/
+/*#balanceLabel, #stakeLabel, #lastWinLabel {*/
+/*    -fx-text-fill: white; !* Kolor tekstu *!*/
+/*    -fx-font-size: 16px; !* Rozmiar czcionki *!*/
+/*}*/
+
 /* Labels */
-#balanceLabel, #stakeLabel, #lastWinLabel {
+#balanceLabel {
     -fx-text-fill: white; /* Kolor tekstu */
     -fx-font-size: 16px; /* Rozmiar czcionki */
+    -fx-layout-x: 100; /* Pozycja X w pikselach */
+    -fx-layout-y: 50; /* Pozycja Y w pikselach */
+}
+
+#stakeLabel {
+    -fx-text-fill: white; /* Kolor tekstu */
+    -fx-font-size: 16px; /* Rozmiar czcionki */
+    -fx-layout-x: 150; /* Pozycja X w pikselach */
+    -fx-layout-y: 50; /* Pozycja Y w pikselach */
+}
+
+#lastWinLabel {
+    -fx-text-fill: white; /* Kolor tekstu */
+    -fx-font-size: 16px; /* Rozmiar czcionki */
+    -fx-layout-x: 200; /* Pozycja X w pikselach */
+    -fx-layout-y: 250; /* Pozycja Y w pikselach */
 }
 
 /* VBox */
-.centered-content {
-    -fx-alignment: center; /* Wyśrodkowanie zawartości */
-}
+/*.centered-content {*/
+/*    -fx-alignment: center; !* Wyśrodkowanie zawartości *!*/
+/*}*/

@@ -6,6 +6,10 @@ import javafx.scene.image.Image;
 import java.util.List;
 
 public class SymbolService {
+
+    public void setSymbolsDirectory(String symbolsDirectory) {
+    }
+
     private final List<Symbol> symbols = List.of(
             new Symbol(0, 5, new Image("/symbols/symbol_cherry.png")),
             new Symbol(1, 10, new Image("/symbols/symbol_plum.png")),

@@ -8,13 +8,11 @@ import java.util.Random;
 public class GameService {
     private static final Random random = new Random();
     private final SymbolService symbolService;
-    private final int stake;
-    private int balance;
+    private final int stake = 10;
+    private int balance = 1000;
 
     public GameService(SymbolService symbolService) {
         this.symbolService = symbolService;
-        this.stake = 10;
-        this.balance = 1000;
     }
 
     public Symbol[][] spinBoard() {
@@ -53,14 +51,12 @@ public class GameService {
     }
 
     public void updateBalance(int win) {
-        int currentBalance = balance;
-        balance = currentBalance + win;
+        balance += win;
     }
 
     public void deduct() {
-        int currentBalance = balance;
-        if (currentBalance >= stake) {
-            balance = currentBalance - stake;
+        if (balance >= stake) {
+            balance -= stake;
         } else {
             throw new IllegalArgumentException("Insufficient funds in the account.");
         }

@@ -15,6 +15,7 @@ import java.util.Optional;
 
 public class SlotMachineController {
     private final GameService gameService;
+    private int lastWin;
 
     @FXML
     private Label balanceLabel;
@@ -60,18 +61,18 @@ public class SlotMachineController {
             return;
         }
         Symbol[][] symbols = gameService.spinBoard();
-        updateLabels();
 
-        int lastWin;
 
         if (gameService.checkWin(symbols)) {
             lastWin = gameService.calculateWin(symbols[1][0].id());
+            gameService.updateBalance(lastWin);
             Alert winAlert = new Alert(Alert.AlertType.INFORMATION);
             winAlert.setTitle("Congratulations!");
             winAlert.setHeaderText(null);
             winAlert.setContentText("You won: " + lastWin);
             winAlert.showAndWait();
         }
+        updateLabels();
     }
 
 
@@ -112,9 +113,6 @@ public class SlotMachineController {
     private void updateLabels() {
         balanceLabel.setText(Integer.toString(gameService.getBalance()));
         stakeLabel.setText(Integer.toString(gameService.getStake()));
-        int lastWin = 0;
         lastWinLabel.setText(Integer.toString(lastWin));
     }
-
-
 }

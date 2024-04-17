@@ -3,13 +3,18 @@ package com.example.magicfruitsgame.service;
 import com.example.magicfruitsgame.model.Game;
 import com.example.magicfruitsgame.model.Symbol;
 
-public class GameService {
-    private final ReelService reelService;
-    private final Game game;
+import java.util.List;
+import java.util.Random;
 
-    public GameService(ReelService reelService, Game game) {
-        this.reelService = reelService;
+public class GameService {
+    private final SymbolService symbolService = new SymbolService();
+    private final Game game;
+    private static final Random random = new Random();
+    private final Symbol[][] board;
+
+    public GameService(Game game) {
         this.game = game;
+        this.board = new Symbol[3][3];
     }
 
     public Symbol[][] spinBoard() {
@@ -19,7 +24,18 @@ public class GameService {
 
         Symbol[][] board = new Symbol[3][3];
         for (int i = 0; i < 3; i++) {
-            Symbol[] reelSymbols = reelService.spin();
+            List<Symbol> symbols = symbolService.getSymbols();
+
+            if (symbols.isEmpty()) {
+                throw new IllegalStateException("No symbols available for spinning.");
+            }
+
+            Symbol[] reelSymbols = new Symbol[3];
+            for (int j = 0; j < 3; j++) {
+                int symbolIndex = random.nextInt(symbols.size());
+                reelSymbols[j] = symbols.get(symbolIndex);
+            }
+
             board[i] = reelSymbols;
         }
 
@@ -46,7 +62,7 @@ public class GameService {
     }
 
     public int calculateWin(int symbolId) {
-        Symbol symbol = reelService.getSymbolService().getSymbol(symbolId);
+        Symbol symbol = symbolService.getSymbol(symbolId);
         return symbol.winMultiplier() * game.getStake();
     }
 
@@ -98,4 +114,9 @@ public class GameService {
             throw new IllegalArgumentException("Insufficient funds in the account.");
         }
     }
+
+    public Symbol[][] getBoard() {
+        return board;
+    }
+
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class SymbolService {
 
-    public void setSymbolsDirectory(String symbolsDirectory) {
+    public void setSymbolsDirectory(Image symbolsDirectory) {
     }
 
     private final List<Symbol> symbols = List.of(
@@ -29,4 +29,5 @@ public class SymbolService {
                 .findFirst()
                 .orElse(null);
     }
+
 }

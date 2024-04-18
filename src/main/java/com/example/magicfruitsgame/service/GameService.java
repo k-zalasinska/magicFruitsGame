@@ -108,14 +108,6 @@ public class GameService {
         }
     }
 
-    public int getBalance() {
-        return balance;
-    }
-
-    public int getStake() {
-        return stake;
-    }
-
     //tworzy widok symb
     public ImageView createSymbolImageView(Symbol symbol) {
         Image symbolImage = symbol.image();
@@ -124,4 +116,13 @@ public class GameService {
         symbolImageView.setPreserveRatio(true); //zachow proporcje symb
         return symbolImageView;
     }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public int getStake() {
+        return stake;
+    }
+
 }

@@ -20,6 +20,7 @@ public class SymbolService {
         return symbols;
     }
 
+
     public Symbol getSymbol(int id) {
         return symbols.stream()
                 .filter(symbol -> symbol.id() == id)

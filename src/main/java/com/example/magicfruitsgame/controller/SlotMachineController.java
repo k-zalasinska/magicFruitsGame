@@ -3,19 +3,25 @@ package com.example.magicfruitsgame.controller;
 import com.example.magicfruitsgame.model.Symbol;
 import com.example.magicfruitsgame.service.GameService;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 
 import java.util.Objects;
 import java.util.Optional;
 
 public class SlotMachineController {
+
     private final GameService gameService;
     private int lastWin;
+
+    @FXML
+    private GridPane reelsGrid;
 
     @FXML
     private Label balanceLabel;
@@ -46,6 +52,9 @@ public class SlotMachineController {
         Image payInImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/views/button_payin_normal.png")));
         ImageView payInImageView = new ImageView(payInImage);
         payInButton.setGraphic(payInImageView);
+
+        initializeReelsGrid();
+
     }
 
     @FXML
@@ -60,8 +69,20 @@ public class SlotMachineController {
             errorAlert.showAndWait();
             return;
         }
-        Symbol[][] symbols = gameService.spinBoard();
 
+        Symbol[][] symbols = gameService.spinBoard();
+        String[][] displaySymbols = gameService.displayBoard(symbols);
+
+        reelsGrid.getChildren().clear();
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                int symbolId = Integer.parseInt(displaySymbols[i][j]);
+                ImageView symbolImageView = gameService.createSymbolImageView(symbolId);
+                reelsGrid.add(symbolImageView, j, i);
+                symbolImageView.toFront();
+            }
+        }
 
         if (gameService.checkWin(symbols)) {
             lastWin = gameService.calculateWin(symbols[1][0].id());
@@ -74,7 +95,6 @@ public class SlotMachineController {
         }
         updateLabels();
     }
-
 
     @FXML
     private void handlePayInButton() {
@@ -115,4 +135,17 @@ public class SlotMachineController {
         stakeLabel.setText(Integer.toString(gameService.getStake()));
         lastWinLabel.setText(Integer.toString(lastWin));
     }
+
+    private void initializeReelsGrid() {
+        //wymiary siatki symb
+        reelsGrid.setPrefWidth(300);
+        reelsGrid.setPrefHeight(200);
+
+        reelsGrid.setMaxWidth(Double.MAX_VALUE);
+        reelsGrid.setMaxHeight(Double.MAX_VALUE);
+
+        //ustawia siatkę symb na środku rodzica- background
+        reelsGrid.setAlignment(Pos.CENTER);
+    }
+
 }

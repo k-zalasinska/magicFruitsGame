@@ -45,16 +45,10 @@ public class SlotMachineController {
 
     @FXML
     public void initialize() {
-        Image startImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/views/button_start_normal.png")));
-        ImageView startImageView = new ImageView(startImage);
-        startButton.setGraphic(startImageView);
-
-        Image payInImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/views/button_payin_normal.png")));
-        ImageView payInImageView = new ImageView(payInImage);
-        payInButton.setGraphic(payInImageView);
+        setImageOnButton(startButton, "/views/button_start_normal.png");
+        setImageOnButton(payInButton, "/views/button_payin_normal.png");
 
         initializeReelsGrid();
-
     }
 
     @FXML
@@ -62,17 +56,14 @@ public class SlotMachineController {
         try {
             gameService.deduct();
         } catch (IllegalArgumentException e) {
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setTitle("Insufficient Funds");
-            errorAlert.setHeaderText(null);
-            errorAlert.setContentText(e.getMessage());
-            errorAlert.showAndWait();
+            showErrorAlert("Insufficient Funds", e.getMessage());
             return;
         }
-        Symbol[][] symbols = gameService.spinBoard();
 
         reelsGrid.getChildren().clear();
+        reelsGrid = gameService.createReelsGrid();
 
+        Symbol[][] symbols = gameService.spinBoard();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 Symbol symbol = symbols[i][j];
@@ -83,15 +74,13 @@ public class SlotMachineController {
                 }
             }
         }
+
         if (gameService.checkWin(symbols)) {
             lastWin = gameService.calculateWin(symbols[1][0].id());
             gameService.updateBalance(lastWin);
-            Alert winAlert = new Alert(Alert.AlertType.INFORMATION);
-            winAlert.setTitle("Congratulations!");
-            winAlert.setHeaderText(null);
-            winAlert.setContentText("You won: " + lastWin);
-            winAlert.showAndWait();
+            showInfoAlert("Congratulations!", "You won: " + lastWin);
         }
+
         updateLabels();
     }
 
@@ -107,27 +96,16 @@ public class SlotMachineController {
             try {
                 int depositAmount = Integer.parseInt(amount);
                 gameService.deposit(depositAmount);
-                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                successAlert.setTitle("Deposit Success");
-                successAlert.setHeaderText(null);
-                successAlert.setContentText("Balance has been successfully deposited.");
-                successAlert.showAndWait();
+                showInfoAlert("Deposit Success", "Balance has been successfully deposited.");
             } catch (NumberFormatException e) {
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setTitle("Invalid Amount");
-                errorAlert.setHeaderText(null);
-                errorAlert.setContentText("Please enter a valid integer amount.");
-                errorAlert.showAndWait();
+                showErrorAlert("Invalid Amount", "Please enter a valid integer amount.");
             } catch (IllegalArgumentException e) {
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setTitle("Invalid Amount");
-                errorAlert.setHeaderText(null);
-                errorAlert.setContentText(e.getMessage());
-                errorAlert.showAndWait();
+                showErrorAlert("Invalid Amount", e.getMessage());
             }
         });
         updateLabels();
     }
+
 
     private void updateLabels() {
         balanceLabel.setText(Integer.toString(gameService.getBalance()));
@@ -139,7 +117,6 @@ public class SlotMachineController {
         //wymiary siatki symb
         reelsGrid.setPrefWidth(300);
         reelsGrid.setPrefHeight(200);
-
         reelsGrid.setMaxWidth(Double.MAX_VALUE);
         reelsGrid.setMaxHeight(Double.MAX_VALUE);
 
@@ -147,4 +124,24 @@ public class SlotMachineController {
         reelsGrid.setAlignment(Pos.CENTER);
     }
 
+    private void setImageOnButton(Button button, String imagePath) {
+        ImageView imageView = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath))));
+        button.setGraphic(imageView);
+    }
+
+    private void showErrorAlert(String title, String message) {
+        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setTitle(title);
+        errorAlert.setHeaderText(null);
+        errorAlert.setContentText(message);
+        errorAlert.showAndWait();
+    }
+
+    private void showInfoAlert(String title, String message) {
+        Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
+        infoAlert.setTitle(title);
+        infoAlert.setHeaderText(null);
+        infoAlert.setContentText(message);
+        infoAlert.showAndWait();
+    }
 }

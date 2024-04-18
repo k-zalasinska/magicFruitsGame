@@ -80,20 +80,6 @@ public class GameService {
         return stake;
     }
 
-    public String[][] displayBoard(Symbol[][] symbols) {
-        String[][] display = new String[3][3];
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (symbols[i][j] != null) {
-                    display[i][j] = String.valueOf(symbols[i][j].id());
-                } else {
-                    display[i][j] = " ";
-                }
-            }
-        }
-        return display;
-    }
-
     //tworzy widok symb
     public ImageView createSymbolImageView(int symbolId) {
         Symbol symbol = symbolService.getSymbol(symbolId);
@@ -101,7 +87,7 @@ public class GameService {
         Image symbolImage = symbol.image();
         ImageView symbolImageView = new ImageView(symbolImage);
         symbolImageView.setFitWidth(50);
-        symbolImageView.setPreserveRatio(true);
+        symbolImageView.setPreserveRatio(true); //zachow proporcje symb
         return symbolImageView;
     }
 

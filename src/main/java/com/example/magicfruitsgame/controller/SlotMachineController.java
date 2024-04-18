@@ -69,21 +69,20 @@ public class SlotMachineController {
             errorAlert.showAndWait();
             return;
         }
-
         Symbol[][] symbols = gameService.spinBoard();
-        String[][] displaySymbols = gameService.displayBoard(symbols);
 
         reelsGrid.getChildren().clear();
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                int symbolId = Integer.parseInt(displaySymbols[i][j]);
-                ImageView symbolImageView = gameService.createSymbolImageView(symbolId);
-                reelsGrid.add(symbolImageView, j, i);
-                symbolImageView.toFront();
+                Symbol symbol = symbols[i][j];
+                if (symbol != null) {
+                    ImageView symbolImageView = gameService.createSymbolImageView(symbol.id());
+                    reelsGrid.add(symbolImageView, j, i);
+                    symbolImageView.toFront();
+                }
             }
         }
-
         if (gameService.checkWin(symbols)) {
             lastWin = gameService.calculateWin(symbols[1][0].id());
             gameService.updateBalance(lastWin);

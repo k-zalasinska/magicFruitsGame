@@ -3,9 +3,7 @@ package com.example.magicfruitsgame.service;
 import com.example.magicfruitsgame.model.Symbol;
 import javafx.scene.image.Image;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class SymbolService {
 
@@ -30,15 +28,4 @@ public class SymbolService {
                 .orElse(null);
     }
 
-    public List<Symbol> generateRandomSymbols(int numberOfSymbols) {
-        List<Symbol> randomSymbols = new ArrayList<>();
-        Random random = new Random();
-
-        for (int i = 0; i < numberOfSymbols; i++) {
-            int symbolIndex = random.nextInt(symbols.size());
-            randomSymbols.add(symbols.get(symbolIndex));
-        }
-
-        return randomSymbols;
-    }
 }

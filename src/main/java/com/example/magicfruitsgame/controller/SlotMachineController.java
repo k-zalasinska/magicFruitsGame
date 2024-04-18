@@ -61,7 +61,6 @@ public class SlotMachineController {
         }
 
         reelsGrid.getChildren().clear();
-        reelsGrid = gameService.createReelsGrid();
 
         Symbol[][] symbols = gameService.spinBoard();
         for (int i = 0; i < 3; i++) {
@@ -115,8 +114,8 @@ public class SlotMachineController {
 
     private void initializeReelsGrid() {
         //wymiary siatki symb
-        reelsGrid.setPrefWidth(300);
-        reelsGrid.setPrefHeight(200);
+        reelsGrid.setPrefWidth(500);
+        reelsGrid.setPrefHeight(400);
         reelsGrid.setMaxWidth(Double.MAX_VALUE);
         reelsGrid.setMaxHeight(Double.MAX_VALUE);
 

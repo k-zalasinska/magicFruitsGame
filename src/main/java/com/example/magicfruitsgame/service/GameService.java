@@ -3,7 +3,6 @@ package com.example.magicfruitsgame.service;
 import com.example.magicfruitsgame.model.Symbol;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 
 import java.util.List;
 import java.util.Random;
@@ -85,27 +84,9 @@ public class GameService {
     public ImageView createSymbolImageView(Symbol symbol) {
         Image symbolImage = symbol.image();
         ImageView symbolImageView = new ImageView(symbolImage);
-        symbolImageView.setFitWidth(50);
+        symbolImageView.setFitWidth(250);
         symbolImageView.setPreserveRatio(true); //zachow proporcje symb
         return symbolImageView;
-    }
-
-    public GridPane createReelsGrid() {
-        GridPane reelsGrid = new GridPane();
-
-        List<Symbol> symbols = symbolService.getSymbols();
-
-        int index = 0;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (index < symbols.size()) {
-                    Symbol symbol = symbols.get(index++);
-                    ImageView symbolImageView = createSymbolImageView(symbol);
-                    reelsGrid.add(symbolImageView, j, i);
-                }
-            }
-        }
-        return reelsGrid;
     }
 
 }

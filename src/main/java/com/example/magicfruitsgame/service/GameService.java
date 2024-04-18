@@ -81,9 +81,7 @@ public class GameService {
     }
 
     //tworzy widok symb
-    public ImageView createSymbolImageView(int symbolId) {
-        Symbol symbol = symbolService.getSymbol(symbolId);
-
+    public ImageView createSymbolImageView(Symbol symbol) {
         Image symbolImage = symbol.image();
         ImageView symbolImageView = new ImageView(symbolImage);
         symbolImageView.setFitWidth(50);

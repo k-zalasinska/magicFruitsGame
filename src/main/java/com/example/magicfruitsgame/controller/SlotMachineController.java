@@ -77,7 +77,7 @@ public class SlotMachineController {
             for (int j = 0; j < 3; j++) {
                 Symbol symbol = symbols[i][j];
                 if (symbol != null) {
-                    ImageView symbolImageView = gameService.createSymbolImageView(symbol.id());
+                    ImageView symbolImageView = gameService.createSymbolImageView(symbol);
                     reelsGrid.add(symbolImageView, j, i);
                     symbolImageView.toFront();
                 }

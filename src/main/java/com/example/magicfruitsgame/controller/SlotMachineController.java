@@ -2,6 +2,8 @@ package com.example.magicfruitsgame.controller;
 
 import com.example.magicfruitsgame.model.Symbol;
 import com.example.magicfruitsgame.service.GameService;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
@@ -11,6 +13,7 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -60,27 +63,33 @@ public class SlotMachineController {
             return;
         }
 
-        reelsGrid.getChildren().clear();
+        // Rozpocznij animację losowania symboli
+        gameService.animateSpin(reelsGrid);
 
-        Symbol[][] symbols = gameService.spinBoard();
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                Symbol symbol = symbols[i][j];
-                if (symbol != null) {
-                    ImageView symbolImageView = gameService.createSymbolImageView(symbol);
-                    reelsGrid.add(symbolImageView, j, i);
-                    symbolImageView.toFront();
+        // Sprawdź wygraną po zakończeniu animacji
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(3000), event -> {
+            Symbol[][] symbols = gameService.spinBoard();
+            reelsGrid.getChildren().clear();
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    Symbol symbol = symbols[i][j];
+                    if (symbol != null) {
+                        ImageView symbolImageView = gameService.createSymbolImageView(symbol);
+                        reelsGrid.add(symbolImageView, j, i);
+                        symbolImageView.toFront();
+                    }
                 }
             }
-        }
 
-        if (gameService.checkWin(symbols)) {
-            lastWin = gameService.calculateWin(symbols[1][0].id());
-            gameService.updateBalance(lastWin);
-            showInfoAlert("Congratulations!", "You won: " + lastWin);
-        }
+            if (gameService.checkWin(symbols)) {
+                lastWin = gameService.calculateWin(symbols[1][0].id());
+                gameService.updateBalance(lastWin);
+                showInfoAlert("Congratulations!", "You won: " + lastWin);
+            }
 
-        updateLabels();
+            updateLabels();
+        }));
+        timeline.play();
     }
 
     @FXML
@@ -143,4 +152,5 @@ public class SlotMachineController {
         infoAlert.setContentText(message);
         infoAlert.showAndWait();
     }
+
 }

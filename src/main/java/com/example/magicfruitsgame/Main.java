@@ -2,6 +2,7 @@ package com.example.magicfruitsgame;
 
 import com.example.magicfruitsgame.controller.SlotMachineController;
 import com.example.magicfruitsgame.service.GameService;
+import com.example.magicfruitsgame.service.SlotMachineService;
 import com.example.magicfruitsgame.service.SymbolService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +20,8 @@ public class Main extends Application {
 
         loader.setControllerFactory(controllerClass -> {
             if (SlotMachineController.class.isAssignableFrom(controllerClass)) {
-                return new SlotMachineController(new GameService(new SymbolService()));
+                return new SlotMachineController(new GameService(new SymbolService()),
+                        new SlotMachineService(new GameService(new SymbolService())));
             } else {
                 try {
                     return controllerClass.getDeclaredConstructor().newInstance();

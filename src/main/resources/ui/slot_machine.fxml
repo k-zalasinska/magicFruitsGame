@@ -9,12 +9,13 @@
 
         <GridPane fx:id="reelsGrid"/>
 
-        <VBox fx:id="container" styleClass="stakeLabel">
+        <VBox fx:id="container" styleClass="stakeLabel flex-container">
             <!-- Labels -->
-            <Label fx:id="balanceLabel" text="1000"/>
+            <Label fx:id="balanceLabel" text="1 000"/>
             <Label fx:id="stakeLabel" text="10"/>
             <Label fx:id="lastWinLabel" text="0"/>
         </VBox>
+
 
         <Button fx:id="startButton" onAction="#handleStartButton" StackPane.alignment="CENTER_LEFT"/>
         <Button fx:id="payInButton" onAction="#handlePayInButton" StackPane.alignment="BOTTOM_LEFT"/>

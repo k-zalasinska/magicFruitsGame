@@ -30,6 +30,7 @@
     -fx-opacity: 0.5; /* Zmniejszenie przezroczystości przycisku, jeśli jest wyłączony */
 }
 
+
 /*!* Labels *!*/
 /*#balanceLabel, #stakeLabel, #lastWinLabel {*/
 /*    -fx-text-fill: white; !* Kolor tekstu *!*/
@@ -37,26 +38,28 @@
 /*}*/
 
 /* Labels */
-#balanceLabel {
-    -fx-text-fill: white; /* Kolor tekstu */
-    -fx-font-size: 16px; /* Rozmiar czcionki */
-    -fx-layout-x: 100; /* Pozycja X w pikselach */
-    -fx-layout-y: 50; /* Pozycja Y w pikselach */
-}
+/*#balanceLabel {*/
+/*    -fx-text-fill: ghostwhite; !* Kolor tekstu *!*/
+/*    -fx-font-size: 30px; !* Rozmiar czcionki *!*/
+/*    -fx-font-weight: bold; !* Pogrubienie tekstu *!*/
+/*    -fx-translate-x: 600; !* Przesunięcie X *!*/
+/*    -fx-translate-y: 810; !* Przesunięcie Y *!*/
+/*}*/
 
-#stakeLabel {
-    -fx-text-fill: white; /* Kolor tekstu */
-    -fx-font-size: 16px; /* Rozmiar czcionki */
-    -fx-layout-x: 150; /* Pozycja X w pikselach */
-    -fx-layout-y: 50; /* Pozycja Y w pikselach */
-}
 
-#lastWinLabel {
-    -fx-text-fill: white; /* Kolor tekstu */
-    -fx-font-size: 16px; /* Rozmiar czcionki */
-    -fx-layout-x: 200; /* Pozycja X w pikselach */
-    -fx-layout-y: 250; /* Pozycja Y w pikselach */
-}
+/*#stakeLabel {*/
+/*    -fx-text-fill: white; !* Kolor tekstu *!*/
+/*    -fx-font-size: 16px; !* Rozmiar czcionki *!*/
+/*    -fx-layout-x: 150; !* Pozycja X w pikselach *!*/
+/*    -fx-layout-y: 50; !* Pozycja Y w pikselach *!*/
+/*}*/
+
+/*#lastWinLabel {*/
+/*    -fx-text-fill: white; !* Kolor tekstu *!*/
+/*    -fx-font-size: 16px; !* Rozmiar czcionki *!*/
+/*    -fx-layout-x: 200; !* Pozycja X w pikselach *!*/
+/*    -fx-layout-y: 250; !* Pozycja Y w pikselach *!*/
+/*}*/
 
 /* VBox */
 /*.centered-content {*/

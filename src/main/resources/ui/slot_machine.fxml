@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import java.net.URL?>
 <StackPane fx:id="stackPane"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.example.magicfruitsgame.controller.SlotMachineController">
     <children>
 
-        <GridPane fx:id="reelsGrid"/>
+        <!--        <GridPane fx:id="reelsGrid"/>-->
 
-        <VBox fx:id="container" styleClass="stakeLabel flex-container">
+        <ImageView fx:id="reel1"/>
+        <ImageView fx:id="reel2"/>
+        <ImageView fx:id="reel3"/>
+
+        <VBox fx:id="container" styleClass="flex-container">
             <!-- Labels -->
-            <Label fx:id="balanceLabel" text="1 000"/>
-            <Label fx:id="stakeLabel" text="10"/>
-            <Label fx:id="lastWinLabel" text="0"/>
+            <Label fx:id="balanceLabel" text="1 000" styleClass="balance-label"/>
+            <Label fx:id="stakeLabel" text="10" styleClass="stake-label"/>
+            <Label fx:id="lastWinLabel" text="0" styleClass="last-win-label"/>
         </VBox>
 
 

@@ -2,6 +2,7 @@ package com.example.magicfruitsgame.service;
 
 import com.example.magicfruitsgame.model.Symbol;
 
+import java.util.List;
 import java.util.Random;
 
 public class GameService {
@@ -15,15 +16,13 @@ public class GameService {
     }
 
     public Symbol[][] spinBoard() {
+        List<Symbol> symbols = symbolService.getSymbols();
         Symbol[][] board = new Symbol[3][3];
-        int[] startingIndices = {random.nextInt(symbolService.getSymbols().size()), random.nextInt(symbolService.getSymbols().size()), random.nextInt(symbolService.getSymbols().size())};
         for (int i = 0; i < 3; i++) {
-            Symbol[] reelSymbols = new Symbol[3];
             for (int j = 0; j < 3; j++) {
-                int symbolIndex = (startingIndices[i] + j) % symbolService.getSymbols().size();
-                reelSymbols[j] = symbolService.getSymbol(symbolIndex);
+                Symbol randomSymbol = symbols.get(random.nextInt(symbols.size()));
+                board[i][j] = randomSymbol;
             }
-            board[i] = reelSymbols;
         }
         return board;
     }

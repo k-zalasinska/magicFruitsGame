@@ -12,6 +12,31 @@
     -fx-background-position: center;
 }
 
+/*#reelsGrid {*/
+/*    -fx-display: flex;*/
+/*    -fx-flex-wrap: wrap;*/
+/*    -fx-justify-content: space-between; !* Rozłożenie elementów równomiernie na osi poziomej *!*/
+/*}*/
+
+/* Styl dla lewej kolumny */
+#reelsGrid .left-column {
+    -fx-flex: 1; /* Elastyczna szerokość lewej kolumny */
+    -fx-margin: 0 20px 0 0; /* Margines po prawej stronie lewej kolumny */
+}
+
+/* Styl dla prawej kolumny */
+#reelsGrid .right-column {
+    -fx-flex: 1; /* Elastyczna szerokość prawej kolumny */
+    -fx-margin: 0 0 0 20px; /* Margines po lewej stronie prawej kolumny */
+}
+
+/*!* Dla kolumn *!*/
+/*#reelsGrid .column {*/
+/*    -fx-flex: 1; !* Elastyczna szerokość kolumny *!*/
+/*    -fx-margin: 50px; !* Odsypanie między kolumnami *!*/
+/*}*/
+
+
 /* Buttons */
 #startButton, #payInButton {
     -fx-background-color: transparent; /* Usunięcie tła przycisku */
@@ -22,8 +47,6 @@
 }
 
 #startButton:pressed, #payInButton:pressed {
-    -fx-background-color: white; /* Zmiana koloru tła po wciśnięciu przycisku */
-    -fx-text-fill: black; /* Zmiana koloru tekstu po wciśnięciu przycisku */
 }
 
 #startButton:disabled, #payInButton:disabled {
@@ -65,3 +88,17 @@
 /*.centered-content {*/
 /*    -fx-alignment: center; !* Wyśrodkowanie zawartości *!*/
 /*}*/
+
+.balance-label, .stake-label, .last-win-label {
+    -fx-font-size: 20px;
+    -fx-padding: 10px;
+    -fx-text-fill: ghostwhite; /* Kolor tekstu */
+    -fx-font-weight: bold; /* Pogrubienie tekstu */
+}
+
+.flex-container {
+    -fx-display: flex;
+    -fx-flex-direction: row; /* Ustawienie w poziomie */
+    -fx-justify-content: space-evenly; /* Rozłożenie równomiernie */
+    -fx-align-items: center; /* Wyśrodkowanie w pionie */
+}

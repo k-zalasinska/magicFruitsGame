@@ -3,13 +3,11 @@ package com.example.magicfruitsgame.controller;
 import com.example.magicfruitsgame.service.GameService;
 import com.example.magicfruitsgame.service.SlotMachineService;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -24,7 +22,16 @@ public class SlotMachineController {
     private int lastWin;
 
     @FXML
-    private GridPane reelsGrid;
+    private ImageView[] reel1;
+
+    @FXML
+    private ImageView[] reel2;
+
+    @FXML
+    private ImageView[] reel3;
+//
+//    @FXML
+//    private GridPane reelsGrid;
 
     @FXML
     private Label balanceLabel;
@@ -52,7 +59,8 @@ public class SlotMachineController {
         setImageOnButton(startButton, "/views/button_start_normal.png");
         setImageOnButton(payInButton, "/views/button_payin_normal.png");
 
-        initializeReelsGrid();
+        slotMachineService.startSpinAnimation(reel1, reel2, reel3);
+//        initializeReelsGrid();
     }
 
     @FXML
@@ -63,7 +71,7 @@ public class SlotMachineController {
             showErrorAlert("Insufficient Funds", e.getMessage());
             return;
         }
-        slotMachineService.startSpinAnimation(reelsGrid);
+        slotMachineService.startSpinAnimation(reel1, reel2, reel3);
         updateLabels();
     }
 
@@ -95,16 +103,16 @@ public class SlotMachineController {
         lastWinLabel.setText(Integer.toString(lastWin));
     }
 
-    private void initializeReelsGrid() {
-        //wymiary siatki symb
-        reelsGrid.setPrefWidth(500);
-        reelsGrid.setPrefHeight(400);
-        reelsGrid.setMaxWidth(Double.MAX_VALUE);
-        reelsGrid.setMaxHeight(Double.MAX_VALUE);
-
-        //ustawia siatkę symb na środku rodzica- background
-        reelsGrid.setAlignment(Pos.CENTER);
-    }
+//    private void initializeReelsGrid() {
+//        //wymiary siatki symb
+//        reelsGrid.setPrefWidth(500);
+//        reelsGrid.setPrefHeight(400);
+//        reelsGrid.setMaxWidth(Double.MAX_VALUE);
+//        reelsGrid.setMaxHeight(Double.MAX_VALUE);
+//
+//        //ustawia siatkę symb na środku rodzica- background
+//        reelsGrid.setAlignment(Pos.CENTER);
+//    }
 
     private void setImageOnButton(Button button, String imagePath) {
         ImageView imageView = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath))));

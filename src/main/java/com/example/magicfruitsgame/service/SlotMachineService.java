@@ -2,11 +2,10 @@ package com.example.magicfruitsgame.service;
 
 import com.example.magicfruitsgame.model.Symbol;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.ParallelTransition;
 import javafx.animation.Timeline;
-import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 
 import static com.example.magicfruitsgame.service.AlertHelper.showWinAlert;
@@ -18,73 +17,35 @@ public class SlotMachineService {
         this.gameService = gameService;
     }
 
-    //tworzy widok symb
-    public ImageView createSymbolImageView(Symbol symbol) {
-        Image symbolImage = symbol.image();
-        ImageView symbolImageView = new ImageView(symbolImage);
-        symbolImageView.setFitWidth(250);
-        symbolImageView.setPreserveRatio(true); //zachow proporcje symb
-        return symbolImageView;
-    }
-
-    public void animateSpin(GridPane reelsGrid) {
+    public void startSpinAnimation(ImageView[] reel1, ImageView[] reel2, ImageView[] reel3) {
         Timeline timeline = new Timeline(
-                new KeyFrame(Duration.millis(1000), event -> shiftSymbols(reelsGrid)),
-                new KeyFrame(Duration.millis(2000), event -> shiftSymbols(reelsGrid)),
-                new KeyFrame(Duration.millis(3000), event -> shiftSymbols(reelsGrid))
+                new KeyFrame(Duration.ZERO, event -> spinReel(reel1)),
+                new KeyFrame(Duration.seconds(1), event -> spinReel(reel2)),
+                new KeyFrame(Duration.seconds(2), event -> spinReel(reel3))
         );
-        timeline.play();
-    }
 
-    private void shiftSymbols(GridPane reelsGrid) {
-        Symbol[][] board = gameService.spinBoard();
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                Node node = getNodeByRowColumnIndex(i, j, reelsGrid);
-                if (node instanceof ImageView imageView) {
-                    Image image = board[i][j].image();
-                    imageView.setImage(image);
-                }
-            }
-        }
-    }
-
-    private Node getNodeByRowColumnIndex(final int row, final int column, GridPane gridPane) {
-        Node result = null;
-        for (Node node : gridPane.getChildren()) {
-            if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
-                result = node;
-                break;
-
-            }
-        }
-        return result;
-    }
-
-    public void startSpinAnimation(GridPane reelsGrid) {
-        animateSpin(reelsGrid);
-
-        // Sprawdź wygraną po zakończeniu animacji
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(3000), event -> {
+        timeline.setOnFinished(event -> {
             Symbol[][] symbols = gameService.spinBoard();
-            reelsGrid.getChildren().clear();
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
-                    Symbol symbol = symbols[i][j];
-                    if (symbol != null) {
-                        ImageView symbolImageView = createSymbolImageView(symbol);
-                        reelsGrid.add(symbolImageView, j, i);
-                        symbolImageView.toFront();
-                    }
-                }
-            }
-
             if (gameService.checkWin(symbols)) {
                 int lastWin = gameService.calculateWin(symbols[1][0].id());
                 gameService.updateBalance(lastWin);
                 showWinAlert(lastWin);
             }
-        }));
+        });
+
         timeline.play();
     }
+
+    private void spinReel(ImageView[] reels) {
+        ParallelTransition parallelTransition = new ParallelTransition();
+        for (int i = 0; i < reels.length; i++) {
+            Symbol newSymbol = gameService.spinBoard()[i][0];
+            ImageView imageView = reels[i];
+            KeyValue keyValue = new KeyValue(imageView.imageProperty(), newSymbol.image());
+            KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), keyValue);
+            parallelTransition.getChildren().add(new Timeline(keyFrame));
+        }
+        parallelTransition.play();
+    }
+
 }

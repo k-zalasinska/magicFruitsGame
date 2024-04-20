@@ -3,102 +3,69 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-
-#stackPane {
     -fx-background-image: url('/views/background.jpg');
     -fx-background-size: cover;
     -fx-background-position: center;
 }
 
-/*#reelsGrid {*/
-/*    -fx-display: flex;*/
-/*    -fx-flex-wrap: wrap;*/
-/*    -fx-justify-content: space-between; !* Rozłożenie elementów równomiernie na osi poziomej *!*/
-/*}*/
-
-/* Styl dla lewej kolumny */
-#reelsGrid .left-column {
-    -fx-flex: 1; /* Elastyczna szerokość lewej kolumny */
-    -fx-margin: 0 20px 0 0; /* Margines po prawej stronie lewej kolumny */
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    padding: 10px;
+    color: ghostwhite;
+    font-weight: bold;
 }
-
-/* Styl dla prawej kolumny */
-#reelsGrid .right-column {
-    -fx-flex: 1; /* Elastyczna szerokość prawej kolumny */
-    -fx-margin: 0 0 0 20px; /* Margines po lewej stronie prawej kolumny */
-}
-
-/*!* Dla kolumn *!*/
-/*#reelsGrid .column {*/
-/*    -fx-flex: 1; !* Elastyczna szerokość kolumny *!*/
-/*    -fx-margin: 50px; !* Odsypanie między kolumnami *!*/
-/*}*/
-
-
-/* Buttons */
-#startButton, #payInButton {
-    -fx-background-color: transparent; /* Usunięcie tła przycisku */
-    -fx-padding: 0; /* Usunięcie wewnętrznego marginesu */
-    -fx-background-insets: 0; /* Usunięcie wewnętrznego wypełnienia */
-    -fx-border-width: 0; /* Usunięcie obramowania */
-
-}
-
-#startButton:pressed, #payInButton:pressed {
-}
-
-#startButton:disabled, #payInButton:disabled {
-    -fx-opacity: 0.5; /* Zmniejszenie przezroczystości przycisku, jeśli jest wyłączony */
-}
-
-
-/*!* Labels *!*/
-/*#balanceLabel, #stakeLabel, #lastWinLabel {*/
-/*    -fx-text-fill: white; !* Kolor tekstu *!*/
-/*    -fx-font-size: 16px; !* Rozmiar czcionki *!*/
-/*}*/
-
-/* Labels */
-/*#balanceLabel {*/
-/*    -fx-text-fill: ghostwhite; !* Kolor tekstu *!*/
-/*    -fx-font-size: 30px; !* Rozmiar czcionki *!*/
-/*    -fx-font-weight: bold; !* Pogrubienie tekstu *!*/
-/*    -fx-translate-x: 600; !* Przesunięcie X *!*/
-/*    -fx-translate-y: 810; !* Przesunięcie Y *!*/
-/*}*/
-
-
-/*#stakeLabel {*/
-/*    -fx-text-fill: white; !* Kolor tekstu *!*/
-/*    -fx-font-size: 16px; !* Rozmiar czcionki *!*/
-/*    -fx-layout-x: 150; !* Pozycja X w pikselach *!*/
-/*    -fx-layout-y: 50; !* Pozycja Y w pikselach *!*/
-/*}*/
-
-/*#lastWinLabel {*/
-/*    -fx-text-fill: white; !* Kolor tekstu *!*/
-/*    -fx-font-size: 16px; !* Rozmiar czcionki *!*/
-/*    -fx-layout-x: 200; !* Pozycja X w pikselach *!*/
-/*    -fx-layout-y: 250; !* Pozycja Y w pikselach *!*/
-/*}*/
-
-/* VBox */
-/*.centered-content {*/
-/*    -fx-alignment: center; !* Wyśrodkowanie zawartości *!*/
-/*}*/
 
 .balance-label, .stake-label, .last-win-label {
-    -fx-font-size: 20px;
-    -fx-padding: 10px;
-    -fx-text-fill: ghostwhite; /* Kolor tekstu */
-    -fx-font-weight: bold; /* Pogrubienie tekstu */
+    margin: 5px;
+    color: white;
+    font-size: 16px;
 }
 
-.flex-container {
-    -fx-display: flex;
-    -fx-flex-direction: row; /* Ustawienie w poziomie */
-    -fx-justify-content: space-evenly; /* Rozłożenie równomiernie */
-    -fx-align-items: center; /* Wyśrodkowanie w pionie */
+.reelsGrid {
+    -fx-margin-bottom: 20px; /* Ustawienie marginesu w dół */
+}
+
+.button {
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+}
+
+#handleStartButton {
+    -fx-background-image: url('/views/button_start_normal.png');
+}
+
+#handleStartButton:hover {
+    -fx-background-image: url('/views/button_start_onhover.png');
+}
+
+#handleStartButton:pressed {
+    -fx-background-image: url('/views/button_start_onpress.png');
+}
+
+#handleStartButton:disabled {
+    -fx-background-image: url('/views/button_start_disable.png');
+}
+
+
+#handlePayInButton {
+    -fx-background-image: url('/views/button_payin_normal.png');
+}
+
+#handlePayInButton:hover {
+    -fx-background-image: url('/views/button_payin_onhover.png');
+}
+
+#handlePayInButton:pressed {
+    -fx-background-image: url('/views/button_payin_onpress.png');
+}
+
+#handlePayInButton:disabled {
+    -fx-background-image: url('/views/button_payin_disable.png');
 }

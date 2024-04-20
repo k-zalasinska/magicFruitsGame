@@ -1,33 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import java.net.URL?>
-<StackPane fx:id="stackPane"
-           xmlns:fx="http://javafx.com/fxml"
+<StackPane fx:id="stackPane" prefWidth="800" prefHeight="600" xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.example.magicfruitsgame.controller.SlotMachineController">
-    <children>
 
-        <!--        <GridPane fx:id="reelsGrid"/>-->
 
-        <ImageView fx:id="reel1"/>
-        <ImageView fx:id="reel2"/>
-        <ImageView fx:id="reel3"/>
-
-        <VBox fx:id="container" styleClass="flex-container">
-            <!-- Labels -->
+    <VBox fx:id="container" styleClass="flex-container">
+        <children>
             <Label fx:id="balanceLabel" text="1 000" styleClass="balance-label"/>
             <Label fx:id="stakeLabel" text="10" styleClass="stake-label"/>
             <Label fx:id="lastWinLabel" text="0" styleClass="last-win-label"/>
-        </VBox>
+
+            <GridPane fx:id="reelsGrid"/>
+
+        </children>
+
+        <Button fx:id="handleStartButton" onAction="#startButtonClicked" styleClass="button"/>
+        <Button fx:id="handlePayInButton" onAction="#payInButtonClicked" styleClass="button"/>
 
 
-        <Button fx:id="startButton" onAction="#handleStartButton" StackPane.alignment="CENTER_LEFT"/>
-        <Button fx:id="payInButton" onAction="#handlePayInButton" StackPane.alignment="BOTTOM_LEFT"/>
-    </children>
+    </VBox>
 
     <stylesheets>
-        <URL value="@styles.css"/>
+        <URL value="/ui/styles.css"/>
     </stylesheets>
 </StackPane>

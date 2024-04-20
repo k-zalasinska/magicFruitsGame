@@ -3,11 +3,13 @@ package com.example.magicfruitsgame.controller;
 import com.example.magicfruitsgame.service.GameService;
 import com.example.magicfruitsgame.service.SlotMachineService;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -22,32 +24,19 @@ public class SlotMachineController {
     private int lastWin;
 
     @FXML
-    private ImageView[] reel1;
-
-    @FXML
-    private ImageView[] reel2;
-
-    @FXML
-    private ImageView[] reel3;
-//
-//    @FXML
-//    private GridPane reelsGrid;
-
+    private GridPane reelsGrid;
     @FXML
     private Label balanceLabel;
-
     @FXML
     private Label stakeLabel;
-
     @FXML
     private Label lastWinLabel;
 
     @FXML
-    private Button startButton;
+    private Button handleStartButton;
 
     @FXML
-    private Button payInButton;
-
+    private Button handlePayInButton;
 
     public SlotMachineController(GameService gameService, SlotMachineService slotMachineService) {
         this.gameService = gameService;
@@ -55,33 +44,23 @@ public class SlotMachineController {
     }
 
     @FXML
-    public void initialize() {
-        setImageOnButton(startButton, "/views/button_start_normal.png");
-        setImageOnButton(payInButton, "/views/button_payin_normal.png");
-
-        slotMachineService.startSpinAnimation(reel1, reel2, reel3);
-//        initializeReelsGrid();
-    }
-
-    @FXML
-    private void handleStartButton() {
+    void startButtonClicked() {
         try {
             gameService.deduct();
         } catch (IllegalArgumentException e) {
             showErrorAlert("Insufficient Funds", e.getMessage());
             return;
         }
-        slotMachineService.startSpinAnimation(reel1, reel2, reel3);
+        slotMachineService.startSpinAnimation(reelsGrid);
         updateLabels();
     }
 
     @FXML
-    private void handlePayInButton() {
+    void payInButtonClicked() {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Deposit");
         dialog.setHeaderText("Enter the amount you want to deposit:");
         dialog.setContentText("Amount:");
-
         Optional<String> result = dialog.showAndWait();
         result.ifPresent(amount -> {
             try {
@@ -97,22 +76,28 @@ public class SlotMachineController {
         updateLabels();
     }
 
+    @FXML
+    public void initialize() {
+        setImageOnButton(handleStartButton, "/views/button_start_normal.png");
+        setImageOnButton(handlePayInButton, "/views/button_payin_normal.png");
+        initializeReelsGrid();
+    }
+
     private void updateLabels() {
         balanceLabel.setText(Integer.toString(gameService.getBalance()));
         stakeLabel.setText(Integer.toString(gameService.getStake()));
         lastWinLabel.setText(Integer.toString(lastWin));
     }
 
-//    private void initializeReelsGrid() {
-//        //wymiary siatki symb
-//        reelsGrid.setPrefWidth(500);
-//        reelsGrid.setPrefHeight(400);
-//        reelsGrid.setMaxWidth(Double.MAX_VALUE);
-//        reelsGrid.setMaxHeight(Double.MAX_VALUE);
-//
-//        //ustawia siatkę symb na środku rodzica- background
-//        reelsGrid.setAlignment(Pos.CENTER);
-//    }
+    private void initializeReelsGrid() {
+        //wymiary siatki symb
+        reelsGrid.setPrefWidth(700);
+        reelsGrid.setPrefHeight(400);
+        reelsGrid.setMaxWidth(Double.MAX_VALUE);
+        reelsGrid.setMaxHeight(Double.MAX_VALUE);
+        //ustawia siatkę symb na środku rodzica- background
+        reelsGrid.setAlignment(Pos.CENTER);
+    }
 
     private void setImageOnButton(Button button, String imagePath) {
         ImageView imageView = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath))));

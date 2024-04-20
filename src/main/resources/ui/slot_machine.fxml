@@ -7,7 +7,7 @@
 <VBox fx:id="mainContainer" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.magicfruitsgame.controller.SlotMachineController">
 
-    <GridPane fx:id="reelsGrid" hgap="50"/>
+    <GridPane fx:id="reelsGrid" hgap="30"/>
 
     <HBox fx:id="labelsContainer" styleClass="hbox-container">
         <children>

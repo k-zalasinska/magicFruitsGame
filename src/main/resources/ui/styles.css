@@ -7,50 +7,19 @@
     -fx-background-repeat: no-repeat; /* Wyłącz powtarzanie obrazu */
 }
 
-/*.flex-container {*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    justify-content: space-around;*/
-/*    align-items: center;*/
-/*    font-size: 20px;*/
-/*    padding: 10px;*/
-/*    color: ghostwhite;*/
-/*    font-weight: bold;*/
-/*}*/
-
-.balance-label, .stake-label, .last-win-label {
-    margin: 5px;
-    color: white;
-    font-size: 16px;
-}
-
-.reelsGrid {
-    -fx-margin-bottom: 10px;
-    -fx-justify-content: space-around;
-}
-
-.hbox-container {
-    -fx-spacing: 550px; /* Ustaw odstęp między przyciskami */
-    -fx-alignment: center; /* Wyśrodkuj elementy w poziomie */
-    -fx-padding: 0 50px 50px 50px;
-}
-
-.balance-label {
+#labelsContainer {
+    -fx-spacing: 20px; /* Odstęp między elementami */
+    -fx-alignment: center; /* Wyśrodkowanie elementów */
     -fx-font-size: 20px;
     -fx-text-fill: ghostwhite;
     -fx-font-weight: bold;
+    -fx-justify-content: flex-end; /* Umieść elementy na dole */
 }
 
-.stake-label {
-    -fx-font-size: 20px;
-    -fx-text-fill: ghostwhite;
-    -fx-font-weight: bold;
-}
-
-.last-win-label {
-    -fx-font-size: 20px;
-    -fx-text-fill: ghostwhite;
-    -fx-font-weight: bold;
+#reelsGrid {
+    -fx-alignment: center; /* Wyśrodkowanie symboli */
+    -fx-hgap: 100px; /* Dodatkowy odstęp między kolumnami */
+    -fx-padding: 360px 0 0 0; /* Odstęp od góry */
 }
 
 

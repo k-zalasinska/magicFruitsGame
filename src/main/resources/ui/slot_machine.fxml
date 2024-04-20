@@ -1,30 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import java.net.URL?>
-<StackPane fx:id="stackPane" prefWidth="800" prefHeight="600" xmlns:fx="http://javafx.com/fxml"
-           fx:controller="com.example.magicfruitsgame.controller.SlotMachineController">
+<VBox fx:id="mainContainer" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.magicfruitsgame.controller.SlotMachineController">
 
+    <GridPane fx:id="reelsGrid" hgap="50"/>
 
-    <VBox fx:id="container" styleClass="flex-container">
+    <HBox fx:id="labelsContainer" styleClass="hbox-container">
         <children>
             <Label fx:id="balanceLabel" text="1 000" styleClass="balance-label"/>
             <Label fx:id="stakeLabel" text="10" styleClass="stake-label"/>
             <Label fx:id="lastWinLabel" text="0" styleClass="last-win-label"/>
-
-            <GridPane fx:id="reelsGrid"/>
-
         </children>
+    </HBox>
 
-        <Button fx:id="handleStartButton" onAction="#startButtonClicked" styleClass="button"/>
-        <Button fx:id="handlePayInButton" onAction="#payInButtonClicked" styleClass="button"/>
-
-
-    </VBox>
+    <HBox fx:id="container" styleClass="hbox-container">
+        <children>
+            <Button fx:id="handlePayInButton" onAction="#payInButtonClicked" styleClass="button"/>
+            <Button fx:id="handleStartButton" onAction="#startButtonClicked" styleClass="button"/>
+        </children>
+    </HBox>
 
     <stylesheets>
-        <URL value="/ui/styles.css"/>
+        <URL value="@styles.css"/>
     </stylesheets>
-</StackPane>
+
+
+</VBox>
+
+
+        <!--<StackPane fx:id="stackPane" prefWidth="800" prefHeight="600" xmlns:fx="http://javafx.com/fxml"-->
+        <!--           fx:controller="com.example.magicfruitsgame.controller.SlotMachineController">-->

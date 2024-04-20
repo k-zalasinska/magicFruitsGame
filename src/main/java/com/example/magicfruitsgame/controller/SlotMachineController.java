@@ -4,14 +4,10 @@ import com.example.magicfruitsgame.service.GameService;
 import com.example.magicfruitsgame.service.SlotMachineService;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
-import java.util.Objects;
 import java.util.Optional;
 
 import static com.example.magicfruitsgame.service.AlertHelper.showErrorAlert;
@@ -32,11 +28,6 @@ public class SlotMachineController {
     @FXML
     private Label lastWinLabel;
 
-    @FXML
-    private Button handleStartButton;
-
-    @FXML
-    private Button handlePayInButton;
 
     public SlotMachineController(GameService gameService, SlotMachineService slotMachineService) {
         this.gameService = gameService;
@@ -63,23 +54,25 @@ public class SlotMachineController {
         dialog.setContentText("Amount:");
         Optional<String> result = dialog.showAndWait();
         result.ifPresent(amount -> {
-            try {
-                int depositAmount = Integer.parseInt(amount);
-                gameService.deposit(depositAmount);
-                showInfoAlert("Deposit Success", "Balance has been successfully deposited.");
-            } catch (NumberFormatException e) {
+            if (amount != null && !amount.isEmpty()) {
+                try {
+                    int depositAmount = Integer.parseInt(amount);
+                    gameService.deposit(depositAmount);
+                    showInfoAlert("Deposit Success", "Balance has been successfully deposited.");
+                } catch (NumberFormatException e) {
+                    showErrorAlert("Invalid Amount", "Please enter a valid integer amount.");
+                } catch (IllegalArgumentException e) {
+                    showErrorAlert("Invalid Amount", e.getMessage());
+                }
+            } else {
                 showErrorAlert("Invalid Amount", "Please enter a valid integer amount.");
-            } catch (IllegalArgumentException e) {
-                showErrorAlert("Invalid Amount", e.getMessage());
             }
         });
-        updateLabels();
+
     }
 
     @FXML
     public void initialize() {
-        setImageOnButton(handleStartButton, "/views/button_start_normal.png");
-        setImageOnButton(handlePayInButton, "/views/button_payin_normal.png");
         initializeReelsGrid();
     }
 
@@ -99,9 +92,5 @@ public class SlotMachineController {
         reelsGrid.setAlignment(Pos.CENTER);
     }
 
-    private void setImageOnButton(Button button, String imagePath) {
-        ImageView imageView = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath))));
-        button.setGraphic(imageView);
-    }
 
 }

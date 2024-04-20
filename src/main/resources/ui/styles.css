@@ -1,23 +1,22 @@
-#stackPane {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+#mainContainer {
+    -fx-spacing: 10px; /* Odstęp między elementami */
+    -fx-alignment: center; /* Wyśrodkowanie elementów */
     -fx-background-image: url('/views/background.jpg');
-    -fx-background-size: cover;
-    -fx-background-position: center;
+    -fx-background-size: contain; /* Dopasuj obraz do rozmiaru kontenera */
+    -fx-background-position: center; /* Wyśrodkuj obraz */
+    -fx-background-repeat: no-repeat; /* Wyłącz powtarzanie obrazu */
 }
 
-.flex-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-    padding: 10px;
-    color: ghostwhite;
-    font-weight: bold;
-}
+/*.flex-container {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    justify-content: space-around;*/
+/*    align-items: center;*/
+/*    font-size: 20px;*/
+/*    padding: 10px;*/
+/*    color: ghostwhite;*/
+/*    font-weight: bold;*/
+/*}*/
 
 .balance-label, .stake-label, .last-win-label {
     margin: 5px;
@@ -26,12 +25,37 @@
 }
 
 .reelsGrid {
-    -fx-margin-bottom: 20px; /* Ustawienie marginesu w dół */
+    -fx-margin-bottom: 10px;
+    -fx-justify-content: space-around;
 }
 
+.hbox-container {
+    -fx-spacing: 550px; /* Ustaw odstęp między przyciskami */
+    -fx-alignment: center; /* Wyśrodkuj elementy w poziomie */
+    -fx-padding: 0 50px 50px 50px;
+}
+
+.balance-label {
+    -fx-font-size: 20px;
+    -fx-text-fill: ghostwhite;
+    -fx-font-weight: bold;
+}
+
+.stake-label {
+    -fx-font-size: 20px;
+    -fx-text-fill: ghostwhite;
+    -fx-font-weight: bold;
+}
+
+.last-win-label {
+    -fx-font-size: 20px;
+    -fx-text-fill: ghostwhite;
+    -fx-font-weight: bold;
+}
+
+
 .button {
-    -fx-font-size: 14px;
-    -fx-text-fill: white;
+    -fx-font-size: 160px;
     -fx-background-color: transparent;
     -fx-background-repeat: no-repeat;
     -fx-background-size: contain;
@@ -67,5 +91,5 @@
 }
 
 #handlePayInButton:disabled {
-    -fx-background-image: url('/views/button_payin_disable.png');
+    -fx-background-image: url("/views/button_payin_disable.png");
 }

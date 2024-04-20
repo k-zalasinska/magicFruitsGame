@@ -13,6 +13,9 @@ import java.util.Optional;
 import static com.example.magicfruitsgame.service.AlertHelper.showErrorAlert;
 import static com.example.magicfruitsgame.service.AlertHelper.showInfoAlert;
 
+/**
+ * Controller class responsible for managing the slot machine UI logic.
+ */
 public class SlotMachineController {
 
     private final GameService gameService;
@@ -21,19 +24,34 @@ public class SlotMachineController {
 
     @FXML
     private GridPane reelsGrid;
+
     @FXML
     private Label balanceLabel;
+
     @FXML
     private Label stakeLabel;
+
     @FXML
     private Label lastWinLabel;
 
-
+    /**
+     * Constructs a new instance of SlotMachineController.
+     *
+     * @param gameService        the game service instance
+     * @param slotMachineService the slot machine service instance
+     */
     public SlotMachineController(GameService gameService, SlotMachineService slotMachineService) {
         this.gameService = gameService;
         this.slotMachineService = slotMachineService;
     }
 
+    /**
+     * Handles the action when the start button is clicked.
+     * Checks if there are sufficient funds on the balance to start the game by deducting the stake.
+     * Initiates the spinning animation of the slot machine reels.
+     * Updates the UI labels.
+     * Informs the user if there are insufficient funds on the balance.
+     */
     @FXML
     void startButtonClicked() {
         try {
@@ -46,6 +64,13 @@ public class SlotMachineController {
         updateLabels();
     }
 
+    /**
+     * Handles the action when the pay-in button is clicked.
+     * Opens a dialog for the user to enter the deposit amount.
+     * Validates the input and updates the balance accordingly.
+     * Informs the user about an unsuccessful deposit attempt if the amount is invalid,
+     * otherwise, notifies about the successful deposit.
+     */
     @FXML
     void payInButtonClicked() {
         TextInputDialog dialog = new TextInputDialog();
@@ -71,17 +96,27 @@ public class SlotMachineController {
 
     }
 
+    /**
+     * Initializes the controller after the FXML has been loaded.
+     */
     @FXML
     public void initialize() {
         initializeReelsGrid();
     }
 
+    /**
+     * Updates the UI labels with the current balance, stake, and last win amount.
+     */
     private void updateLabels() {
         balanceLabel.setText(Integer.toString(gameService.getBalance()));
         stakeLabel.setText(Integer.toString(gameService.getStake()));
         lastWinLabel.setText(Integer.toString(lastWin));
     }
 
+    /**
+     * Initializes the grid for displaying symbols.
+     * Sets its dimensions and alignment.
+     */
     private void initializeReelsGrid() {
         //wymiary siatki symb
         reelsGrid.setPrefWidth(700);

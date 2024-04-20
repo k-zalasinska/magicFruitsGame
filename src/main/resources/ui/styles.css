@@ -8,12 +8,11 @@
 }
 
 #labelsContainer {
-    -fx-spacing: 20px; /* Odstęp między elementami */
     -fx-alignment: center; /* Wyśrodkowanie elementów */
     -fx-font-size: 20px;
     -fx-text-fill: ghostwhite;
     -fx-font-weight: bold;
-    -fx-justify-content: flex-end; /* Umieść elementy na dole */
+    -fx-hgap: 50px; /* Dodatkowy odstęp między kolumnami */
 }
 
 #reelsGrid {
@@ -22,9 +21,16 @@
     -fx-padding: 360px 0 0 0; /* Odstęp od góry */
 }
 
+#buttonContainer {
+    -fx-font-size: 160px;
+    -fx-spacing: 20px; /* Odstęp między przyciskami */
+    -fx-alignment: center; /* Wyśrodkowanie przycisków */
+    -fx-hgap: 100px; /* Dodatkowy odstęp między kolumnami */
+}
 
 .button {
     -fx-font-size: 160px;
+    -fx-padding: 10px 20px; /* Wewnętrzny margines */
     -fx-background-color: transparent;
     -fx-background-repeat: no-repeat;
     -fx-background-size: contain;

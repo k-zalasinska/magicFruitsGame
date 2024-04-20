@@ -17,7 +17,7 @@
         </children>
     </HBox>
 
-    <HBox fx:id="container" styleClass="hbox-container">
+    <HBox fx:id="buttonContainer" styleClass="hbox-container">
         <children>
             <Button fx:id="handlePayInButton" onAction="#payInButtonClicked" styleClass="button"/>
             <Button fx:id="handleStartButton" onAction="#startButtonClicked" styleClass="button"/>

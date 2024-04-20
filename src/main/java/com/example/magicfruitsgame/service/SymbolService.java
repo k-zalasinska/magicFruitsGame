@@ -5,8 +5,14 @@ import javafx.scene.image.Image;
 
 import java.util.List;
 
+/**
+ * Service class responsible for providing symbols used in the game.
+ */
 public class SymbolService {
 
+    /**
+     * List of symbols available in the game, each with an ID, win multiplier, and associated image.
+     */
     private final List<Symbol> symbols = List.of(
             new Symbol(0, 5, new Image("/symbols/symbol_cherry.png")),
             new Symbol(1, 10, new Image("/symbols/symbol_plum.png")),
@@ -16,11 +22,21 @@ public class SymbolService {
             new Symbol(5, 100, new Image("/symbols/symbol_watermelon.png")),
             new Symbol(6, 200, new Image("/symbols/symbol_seven.png")));
 
+    /**
+     * Retrieves the list of symbols available in the game.
+     *
+     * @return the list of symbols
+     */
     public List<Symbol> getSymbols() {
         return symbols;
     }
 
-
+    /**
+     * Retrieves the symbol with the specified ID.
+     *
+     * @param id the ID of the symbol to retrieve
+     * @return the symbol with the specified ID, or null if not found
+     */
     public Symbol getSymbol(int id) {
         return symbols.stream()
                 .filter(symbol -> symbol.id() == id)

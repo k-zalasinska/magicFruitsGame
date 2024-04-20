@@ -5,16 +5,29 @@ import com.example.magicfruitsgame.model.Symbol;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Service class responsible for managing the game logic and state.
+ */
 public class GameService {
     private static final Random random = new Random();
     private final SymbolService symbolService;
     private final int stake = 10;
     private int balance = 1000;
 
+    /**
+     * Constructs a new GameService with the specified SymbolService.
+     *
+     * @param symbolService the SymbolService to use for retrieving symbols
+     */
     public GameService(SymbolService symbolService) {
         this.symbolService = symbolService;
     }
 
+    /**
+     * Spins the game board and returns the resulting symbols.
+     *
+     * @return a 2D array representing the game board with symbols
+     */
     public Symbol[][] spinBoard() {
         List<Symbol> symbols = symbolService.getSymbols();
         Symbol[][] board = new Symbol[3][3];
@@ -27,6 +40,12 @@ public class GameService {
         return board;
     }
 
+    /**
+     * Checks if there is a winning combination of symbols on the game board.
+     *
+     * @param symbols the symbols on the game board
+     * @return true if there is a winning combination, false otherwise
+     */
     public boolean checkWin(Symbol[][] symbols) {
         for (int i = 0; i < 3; i++) {
             if (symbols[i][0] != null && symbols[i][0].equals(symbols[i][1]) && symbols[i][1].equals(symbols[i][2])) {
@@ -39,16 +58,31 @@ public class GameService {
             return symbols[0][2] != null && symbols[0][2].equals(symbols[1][1]) && symbols[1][1].equals(symbols[2][0]);
     }
 
-
+    /**
+     * Calculates the win amount based on the multiplier of the symbol.
+     *
+     * @param symbolId the ID of the winning symbol
+     * @return the win amount
+     */
     public int calculateWin(int symbolId) {
         Symbol symbol = symbolService.getSymbol(symbolId);
         return symbol.winMultiplier() * stake;
     }
 
+    /**
+     * Updates the player's balance with the specified win amount.
+     *
+     * @param win the amount won
+     */
     public void updateBalance(int win) {
         balance += win;
     }
 
+    /**
+     * Deducts the stake amount from the player's balance.
+     *
+     * @throws IllegalArgumentException if the balance is insufficient
+     */
     public void deduct() {
         if (balance >= stake) {
             balance -= stake;
@@ -57,6 +91,12 @@ public class GameService {
         }
     }
 
+    /**
+     * Deposits the specified amount into the player's balance.
+     *
+     * @param amount the amount to deposit
+     * @throws IllegalArgumentException if the amount is non-positive
+     */
     public void deposit(int amount) {
         if (amount > 0) {
             balance = balance + amount;
@@ -65,10 +105,20 @@ public class GameService {
         }
     }
 
+    /**
+     * Gets the current balance of the player.
+     *
+     * @return the balance
+     */
     public int getBalance() {
         return balance;
     }
 
+    /**
+     * Gets the stake amount for each game round.
+     *
+     * @return the stake amount
+     */
     public int getStake() {
         return stake;
     }

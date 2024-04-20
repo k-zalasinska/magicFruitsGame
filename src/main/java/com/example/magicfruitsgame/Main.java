@@ -14,6 +14,8 @@ import java.io.IOException;
 
 /**
  * The main class responsible for starting the Slot Machine Game application.
+ * It extends the JavaFX Application class, which is the entry point for JavaFX applications.
+ * The Application class provides the basic framework for managing the JavaFX application lifecycle.
  * It initializes the primary stage, loads the FXML file for the user interface, sets up the scene, and displays the stage.
  * Additionally, it configures the controller factory to inject dependencies into the controller classes.
  */

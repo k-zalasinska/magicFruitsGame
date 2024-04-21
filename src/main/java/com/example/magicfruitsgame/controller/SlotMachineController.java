@@ -2,6 +2,7 @@ package com.example.magicfruitsgame.controller;
 
 import com.example.magicfruitsgame.service.GameService;
 import com.example.magicfruitsgame.service.SlotMachineService;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -20,7 +21,6 @@ public class SlotMachineController {
 
     private final GameService gameService;
     private final SlotMachineService slotMachineService;
-    private int lastWin;
 
     @FXML
     private GridPane reelsGrid;
@@ -60,9 +60,10 @@ public class SlotMachineController {
             showErrorAlert("Insufficient Funds", e.getMessage());
             return;
         }
-        slotMachineService.startSpinAnimation(reelsGrid);
-        updateLabels();
+        Runnable onStep = () -> Platform.runLater(this::updateLabels);
+        slotMachineService.startSpinAnimation(reelsGrid, onStep);
     }
+
 
     /**
      * Handles the action when the pay-in button is clicked.
@@ -79,7 +80,7 @@ public class SlotMachineController {
         dialog.setContentText("Amount:");
         Optional<String> result = dialog.showAndWait();
         result.ifPresent(amount -> {
-            if (amount != null && !amount.isEmpty()) {
+            if (!amount.isEmpty()) {
                 try {
                     int depositAmount = Integer.parseInt(amount);
                     gameService.deposit(depositAmount);
@@ -93,6 +94,7 @@ public class SlotMachineController {
                 showErrorAlert("Invalid Amount", "Please enter a valid integer amount.");
             }
         });
+        updateLabels();
 
     }
 
@@ -102,6 +104,7 @@ public class SlotMachineController {
     @FXML
     public void initialize() {
         initializeReelsGrid();
+        slotMachineService.startSpinAnimation(reelsGrid, this::updateLabels);
     }
 
     /**
@@ -110,7 +113,7 @@ public class SlotMachineController {
     private void updateLabels() {
         balanceLabel.setText(Integer.toString(gameService.getBalance()));
         stakeLabel.setText(Integer.toString(gameService.getStake()));
-        lastWinLabel.setText(Integer.toString(lastWin));
+        lastWinLabel.setText(Integer.toString(gameService.getLastWin()));
     }
 
     /**

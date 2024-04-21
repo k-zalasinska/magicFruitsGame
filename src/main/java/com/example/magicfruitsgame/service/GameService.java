@@ -13,6 +13,7 @@ public class GameService {
     private final SymbolService symbolService;
     private final int stake = 10;
     private int balance = 1000;
+    private int lastWin = 0;
 
     /**
      * Constructs a new GameService with the specified SymbolService.
@@ -62,20 +63,21 @@ public class GameService {
      * Calculates the win amount based on the multiplier of the symbol.
      *
      * @param symbolId the ID of the winning symbol
-     * @return the win amount
      */
     public int calculateWin(int symbolId) {
         Symbol symbol = symbolService.getSymbol(symbolId);
-        return symbol.winMultiplier() * stake;
+        int winMultiplier = symbol.winMultiplier();
+        return stake * winMultiplier;
     }
+
 
     /**
      * Updates the player's balance with the specified win amount.
      *
-     * @param win the amount won
+     * @param lastWin the amount won
      */
-    public void updateBalance(int win) {
-        balance += win;
+    public void updateBalance(int lastWin) {
+        balance += lastWin;
     }
 
     /**
@@ -123,4 +125,11 @@ public class GameService {
         return stake;
     }
 
+    public int getLastWin() {
+        return lastWin;
+    }
+
+    public void updateLastWin(int winAmount) {
+        this.lastWin = winAmount;
+    }
 }

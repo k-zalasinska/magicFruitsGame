@@ -97,7 +97,7 @@ public class SlotMachineService {
      *
      * @param reelsGrid the GridPane representing the reels
      */
-    public void startSpinAnimation(GridPane reelsGrid) {
+    public void startSpinAnimation(GridPane reelsGrid, Runnable onStep) {
         animateSpin(reelsGrid);
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(3000), event -> {
@@ -117,8 +117,10 @@ public class SlotMachineService {
             if (gameService.checkWin(symbols)) {
                 int winAmount = gameService.calculateWin(symbols[1][0].id());
                 gameService.updateBalance(winAmount);
+                gameService.updateLastWin(winAmount);
                 showWinAlert(winAmount);
             }
+            onStep.run();
         }));
         timeline.play();
     }

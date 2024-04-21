@@ -1,10 +1,11 @@
 package com.example.magicfruitsgame.controller;
 
+import com.example.magicfruitsgame.model.Symbol;
 import com.example.magicfruitsgame.service.GameService;
 import com.example.magicfruitsgame.service.SlotMachineService;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.GridPane;
@@ -52,16 +53,25 @@ public class SlotMachineController {
      * Updates the UI labels.
      * Informs the user if there are insufficient funds on the balance.
      */
+
     @FXML
     void startButtonClicked() {
         try {
+            int stake = gameService.getStake();
             gameService.deduct();
+
+            Symbol[][] symbols = gameService.spinBoard();
+
+            slotMachineService.startAnimation();
+
+            updateLabels();
         } catch (IllegalArgumentException e) {
-            showErrorAlert("Insufficient Funds", e.getMessage());
-            return;
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Insufficient Funds");
+            errorAlert.setHeaderText(null);
+            errorAlert.setContentText(e.getMessage());
+            errorAlert.showAndWait();
         }
-        Runnable onStep = () -> Platform.runLater(this::updateLabels);
-        slotMachineService.startSpinAnimation(reelsGrid, onStep);
     }
 
 
@@ -95,8 +105,8 @@ public class SlotMachineController {
             }
         });
         updateLabels();
-
     }
+
 
     /**
      * Initializes the controller after the FXML has been loaded.
@@ -104,7 +114,7 @@ public class SlotMachineController {
     @FXML
     public void initialize() {
         initializeReelsGrid();
-        slotMachineService.startSpinAnimation(reelsGrid, this::updateLabels);
+        slotMachineService.startAnimation();
     }
 
     /**
@@ -129,6 +139,5 @@ public class SlotMachineController {
         //ustawia siatkę symb na środku rodzica- background
         reelsGrid.setAlignment(Pos.CENTER);
     }
-
 
 }

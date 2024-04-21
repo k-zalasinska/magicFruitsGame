@@ -66,18 +66,16 @@ public class GameService {
      */
     public int calculateWin(int symbolId) {
         Symbol symbol = symbolService.getSymbol(symbolId);
-        int winMultiplier = symbol.winMultiplier();
-        return stake * winMultiplier;
+        return symbol.winMultiplier() * stake;
     }
-
 
     /**
      * Updates the player's balance with the specified win amount.
      *
-     * @param lastWin the amount won
+     * @param win the amount won
      */
-    public void updateBalance(int lastWin) {
-        balance += lastWin;
+    public void updateBalance(int win) {
+        balance += win;
     }
 
     /**
@@ -132,4 +130,6 @@ public class GameService {
     public void updateLastWin(int winAmount) {
         this.lastWin = winAmount;
     }
+
+
 }

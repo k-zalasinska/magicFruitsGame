@@ -105,11 +105,13 @@ public class SlotMachineService {
      * @param board The board containing symbols.
      */
     private void checkWinAndUpdate(Symbol[][] board) {
-        int winAmount = gameService.checkAndCalculateWin(board);
+        gameService.checkAndCalculateWin(board);
+        int winAmount = gameService.getLastWin();
         if (winAmount > 0) {
             gameService.updateBalance(winAmount);
             showWinAlert(winAmount);
         }
+
     }
 
 }

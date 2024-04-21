@@ -118,7 +118,7 @@ public class SlotMachineController {
     private void updateLabels() {
         balanceLabel.setText(Integer.toString(gameService.getBalance()));
         stakeLabel.setText(Integer.toString(gameService.getStake()));
-        lastWinLabel.setText(Integer.toString(gameService.getLastWin()));
+        lastWinLabel.setText(Integer.toString(0));
     }
 
     /**

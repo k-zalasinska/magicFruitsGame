@@ -46,10 +46,8 @@ public class GameService {
      * Winning combinations are checked horizontally (across rows) and diagonally.
      *
      * @param symbols The board containing symbols.
-     * @return The total win amount calculated based on winning combinations and stake.
      */
-    public int checkAndCalculateWin(Symbol[][] symbols) {
-        int lastWin = 0;
+    public void checkAndCalculateWin(Symbol[][] symbols) {
 
         for (int i = 0; i < 3; i++) {
             if (symbols[i][0] != null && symbols[i][0].equals(symbols[i][1]) && symbols[i][1].equals(symbols[i][2])) {
@@ -62,8 +60,6 @@ public class GameService {
         if (symbols[0][2] != null && symbols[0][2].equals(symbols[1][1]) && symbols[1][1].equals(symbols[2][0])) {
             lastWin += symbols[0][2].winMultiplier() * stake;
         }
-
-        return lastWin;
     }
 
 
@@ -121,9 +117,8 @@ public class GameService {
         return stake;
     }
 
+
     public int getLastWin() {
         return lastWin;
     }
-
-
 }

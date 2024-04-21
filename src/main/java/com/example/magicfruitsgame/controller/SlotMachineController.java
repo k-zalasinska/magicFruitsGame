@@ -18,7 +18,6 @@ import static com.example.magicfruitsgame.service.AlertHelper.showInfoAlert;
  * Controller class responsible for managing the slot machine UI logic.
  */
 public class SlotMachineController {
-
     private final GameService gameService;
     private final SlotMachineService slotMachineService;
 
@@ -37,8 +36,8 @@ public class SlotMachineController {
     /**
      * Constructs a new instance of SlotMachineController.
      *
-     * @param gameService        the game service instance
-     * @param slotMachineService the slot machine service instance
+     * @param gameService        The game service instance.
+     * @param slotMachineService The slot machine service instance.
      */
     public SlotMachineController(GameService gameService, SlotMachineService slotMachineService) {
         this.gameService = gameService;
@@ -127,12 +126,8 @@ public class SlotMachineController {
      * Sets its dimensions and alignment.
      */
     private void initializeReelsGrid() {
-        //wymiary siatki symb
-//        reelsGrid.setPrefWidth(700);
-//        reelsGrid.setPrefHeight(400);
         reelsGrid.setMaxWidth(Double.MAX_VALUE);
         reelsGrid.setMaxHeight(Double.MAX_VALUE);
-        //ustawia siatkę symb na środku rodzica- background
         reelsGrid.setAlignment(Pos.CENTER);
     }
 

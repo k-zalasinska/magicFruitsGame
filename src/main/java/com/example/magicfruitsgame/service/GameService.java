@@ -13,12 +13,12 @@ public class GameService {
     private final SymbolService symbolService;
     private final int stake = 10;
     private int balance = 1000;
-    private int lastWin = 0;
+    private int lastWin;
 
     /**
      * Constructs a new GameService with the specified SymbolService.
      *
-     * @param symbolService the SymbolService to use for retrieving symbols
+     * @param symbolService The SymbolService to use for retrieving symbols.
      */
     public GameService(SymbolService symbolService) {
         this.symbolService = symbolService;
@@ -27,7 +27,7 @@ public class GameService {
     /**
      * Spins the game board and returns the resulting symbols.
      *
-     * @return a 2D array representing the game board with symbols
+     * @return a 2D array representing the game board with symbols.
      */
     public Symbol[][] spinBoard() {
         List<Symbol> symbols = symbolService.getSymbols();
@@ -41,44 +41,36 @@ public class GameService {
         return board;
     }
 
-
-//    public boolean checkWin(Symbol[][] symbols) {
-//        for (int i = 0; i < 3; i++) {
-//            if (symbols[i][0] != null && symbols[i][0].equals(symbols[i][1]) && symbols[i][1].equals(symbols[i][2])) {
-//                return true;
-//            }
-//        }
-//        if (symbols[0][0] != null && symbols[0][0].equals(symbols[1][1]) && symbols[1][1].equals(symbols[2][2])) {
-//            return true;
-//        } else
-//            return symbols[0][2] != null && symbols[0][2].equals(symbols[1][1]) && symbols[1][1].equals(symbols[2][0]);
-//    }
-
+    /**
+     * Checks for winning combinations on the given board of symbols and calculates the total win amount.
+     * Winning combinations are checked horizontally (across rows) and diagonally.
+     *
+     * @param symbols The board containing symbols.
+     * @return The total win amount calculated based on winning combinations and stake.
+     */
     public int checkAndCalculateWin(Symbol[][] symbols) {
-        int winAmount = lastWin;
+        int lastWin = 0;
 
-        // Sprawdzamy wygraną dla każdej linii poziomej
         for (int i = 0; i < 3; i++) {
             if (symbols[i][0] != null && symbols[i][0].equals(symbols[i][1]) && symbols[i][1].equals(symbols[i][2])) {
-                winAmount += symbols[i][0].winMultiplier() * stake;
+                lastWin += symbols[i][0].winMultiplier() * stake;
             }
         }
-        // Sprawdzamy wygraną dla linii na ukos (przekątnych)
         if (symbols[0][0] != null && symbols[0][0].equals(symbols[1][1]) && symbols[1][1].equals(symbols[2][2])) {
-            winAmount += symbols[0][0].winMultiplier() * stake;
+            lastWin += symbols[0][0].winMultiplier() * stake;
         }
         if (symbols[0][2] != null && symbols[0][2].equals(symbols[1][1]) && symbols[1][1].equals(symbols[2][0])) {
-            winAmount += symbols[0][2].winMultiplier() * stake;
+            lastWin += symbols[0][2].winMultiplier() * stake;
         }
 
-        return winAmount;
+        return lastWin;
     }
 
 
     /**
      * Updates the player's balance with the specified win amount.
      *
-     * @param lastWin the amount won
+     * @param lastWin The amount won.
      */
     public void updateBalance(int lastWin) {
         balance += lastWin;
@@ -87,7 +79,7 @@ public class GameService {
     /**
      * Deducts the stake amount from the player's balance.
      *
-     * @throws IllegalArgumentException if the balance is insufficient
+     * @throws IllegalArgumentException if the balance is insufficient.
      */
     public void deduct() {
         if (balance >= stake) {
@@ -100,8 +92,8 @@ public class GameService {
     /**
      * Deposits the specified amount into the player's balance.
      *
-     * @param amount the amount to deposit
-     * @throws IllegalArgumentException if the amount is non-positive
+     * @param amount The amount to deposit.
+     * @throws IllegalArgumentException if the amount is non-positive.
      */
     public void deposit(int amount) {
         if (amount > 0) {
@@ -114,7 +106,7 @@ public class GameService {
     /**
      * Gets the current balance of the player.
      *
-     * @return the balance
+     * @return the balance.
      */
     public int getBalance() {
         return balance;
@@ -123,7 +115,7 @@ public class GameService {
     /**
      * Gets the stake amount for each game round.
      *
-     * @return the stake amount
+     * @return the stake amount.
      */
     public int getStake() {
         return stake;
@@ -131,10 +123,6 @@ public class GameService {
 
     public int getLastWin() {
         return lastWin;
-    }
-
-    public void updateLastWin(int winAmount) {
-        this.lastWin = winAmount;
     }
 
 

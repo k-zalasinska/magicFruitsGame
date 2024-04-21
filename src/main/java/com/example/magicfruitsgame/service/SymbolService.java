@@ -22,26 +22,8 @@ public class SymbolService {
             new Symbol(5, 100, new Image("/symbols/symbol_watermelon.png")),
             new Symbol(6, 200, new Image("/symbols/symbol_seven.png")));
 
-    /**
-     * Retrieves the list of symbols available in the game.
-     *
-     * @return the list of symbols
-     */
     public List<Symbol> getSymbols() {
         return symbols;
-    }
-
-    /**
-     * Retrieves the symbol with the specified ID.
-     *
-     * @param id the ID of the symbol to retrieve
-     * @return the symbol with the specified ID, or null if not found
-     */
-    public Symbol getSymbol(int id) {
-        return symbols.stream()
-                .filter(symbol -> symbol.id() == id)
-                .findFirst()
-                .orElse(null);
     }
 
 }

@@ -11,8 +11,8 @@ public final class AlertHelper {
     /**
      * Displays an information alert with the specified title and message.
      *
-     * @param title   the title of the alert
-     * @param message the message to be displayed in the alert
+     * @param title   The title of the alert.
+     * @param message The message to be displayed in the alert.
      */
     public static void showInfoAlert(String title, String message) {
         Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
@@ -25,8 +25,8 @@ public final class AlertHelper {
     /**
      * Displays an error alert with the specified title and message.
      *
-     * @param title   the title of the alert
-     * @param message the message to be displayed in the alert
+     * @param title   The title of the alert.
+     * @param message The message to be displayed in the alert.
      */
     public static void showErrorAlert(String title, String message) {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
@@ -40,7 +40,7 @@ public final class AlertHelper {
      * Displays an information alert with the message indicating the winning amount.
      * This method is designed to run on the JavaFX Application Thread.
      *
-     * @param lastWin the amount won
+     * @param lastWin The amount won.
      */
     public static void showWinAlert(int lastWin) {
         Platform.runLater(() -> {

@@ -20,20 +20,25 @@ public class SlotMachineService {
     /**
      * Constructs a new instance of SlotMachineService.
      *
-     * @param gameService the game service instance
+     * @param gameService The game service instance.
      */
     public SlotMachineService(GameService gameService) {
         this.gameService = gameService;
     }
 
+    /**
+     * Starts the animation of the slot machine reels.
+     *
+     * @param reelsGrid The GridPane representing the reels.
+     */
     public void startAnimation(GridPane reelsGrid) {
-        currentBoard = gameService.spinBoard(); // Inicjalizacja planszy symboli
+        currentBoard = gameService.spinBoard();
 
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.millis(100), event -> {
                     Symbol[][] updatedBoard = shiftSymbolsDown(currentBoard);
                     updateReels(reelsGrid, updatedBoard);
-                    currentBoard = updatedBoard; // Zaktualizowanie referencji planszy
+                    currentBoard = updatedBoard;
                 })
         );
         timeline.setCycleCount(30);
@@ -41,13 +46,17 @@ public class SlotMachineService {
         timeline.play();
     }
 
-
-    // Metoda do przesunięcia symboli w dół na planszy
+    /**
+     * Shifts the symbols down in the given board.
+     *
+     * @param board The board containing symbols.
+     * @return The updated board with shifted symbols.
+     */
     private Symbol[][] shiftSymbolsDown(Symbol[][] board) {
         Symbol[][] updatedBoard = new Symbol[3][3];
+
         for (int col = 0; col < 3; col++) {
             for (int row = 0; row < 3; row++) {
-                // Przesunięcie symbolu w dół, z górnego rzędu na środkowy, ze środkowego na dolny
                 int newRow = (row + 1) % 3;
                 updatedBoard[newRow][col] = board[row][col];
             }
@@ -55,10 +64,15 @@ public class SlotMachineService {
         return updatedBoard;
     }
 
-
+    /**
+     * Updates the reels grid with the symbols from the given board.
+     *
+     * @param reelsGrid The GridPane representing the reels.
+     * @param board     The board containing symbols.
+     */
     private void updateReels(GridPane reelsGrid, Symbol[][] board) {
         reelsGrid.getChildren().clear();
-        // Dodanie nowych symboli na planszę
+
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
                 Symbol symbol = board[i][j];
@@ -71,6 +85,12 @@ public class SlotMachineService {
         }
     }
 
+    /**
+     * Creates an ImageView for the given symbol.
+     *
+     * @param symbol The symbol for which to create an ImageView.
+     * @return The created ImageView.
+     */
     private ImageView createSymbolImageView(Symbol symbol) {
         Image symbolImage = symbol.image();
         ImageView symbolImageView = new ImageView(symbolImage);
@@ -79,6 +99,11 @@ public class SlotMachineService {
         return symbolImageView;
     }
 
+    /**
+     * Checks for a win on the board, updates the balance, and shows an alert if a win occurs.
+     *
+     * @param board The board containing symbols.
+     */
     private void checkWinAndUpdate(Symbol[][] board) {
         int winAmount = gameService.checkAndCalculateWin(board);
         if (winAmount > 0) {

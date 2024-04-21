@@ -17,10 +17,10 @@
         </children>
     </HBox>
 
-    <HBox fx:id="buttonContainer" styleClass="hbox-container">
+    <HBox fx:id="buttonContainer" styleClass="hbox-button-container">
         <children>
-            <Button fx:id="handlePayInButton" onAction="#payInButtonClicked" styleClass="button"/>
-            <Button fx:id="handleStartButton" onAction="#startButtonClicked" styleClass="button"/>
+            <Button fx:id="handlePayInButton" onAction="#payInButtonClicked" styleClass="pay-in-button"/>
+            <Button fx:id="handleStartButton" onAction="#startButtonClicked" styleClass="start-button"/>
         </children>
     </HBox>
 

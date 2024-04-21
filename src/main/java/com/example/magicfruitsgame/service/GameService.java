@@ -41,36 +41,21 @@ public class GameService {
         return board;
     }
 
-    /**
-     * Checks if there is a winning combination of symbols on the game board.
-     *
-     * @param symbols the symbols on the game board
-     * @return true if there is a winning combination, false otherwise
-     */
-    public boolean checkWin(Symbol[][] symbols) {
-        for (int i = 0; i < 3; i++) {
-            if (symbols[i][0] != null && symbols[i][0].equals(symbols[i][1]) && symbols[i][1].equals(symbols[i][2])) {
-                return true;
-            }
-        }
-        if (symbols[0][0] != null && symbols[0][0].equals(symbols[1][1]) && symbols[1][1].equals(symbols[2][2])) {
-            return true;
-        } else
-            return symbols[0][2] != null && symbols[0][2].equals(symbols[1][1]) && symbols[1][1].equals(symbols[2][0]);
-    }
 
-//    /**
-//     * Calculates the win amount based on the multiplier of the symbol.
-//     *
-//     * @param symbolId the ID of the winning symbol
-//     */
-//    public int calculateWin(int symbolId) {
-//        Symbol symbol = symbolService.getSymbol(symbolId);
-//        return symbol.winMultiplier() * stake;
+//    public boolean checkWin(Symbol[][] symbols) {
+//        for (int i = 0; i < 3; i++) {
+//            if (symbols[i][0] != null && symbols[i][0].equals(symbols[i][1]) && symbols[i][1].equals(symbols[i][2])) {
+//                return true;
+//            }
+//        }
+//        if (symbols[0][0] != null && symbols[0][0].equals(symbols[1][1]) && symbols[1][1].equals(symbols[2][2])) {
+//            return true;
+//        } else
+//            return symbols[0][2] != null && symbols[0][2].equals(symbols[1][1]) && symbols[1][1].equals(symbols[2][0]);
 //    }
 
-    public int calculateWin(Symbol[][] symbols) {
-        int winAmount = 0;
+    public int checkAndCalculateWin(Symbol[][] symbols) {
+        int winAmount = lastWin;
 
         // Sprawdzamy wygraną dla każdej linii poziomej
         for (int i = 0; i < 3; i++) {
@@ -78,7 +63,6 @@ public class GameService {
                 winAmount += symbols[i][0].winMultiplier() * stake;
             }
         }
-
         // Sprawdzamy wygraną dla linii na ukos (przekątnych)
         if (symbols[0][0] != null && symbols[0][0].equals(symbols[1][1]) && symbols[1][1].equals(symbols[2][2])) {
             winAmount += symbols[0][0].winMultiplier() * stake;
@@ -94,10 +78,10 @@ public class GameService {
     /**
      * Updates the player's balance with the specified win amount.
      *
-     * @param win the amount won
+     * @param lastWin the amount won
      */
-    public void updateBalance(int win) {
-        balance += win;
+    public void updateBalance(int lastWin) {
+        balance += lastWin;
     }
 
     /**

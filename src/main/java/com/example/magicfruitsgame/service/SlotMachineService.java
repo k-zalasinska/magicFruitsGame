@@ -37,9 +37,7 @@ public class SlotMachineService {
                 })
         );
         timeline.setCycleCount(30);
-        timeline.setOnFinished(event -> {
-            checkWinAndUpdate(reelsGrid, currentBoard);
-        });
+        timeline.setOnFinished(event -> checkWinAndUpdate(currentBoard));
         timeline.play();
     }
 
@@ -81,9 +79,9 @@ public class SlotMachineService {
         return symbolImageView;
     }
 
-    private void checkWinAndUpdate(GridPane reelsGrid, Symbol[][] board) {
-        if (gameService.checkWin(board)) {
-            int winAmount = gameService.calculateWin(board);
+    private void checkWinAndUpdate(Symbol[][] board) {
+        int winAmount = gameService.checkAndCalculateWin(board);
+        if (winAmount > 0) {
             gameService.updateBalance(winAmount);
             showWinAlert(winAmount);
         }

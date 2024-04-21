@@ -5,7 +5,6 @@ import com.example.magicfruitsgame.service.GameService;
 import com.example.magicfruitsgame.service.SlotMachineService;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.GridPane;
@@ -66,11 +65,7 @@ public class SlotMachineController {
 
             updateLabels();
         } catch (IllegalArgumentException e) {
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setTitle("Insufficient Funds");
-            errorAlert.setHeaderText(null);
-            errorAlert.setContentText(e.getMessage());
-            errorAlert.showAndWait();
+            showErrorAlert("Insufficient Funds", e.getMessage());
         }
     }
 
@@ -115,6 +110,7 @@ public class SlotMachineController {
     public void initialize() {
         initializeReelsGrid();
         slotMachineService.startAnimation(reelsGrid);
+        updateLabels();
     }
 
     /**
@@ -132,8 +128,8 @@ public class SlotMachineController {
      */
     private void initializeReelsGrid() {
         //wymiary siatki symb
-        reelsGrid.setPrefWidth(700);
-        reelsGrid.setPrefHeight(400);
+//        reelsGrid.setPrefWidth(700);
+//        reelsGrid.setPrefHeight(400);
         reelsGrid.setMaxWidth(Double.MAX_VALUE);
         reelsGrid.setMaxHeight(Double.MAX_VALUE);
         //ustawia siatkę symb na środku rodzica- background

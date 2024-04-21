@@ -15,36 +15,30 @@ import static com.example.magicfruitsgame.service.AlertHelper.showWinAlert;
  */
 public class SlotMachineService {
     private final GameService gameService;
-    private final GridPane reelsGrid;
+    private Symbol[][] currentBoard;
 
     /**
      * Constructs a new instance of SlotMachineService.
      *
      * @param gameService the game service instance
      */
-    public SlotMachineService(GameService gameService, GridPane reelsGrid) {
+    public SlotMachineService(GameService gameService) {
         this.gameService = gameService;
-        this.reelsGrid = reelsGrid;
     }
 
-    public void startAnimation() {
-        Symbol[][] board = gameService.spinBoard(); // Inicjalizacja planszy symboli
+    public void startAnimation(GridPane reelsGrid) {
+        currentBoard = gameService.spinBoard(); // Inicjalizacja planszy symboli
 
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.millis(100), event -> {
-                    Symbol[][] updatedBoard = shiftSymbolsDown(board);
-                    updateReels(updatedBoard);
+                    Symbol[][] updatedBoard = shiftSymbolsDown(currentBoard);
+                    updateReels(reelsGrid, updatedBoard);
+                    currentBoard = updatedBoard; // Zaktualizowanie referencji planszy
                 })
         );
         timeline.setCycleCount(30);
         timeline.setOnFinished(event -> {
-            Symbol[][] finalBoard = gameService.spinBoard();
-            if (gameService.checkWin(finalBoard)) {
-                int symbolId = finalBoard[1][1].id();
-                int winAmount = gameService.calculateWin(symbolId);
-                gameService.updateBalance(winAmount);
-                showWinAlert(winAmount);
-            }
+            checkWinAndUpdate(reelsGrid, currentBoard);
         });
         timeline.play();
     }
@@ -64,7 +58,7 @@ public class SlotMachineService {
     }
 
 
-    private void updateReels(Symbol[][] board) {
+    private void updateReels(GridPane reelsGrid, Symbol[][] board) {
         reelsGrid.getChildren().clear();
         // Dodanie nowych symboli na planszę
         for (int i = 0; i < board.length; i++) {
@@ -85,6 +79,14 @@ public class SlotMachineService {
         symbolImageView.setFitWidth(250);
         symbolImageView.setPreserveRatio(true);
         return symbolImageView;
+    }
+
+    private void checkWinAndUpdate(GridPane reelsGrid, Symbol[][] board) {
+        if (gameService.checkWin(board)) {
+            int winAmount = gameService.calculateWin(board);
+            gameService.updateBalance(winAmount);
+            showWinAlert(winAmount);
+        }
     }
 
 }

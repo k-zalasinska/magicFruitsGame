@@ -62,7 +62,7 @@ public class SlotMachineController {
 
             Symbol[][] symbols = gameService.spinBoard();
 
-            slotMachineService.startAnimation();
+            slotMachineService.startAnimation(reelsGrid);
 
             updateLabels();
         } catch (IllegalArgumentException e) {
@@ -114,7 +114,7 @@ public class SlotMachineController {
     @FXML
     public void initialize() {
         initializeReelsGrid();
-        slotMachineService.startAnimation();
+        slotMachineService.startAnimation(reelsGrid);
     }
 
     /**

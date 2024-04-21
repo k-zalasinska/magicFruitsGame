@@ -59,15 +59,37 @@ public class GameService {
             return symbols[0][2] != null && symbols[0][2].equals(symbols[1][1]) && symbols[1][1].equals(symbols[2][0]);
     }
 
-    /**
-     * Calculates the win amount based on the multiplier of the symbol.
-     *
-     * @param symbolId the ID of the winning symbol
-     */
-    public int calculateWin(int symbolId) {
-        Symbol symbol = symbolService.getSymbol(symbolId);
-        return symbol.winMultiplier() * stake;
+//    /**
+//     * Calculates the win amount based on the multiplier of the symbol.
+//     *
+//     * @param symbolId the ID of the winning symbol
+//     */
+//    public int calculateWin(int symbolId) {
+//        Symbol symbol = symbolService.getSymbol(symbolId);
+//        return symbol.winMultiplier() * stake;
+//    }
+
+    public int calculateWin(Symbol[][] symbols) {
+        int winAmount = 0;
+
+        // Sprawdzamy wygraną dla każdej linii poziomej
+        for (int i = 0; i < 3; i++) {
+            if (symbols[i][0] != null && symbols[i][0].equals(symbols[i][1]) && symbols[i][1].equals(symbols[i][2])) {
+                winAmount += symbols[i][0].winMultiplier() * stake;
+            }
+        }
+
+        // Sprawdzamy wygraną dla linii na ukos (przekątnych)
+        if (symbols[0][0] != null && symbols[0][0].equals(symbols[1][1]) && symbols[1][1].equals(symbols[2][2])) {
+            winAmount += symbols[0][0].winMultiplier() * stake;
+        }
+        if (symbols[0][2] != null && symbols[0][2].equals(symbols[1][1]) && symbols[1][1].equals(symbols[2][0])) {
+            winAmount += symbols[0][2].winMultiplier() * stake;
+        }
+
+        return winAmount;
     }
+
 
     /**
      * Updates the player's balance with the specified win amount.

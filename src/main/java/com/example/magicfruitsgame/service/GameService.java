@@ -13,7 +13,7 @@ public class GameService {
     private final SymbolService symbolService;
     private final int stake = 10;
     private int balance = 1000;
-    private int lastWin;
+    private int lastWin = 0;
 
     /**
      * Constructs a new GameService with the specified SymbolService.
@@ -47,8 +47,9 @@ public class GameService {
      *
      * @param symbols The board containing symbols.
      */
-    public void checkAndCalculateWin(Symbol[][] symbols) {
 
+    public void checkAndCalculateWin(Symbol[][] symbols) {
+        lastWin = 0;
         for (int i = 0; i < 3; i++) {
             if (symbols[i][0] != null && symbols[i][0].equals(symbols[i][1]) && symbols[i][1].equals(symbols[i][2])) {
                 lastWin += symbols[i][0].winMultiplier() * stake;
@@ -77,6 +78,7 @@ public class GameService {
      *
      * @throws IllegalArgumentException if the balance is insufficient.
      */
+
     public void deduct() {
         if (balance >= stake) {
             balance -= stake;
@@ -99,24 +101,13 @@ public class GameService {
         }
     }
 
-    /**
-     * Gets the current balance of the player.
-     *
-     * @return the balance.
-     */
     public int getBalance() {
         return balance;
     }
 
-    /**
-     * Gets the stake amount for each game round.
-     *
-     * @return the stake amount.
-     */
     public int getStake() {
         return stake;
     }
-
 
     public int getLastWin() {
         return lastWin;

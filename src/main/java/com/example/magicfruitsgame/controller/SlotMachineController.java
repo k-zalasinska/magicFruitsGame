@@ -1,8 +1,8 @@
 package com.example.magicfruitsgame.controller;
 
-import com.example.magicfruitsgame.model.Symbol;
 import com.example.magicfruitsgame.service.GameService;
 import com.example.magicfruitsgame.service.SlotMachineService;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -55,19 +55,14 @@ public class SlotMachineController {
     @FXML
     void startButtonClicked() {
         try {
-            int stake = gameService.getStake();
             gameService.deduct();
-
-            Symbol[][] symbols = gameService.spinBoard();
-
+            gameService.spinBoard();
             slotMachineService.startAnimation(reelsGrid);
-
             updateLabels();
         } catch (IllegalArgumentException e) {
             showErrorAlert("Insufficient Funds", e.getMessage());
         }
     }
-
 
     /**
      * Handles the action when the pay-in button is clicked.
@@ -116,10 +111,13 @@ public class SlotMachineController {
      * Updates the UI labels with the current balance, stake, and last win amount.
      */
     private void updateLabels() {
-        balanceLabel.setText(Integer.toString(gameService.getBalance()));
-        stakeLabel.setText(Integer.toString(gameService.getStake()));
-        lastWinLabel.setText(Integer.toString(0));
+        Platform.runLater(() -> {
+            balanceLabel.setText(Integer.toString(gameService.getBalance()));
+            stakeLabel.setText(Integer.toString(gameService.getStake()));
+            lastWinLabel.setText(Integer.toString(gameService.getLastWin()));
+        });
     }
+
 
     /**
      * Initializes the grid for displaying symbols.

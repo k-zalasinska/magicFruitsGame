@@ -1,54 +1,42 @@
 #mainContainer {
-    -fx-spacing: 10px; /* Odstęp między elementami */
-    -fx-alignment: center; /* Wyśrodkowanie elementów */
+    -fx-spacing: 10px;
+    -fx-alignment: center;
     -fx-background-image: url('/views/background.jpg');
-    -fx-background-size: contain; /* Dopasuj obraz do rozmiaru kontenera */
-    -fx-background-position: center; /* Wyśrodkuj obraz */
-    -fx-background-repeat: no-repeat; /* Wyłącz powtarzanie obrazu */
+    -fx-background-size: contain;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+
+#reelsGrid {
+    -fx-alignment: center;
+    -fx-hgap: 100px;
+    -fx-padding: 325px 0 0 0;
 }
 
 .hbox-container {
-    -fx-spacing: 160px; /* Odstęp między etykietami */
-    -fx-alignment: center; /* Wyśrodkowanie w poziomie */
+    -fx-spacing: 170px;
+    -fx-alignment: center;
+    -fx-padding: 0 0 0 -30px;
 }
 
-.balance-label, .stake-label, .last-win-label {
-    -fx-font-size: 24px; /* Rozmiar czcionki */
-    -fx-font-weight: bold; /* Pogrubienie */
-    -fx-text-fill: ghostwhite; /* Kolor tekstu */
 
-}
-
-.balance-label, .stake-label, .last-win-label {
+.balance-label, .last-win-label, .stake-label {
     position: absolute;
-    top: 50px;
-    left: 20px;
-    -fx-font-size: 24px; /* Rozmiar czcionki */
-    -fx-font-weight: bold; /* Pogrubienie */
+    -fx-padding: 150px 0 0 0;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: ghostwhite;
 }
 
-
-/* Dodatkowe przesunięcie dla etykiety balance */
-#balanceLabel {
-    -fx-translate-x: 70px; /* Przesunięcie w osi X */
-}
-
-/* Dodatkowe przesunięcie dla etykiety lastWin */
-#lastWinLabel {
-    -fx-translate-x: -20px; /* Przesunięcie w osi X */
-}
 
 .buttonContainer {
-    -fx-spacing: 700px; /* Odstęp między przyciskami */
-    -fx-alignment: center; /* Wyśrodkowanie przycisków */
-    -fx-hgap: 300px; /* Dodatkowy odstęp między kolumnami */
+    -fx-hgap: 300px;
     -flex-direction: row;
-    -fx-margin-right: 80px;
 }
 
 .pay-in-button, .start-button {
-    -fx-font-size: 160px;
-    -fx-padding: 20px 30px; /* Wewnętrzny margines */
+    -fx-font-size: 170px;
+    -fx-padding: 60px 60px 60px 60px;
     -fx-background-color: transparent;
     -fx-background-repeat: no-repeat;
     -fx-background-size: contain;
@@ -87,10 +75,4 @@
 
 #handlePayInButton:disabled {
     -fx-background-image: url("/views/button_payin_disable.png");
-}
-
-#reelsGrid {
-    -fx-alignment: center; /* Wyśrodkowanie symboli */
-    -fx-hgap: 100px; /* Dodatkowy odstęp między kolumnami */
-    -fx-padding: 265px 0 0 0; /* Odstęp od góry */
 }

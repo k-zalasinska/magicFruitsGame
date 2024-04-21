@@ -12,8 +12,8 @@
     <HBox fx:id="labelsContainer" styleClass="hbox-container">
         <children>
             <Label fx:id="balanceLabel" text="1 000" styleClass="balance-label"/>
-            <Label fx:id="stakeLabel" text="10" styleClass="stake-label"/>
             <Label fx:id="lastWinLabel" text="0" styleClass="last-win-label"/>
+            <Label fx:id="stakeLabel" text="10" styleClass="stake-label"/>
         </children>
     </HBox>
 
@@ -29,7 +29,3 @@
     </stylesheets>
 
 </VBox>
-
-
-        <!--<StackPane fx:id="stackPane" prefWidth="800" prefHeight="600" xmlns:fx="http://javafx.com/fxml"-->
-        <!--           fx:controller="com.example.magicfruitsgame.controller.SlotMachineController">-->
